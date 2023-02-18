@@ -66,7 +66,7 @@ export const JobIndustry = styled.div`
 export const JobCard = styled.div`
   display: flex;
   align-items: center;
-  padding-top: 0.5em;
+  padding-top: 1em;
 `
 
 export const JobTitle = styled.div`

@@ -27,6 +27,7 @@ import {
   setTitle,
   setYoutubeURL,
   toggleEducation,
+  toggleEducationIcons,
   toggleExperience,
   toggleExpIcons,
   toggleProjects,
@@ -430,12 +431,20 @@ const ResumeOptions = ({ documentRef }) => {
             )}
           </p>
         </CategoryName>
+
         {form.education && (
           <Form>
             <Row>
               Enable/Disable education section:
               <Toggle
                 onClick={() => dispatch(toggleEducation())}
+                toggled={display.education}
+              />
+            </Row>
+            <Row>
+              Display Education icons
+              <Toggle
+                onClick={() => dispatch(toggleEducationIcons())}
                 toggled={display.education}
               />
             </Row>

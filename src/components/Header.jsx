@@ -60,8 +60,8 @@ const UserTitle = styled.h2`
 `
 
 const HeaderSectionContainer = styled.section`
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
 `
 
 export default HeaderSection

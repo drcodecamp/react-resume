@@ -11,6 +11,7 @@ const initialState = {
     projects: true,
     experience: true,
     jobIcons: true,
+    educationIcons: true,
     social: {
       facebook: true,
       link: true,
@@ -160,6 +161,9 @@ export const resumeSlice = createSlice({
     toggleExperience: (state) => {
       state.display.experience = !state.display.experience
     },
+    toggleEducationIcons: (state) => {
+      state.display.educationIcons = !state.display.educationIcons
+    },
     toggleExpIcons: (state) => {
       state.display.jobIcons = !state.display.jobIcons
     },
@@ -295,6 +299,7 @@ export const {
   setProjectName,
   toggleSocial,
   setThemeColor,
+  toggleEducationIcons,
   toggleEducation,
   toggleProjects,
   setTitle,

@@ -25,11 +25,15 @@ const EducationSection = () => {
 }
 
 const EducationItem = ({ edu }) => {
+  const { display } = useSelector((state) => state.ResumeStore)
   return (
     <JobCard>
-      <JobImage>
-        <img src={edu.icon || DEMO_EDU_ICON} alt="work" />
-      </JobImage>
+      {display.educationIcons && (
+        <JobImage>
+          <img src={edu.icon || DEMO_EDU_ICON} alt="work" />
+        </JobImage>
+      )}
+
       <div>
         <JobTitle>
           <div>{edu.name}</div>

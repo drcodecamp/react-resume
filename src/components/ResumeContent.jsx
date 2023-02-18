@@ -12,22 +12,30 @@ const ResumeContent = () => {
   return (
     <ResumeContentContainer>
       <HeaderSection />
-      {display.projects && <ProjectsSection />}
-      {display.stack && <StackSection />}
-      {display.experience && <ExperienceSection />}
-      {display.education && <EducationSection />}
+      <FlexArea>
+        {display.projects && <ProjectsSection />}
+        {display.stack && <StackSection />}
+        {display.experience && <ExperienceSection />}
+        {display.education && <EducationSection />}
+      </FlexArea>
     </ResumeContentContainer>
   )
 }
+
+const FlexArea = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5em;
+`
 
 const ResumeContentContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   padding: 1em;
-  section {
-  }
 `
 
 export default ResumeContent
