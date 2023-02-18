@@ -52,6 +52,7 @@ const ResumeOptions = ({ documentRef }) => {
     stack: false,
     exp: false,
     education: false,
+    theme: false,
   })
   const dispatch = useDispatch()
   const {
@@ -73,6 +74,9 @@ const ResumeOptions = ({ documentRef }) => {
     let r = document.querySelector(':root')
     r.style.setProperty('--primary-color', e.target.value)
     dispatch(setThemeColor(e.target.value))
+  }
+  const downloadTemplate = () => {
+    window.location.assign('https://www.doctorcode.org/template.docx')
   }
   const downloadAsJPG = useCallback(() => {
     if (documentRef.current === null) {
@@ -116,29 +120,26 @@ const ResumeOptions = ({ documentRef }) => {
   return (
     <ResumeOptionsContainer>
       <Resume>
-        <DownloadSection>
-          Download
-          <div style={{ display: 'flex' }}>
-            <Download onClick={downloadAsJPG}>JPG</Download>
-            <Download
-              style={{ background: '#00a6ff' }}
-              onClick={downloadResume}
-            >
-              PNG
-            </Download>
-          </div>
-        </DownloadSection>
-
-        <CategoryName>
+        <CategoryName onClick={() => toggleForm('theme')}>
           Theme
-          <ColorPicker
-            type="color"
-            value={themeColor}
-            onInput={(e) => {
-              handleColorChange(e)
-            }}
-          />
+          <p>
+            {form.theme ? <MdOutlineArrowDropUp /> : <MdOutlineArrowDropDown />}
+          </p>
         </CategoryName>
+        {form.theme && (
+          <Form>
+            <Row>
+              Select main color
+              <ColorPicker
+                type="color"
+                value={themeColor}
+                onInput={(e) => {
+                  handleColorChange(e)
+                }}
+              />
+            </Row>
+          </Form>
+        )}
 
         <CategoryName onClick={() => toggleForm('profile')}>
           Profile
@@ -460,6 +461,27 @@ const ResumeOptions = ({ documentRef }) => {
               })}
           </Form>
         )}
+
+        <DownloadSection>
+          First Download as PNG or JPG
+          <div style={{ display: 'flex' }}>
+            <Download onClick={downloadAsJPG}>JPG</Download>
+            <Download
+              style={{ background: '#00a6ff' }}
+              onClick={downloadResume}
+            >
+              PNG
+            </Download>
+          </div>
+        </DownloadSection>
+        <DownloadSection>
+          2. Download Word Template and replace image with yours <br />
+          3. Add the links inside the word file and export to pdf if your wish
+          so.
+          <div style={{ display: 'flex' }}>
+            <Download onClick={downloadTemplate}>Template</Download>
+          </div>
+        </DownloadSection>
       </Resume>
     </ResumeOptionsContainer>
   )
