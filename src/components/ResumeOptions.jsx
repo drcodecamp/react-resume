@@ -45,7 +45,7 @@ import { useCallback } from 'react'
 import { toPng, toJpeg } from 'html-to-image'
 
 const ResumeOptions = ({ documentRef }) => {
-  const [documentQuality, setDocumentQuality] = useState(2)
+  const [documentQuality] = useState(2)
   const [form, setForm] = useState({
     profile: false,
     sideNav: false,
@@ -54,6 +54,7 @@ const ResumeOptions = ({ documentRef }) => {
     exp: false,
     education: false,
     theme: false,
+    instructions: false,
   })
   const dispatch = useDispatch()
   const {
@@ -121,6 +122,11 @@ const ResumeOptions = ({ documentRef }) => {
   return (
     <ResumeOptionsContainer>
       <Resume>
+        <Form>
+          <Logo>דוקטור קוד</Logo>
+          <h1>יצירת קורות חיים באנגלית אונליין בחינם</h1>
+          <h2>צרו קורות חיים ייחודיים שיעשו את העבודה בכמה קליקים פשוטים</h2>
+        </Form>
         <CategoryName onClick={() => toggleForm('theme')}>
           Theme
           <p>
@@ -141,7 +147,6 @@ const ResumeOptions = ({ documentRef }) => {
             </Row>
           </Form>
         )}
-
         <CategoryName onClick={() => toggleForm('profile')}>
           Profile
           <p>
@@ -226,77 +231,79 @@ const ResumeOptions = ({ documentRef }) => {
                 toggled={display.sideNav}
               />
             </Row>
-            <SocialActions>
-              <Social>
-                Facebook
-                <Toggle
-                  onClick={() => dispatch(toggleSocial('facebook'))}
-                  toggled={display.social.facebook}
+            {display.sideNav && (
+              <SocialActions>
+                <Social>
+                  Facebook
+                  <Toggle
+                    onClick={() => dispatch(toggleSocial('facebook'))}
+                    toggled={display.social.facebook}
+                  />
+                </Social>
+                <TextInput
+                  placeholder="https://www.facebook.com/doctorcodecamp"
+                  onInput={({ target }) => {
+                    dispatch(setFacebookURL(target.value))
+                  }}
                 />
-              </Social>
-              <TextInput
-                placeholder="https://www.facebook.com/doctorcodecamp"
-                onInput={({ target }) => {
-                  dispatch(setFacebookURL(target.value))
-                }}
-              />
 
-              <Social>
-                Linkedin
-                <Toggle
-                  onClick={() => dispatch(toggleSocial('link'))}
-                  toggled={display.social.link}
+                <Social>
+                  Linkedin
+                  <Toggle
+                    onClick={() => dispatch(toggleSocial('link'))}
+                    toggled={display.social.link}
+                  />
+                </Social>
+                <TextInput
+                  placeholder="https://www.linkedin.com/in/doctorcodecamp/"
+                  onInput={({ target }) => {
+                    dispatch(setLinkedinURL(target.value))
+                  }}
                 />
-              </Social>
-              <TextInput
-                placeholder="https://www.linkedin.com/in/doctorcodecamp/"
-                onInput={({ target }) => {
-                  dispatch(setLinkedinURL(target.value))
-                }}
-              />
 
-              <Social>
-                Github
-                <Toggle
-                  onClick={() => dispatch(toggleSocial('github'))}
-                  toggled={display.social.github}
+                <Social>
+                  Github
+                  <Toggle
+                    onClick={() => dispatch(toggleSocial('github'))}
+                    toggled={display.social.github}
+                  />
+                </Social>
+                <TextInput
+                  placeholder="https://github.com/drcodecamp"
+                  onInput={({ target }) => {
+                    dispatch(setGitHubURL(target.value))
+                  }}
                 />
-              </Social>
-              <TextInput
-                placeholder="https://github.com/drcodecamp"
-                onInput={({ target }) => {
-                  dispatch(setGitHubURL(target.value))
-                }}
-              />
 
-              <Social>
-                Youtube
-                <Toggle
-                  onClick={() => dispatch(toggleSocial('youtube'))}
-                  toggled={display.social.youtube}
+                <Social>
+                  Youtube
+                  <Toggle
+                    onClick={() => dispatch(toggleSocial('youtube'))}
+                    toggled={display.social.youtube}
+                  />
+                </Social>
+                <TextInput
+                  placeholder="https://www.youtube.com/@doctorcode"
+                  onInput={({ target }) => {
+                    dispatch(setYoutubeURL(target.value))
+                  }}
                 />
-              </Social>
-              <TextInput
-                placeholder="https://www.youtube.com/@doctorcode"
-                onInput={({ target }) => {
-                  dispatch(setYoutubeURL(target.value))
-                }}
-              />
 
-              <Social>
-                Instagram
-                <Toggle
-                  onClick={() => dispatch(toggleSocial('instagram'))}
-                  toggled={display.social.instagram}
+                <Social>
+                  Instagram
+                  <Toggle
+                    onClick={() => dispatch(toggleSocial('instagram'))}
+                    toggled={display.social.instagram}
+                  />
+                </Social>
+                <TextInput
+                  placeholder="https://www.instagram.com/_doctorcode/"
+                  onInput={({ target }) => {
+                    dispatch(setInstagramURL(target.value))
+                  }}
                 />
-              </Social>
-              <TextInput
-                placeholder="https://www.instagram.com/_doctorcode/"
-                onInput={({ target }) => {
-                  dispatch(setInstagramURL(target.value))
-                }}
-              />
-            </SocialActions>
+              </SocialActions>
+            )}
           </Form>
         )}
 
@@ -323,11 +330,17 @@ const ResumeOptions = ({ documentRef }) => {
             <Row>
               Number of Projects
               <Buttons>
-                <OptionButton onClick={() => dispatch(removeProject())}>
+                <OptionButton
+                  disabled={projects.length === 1}
+                  onClick={() => dispatch(removeProject())}
+                >
                   -
                 </OptionButton>
                 <div>{projects.length}</div>
-                <OptionButton onClick={() => dispatch(addProject())}>
+                <OptionButton
+                  disabled={projects.length === 3}
+                  onClick={() => dispatch(addProject())}
+                >
                   +
                 </OptionButton>
               </Buttons>
@@ -392,11 +405,17 @@ const ResumeOptions = ({ documentRef }) => {
               <Row>
                 Number of Projects
                 <Buttons>
-                  <OptionButton onClick={() => dispatch(removeExp())}>
+                  <OptionButton
+                    disabled={experience.length === 1}
+                    onClick={() => dispatch(removeExp())}
+                  >
                     -
                   </OptionButton>
                   <div>{experience.length}</div>
-                  <OptionButton onClick={() => dispatch(addExp())}>
+                  <OptionButton
+                    disabled={experience.length === 2}
+                    onClick={() => dispatch(addExp())}
+                  >
                     +
                   </OptionButton>
                 </Buttons>
@@ -451,11 +470,17 @@ const ResumeOptions = ({ documentRef }) => {
             <Row>
               Number of Educations
               <Buttons>
-                <OptionButton onClick={() => dispatch(removeEducation())}>
+                <OptionButton
+                  disabled={education.length === 1}
+                  onClick={() => dispatch(removeEducation())}
+                >
                   -
                 </OptionButton>
                 <div>{education.length}</div>
-                <OptionButton onClick={() => dispatch(addEducation())}>
+                <OptionButton
+                  disabled={education.length === 2}
+                  onClick={() => dispatch(addEducation())}
+                >
                   +
                 </OptionButton>
               </Buttons>
@@ -471,26 +496,47 @@ const ResumeOptions = ({ documentRef }) => {
           </Form>
         )}
 
-        <DownloadSection>
-          First Download as PNG or JPG
-          <div style={{ display: 'flex' }}>
-            <Download onClick={downloadAsJPG}>JPG</Download>
-            <Download
-              style={{ background: '#00a6ff' }}
-              onClick={downloadResume}
-            >
-              PNG
-            </Download>
-          </div>
-        </DownloadSection>
-        <DownloadSection>
-          2. Download Word Template and replace image with yours <br />
-          3. Add the links inside the word file and export to pdf if your wish
-          so.
-          <div style={{ display: 'flex' }}>
-            <Download onClick={downloadTemplate}>Template</Download>
-          </div>
-        </DownloadSection>
+        <CategoryName onClick={() => toggleForm('instructions')}>
+          Instructions
+          <p>
+            {form.theme ? <MdOutlineArrowDropUp /> : <MdOutlineArrowDropDown />}
+          </p>
+        </CategoryName>
+        {form.instructions && (
+          <Form>
+            Instructions to download and make your cvs:
+            <DownloadSection>
+              1.Download generated resume:
+              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                <Download onClick={downloadAsJPG}>JPG</Download>
+                <Download
+                  style={{ background: '#00a6ff' }}
+                  onClick={downloadResume}
+                >
+                  PNG
+                </Download>
+              </div>
+            </DownloadSection>
+            <DownloadSection>
+              2. Download Word Template and replace image with yours <br />
+              <div style={{ display: 'flex' }}>
+                <Download onClick={downloadTemplate}>Template</Download>
+              </div>
+            </DownloadSection>
+            <DownloadSection>
+              <p>
+                3. open template.docx file and replace the background image with
+                the one you just downloaded!
+              </p>
+            </DownloadSection>
+            <DownloadSection>
+              <p>
+                4. There are already invisible buttons inside the template.docx
+                file, you can use to add your links, click CTRL + A to see them.
+              </p>
+            </DownloadSection>
+          </Form>
+        )}
       </Resume>
     </ResumeOptionsContainer>
   )
@@ -498,9 +544,9 @@ const ResumeOptions = ({ documentRef }) => {
 
 const DownloadSection = styled.div`
   display: flex;
-  height: 100px;
   padding: 1em;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
 `
 
@@ -509,13 +555,13 @@ const CategoryName = styled.h2`
   padding: 1em;
   font-size: 1.1em;
   display: flex;
-  color: #7a7a7a;
+  color: #000000;
   font-weight: bold;
   justify-content: space-between;
   align-items: center;
-  background-color: #f8f8f8;
+  background-color: rgba(218, 218, 218, 0.32);
   gap: 11px;
-  border-bottom: 1px solid #262626;
+  border-bottom: 1px solid #b7b7b7;
   cursor: pointer;
 
   :hover {
@@ -540,7 +586,10 @@ const Download = styled.div`
 const Resume = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 80%;
+  @media (max-width: 1920px) {
+    width: 90%;
+  }
 `
 
 const Buttons = styled.div`
@@ -570,9 +619,10 @@ const OptionButton = styled.button`
   font-size: 1.2em;
   font-weight: bold;
   border-radius: 12px;
-  background: #eeeeee;
-  :hover {
-    background-color: #bdbdbd;
+  background: #3fc64c;
+  color: white;
+  :disabled {
+    background-color: #ffffff;
   }
 `
 
@@ -608,10 +658,26 @@ const ColorPicker = styled.input`
   border: none;
 `
 
+const Logo = styled.div`
+  text-align: center;
+  font-size: 2em;
+  font-family: fantasy, sans-serif;
+`
+
 const Form = styled.div`
-  background-color: white;
   padding: 1em;
   width: 100%;
+
+  h1 {
+    text-align: center;
+    font-size: 1.5em;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 1em;
+    color: #565656;
+  }
 `
 
 const ResumeOptionsContainer = styled.div`
@@ -620,7 +686,12 @@ const ResumeOptionsContainer = styled.div`
   align-items: center;
   flex: 1;
   background-color: white;
-  overflow: auto;
+  overflow: scroll;
+  max-width: 700px;
+  min-height: 100vh;
+  padding: 1em;
+  z-index: 10;
+  margin-right: 1em;
   @media print {
     display: none;
   }

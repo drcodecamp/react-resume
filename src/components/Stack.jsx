@@ -59,7 +59,6 @@ const StackItems = styled.p`
 
 export const Title = styled.p`
   padding-bottom: 15px;
-  text-decoration: underline;
   font-weight: bold;
   color: #434343;
   font-size: 1.25em;

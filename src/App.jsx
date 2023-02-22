@@ -3,12 +3,13 @@ import GlobalStyle from './constants/GlobalStyle.jsx'
 import Controller from './components/ResumeOptions.jsx'
 import SideNav from './components/SideNav.jsx'
 import ResumeContent from './components/ResumeContent.jsx'
-import React, { useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 import { useSelector } from 'react-redux'
 
 const App = () => {
   const { display } = useSelector((state) => state.ResumeStore)
   const ref = useRef()
+
   return (
     <Layout>
       <GlobalStyle />
@@ -28,20 +29,22 @@ const Resume = styled.div`
   background: #ffffff;
   height: 1350px;
   aspect-ratio: 1/1.41;
+  @media (max-width: 1024px) {
+    width: 957px;
+  }
 `
 
 const ResumeRenderContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background: #343434;
-  align-items: center;
-  justify-content: flex-start;
-  flex: 1;
 `
+
 const Layout = styled.div`
   display: flex;
-  background-color: #9d9d9d;
-  min-height: 100vh;
+  overflow: hidden;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `
 
 export default App

@@ -111,10 +111,9 @@ export const FormTitle = styled.p`
 `
 
 export const FormContainer = styled.div`
-  background-color: #ffffff;
   margin-top: 1em;
   padding: 1em;
-  border: 4px dotted #444444;
+  border: 4px solid #1ec77b;
 `
 
 const RowLabel = styled.div`

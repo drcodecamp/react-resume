@@ -8,8 +8,10 @@ const GlobalStyle = createGlobalStyle`
 
     body {
         font-family: Roboto, sans-serif;
-        background-color: #ffffff;
+        background-color: #222025;
         font-size: 16px;
+        overflow-x: hidden;
+        overflow-y: scroll;
     }
 
     :root {
