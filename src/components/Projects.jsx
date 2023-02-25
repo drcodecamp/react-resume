@@ -53,8 +53,8 @@ const ProjectImage = styled.div`
   width: 100%;
   overflow: hidden;
   img {
-    width: 110%;
-    height: 110%;
+    width: 115%;
+    height: 115%;
     object-fit: cover;
   }
 `
@@ -76,11 +76,11 @@ const ProjectItem = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: white;
-  max-height: 320px;
+  max-height: 350px;
   width: 33%;
-  margin: 1em;
+  margin: 0.5em;
   border-radius: 25px;
-  box-shadow: 0 4px 30px rgb(0 0 0 / 15%);
+  box-shadow: 0 4px 1em rgb(0 0 0 / 10%);
 `
 const ProjectName = styled.div`
   font-size: 1.2em;
@@ -90,7 +90,8 @@ const ProjectName = styled.div`
 
 const ProjectInfo = styled.div`
   color: #858585;
-  font-size: 0.85em;
+  font-size: 0.9em;
+  padding: 0.2em 0;
 `
 const ProjectSourceCode = styled.a`
   font-size: 1.1em;
@@ -119,7 +120,7 @@ const CardA = styled.div`
 const ProjectsSectionContainer = styled.section`
   display: flex;
   flex-direction: column;
-  padding-top: 1em;
+  padding-top: 0.5em;
 `
 
 export default ProjectsSection

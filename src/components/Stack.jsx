@@ -49,7 +49,7 @@ const Tag = styled.span`
   font-weight: ${({ isActive }) => (isActive ? 'bolder' : 'regular')};
   text-align: center;
   cursor: pointer;
-  padding: 1em;
+  padding: 0.5em;
 `
 
 const StackItems = styled.p`
@@ -58,14 +58,13 @@ const StackItems = styled.p`
 `
 
 export const Title = styled.p`
-  padding-bottom: 15px;
+  padding-top: 0.5em;
   font-weight: bold;
   color: #434343;
   font-size: 1.25em;
 `
 
 const StackSectionContainer = styled.section`
-  padding-top: 1em;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;

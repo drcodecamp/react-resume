@@ -11,8 +11,12 @@ const HeaderSection = () => {
       <UserName>{fullName || 'Doctor Code'}</UserName>
       <UserTitle>{title || 'Front End Developer'}</UserTitle>
       <Separator />
-      <PhoneNumber>{phone || '050-510-1952'}</PhoneNumber>
-      <EmailAddress>{email || 'info@doctorcode.org'}</EmailAddress>
+      <PhoneNumber href="tel:+972556667794">
+        {phone || '050-510-1952'}
+      </PhoneNumber>
+      <EmailAddress href="#asdasd">
+        {email || 'info@doctorcode.org'}
+      </EmailAddress>
       {display.summary && <Summery>{summary || ''}</Summery>}
     </HeaderSectionContainer>
   )
@@ -39,16 +43,16 @@ const Summery = styled.p`
   width: 100%;
 `
 
-const EmailAddress = styled.p`
+const EmailAddress = styled.a`
   all: unset;
-  font-size: 1.5em;
-  font-weight: normal;
+  font-size: 1.35em;
+  font-weight: bold;
   color: #434343;
 `
-const PhoneNumber = styled.p`
+const PhoneNumber = styled.a`
   all: unset;
-  font-size: 1.5em;
-  font-weight: bolder;
+  font-size: 1.35em;
+  font-weight: bold;
   color: #434343;
 `
 

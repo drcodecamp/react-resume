@@ -27,7 +27,6 @@ const FlexArea = styled.div`
   flex: 1;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 0.5em;
 `
 
 const ResumeContentContainer = styled.div`

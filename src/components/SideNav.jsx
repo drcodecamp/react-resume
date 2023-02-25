@@ -72,7 +72,7 @@ const ProfileContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 11%;
+  height: 10%;
 `
 
 const Circle = styled.div`
@@ -83,7 +83,7 @@ const Circle = styled.div`
   background-color: #9b9b9b;
   border-radius: 100%;
   width: 100%;
-  margin: 0.5em;
+  margin: 0.2em;
   font-size: 2em;
   color: white;
 `
@@ -97,9 +97,8 @@ const SocialIconContainer = styled.div`
   padding: 1em;
   img {
     cursor: pointer;
-    width: 60px;
-    height: 60px;
-    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.2));
+    width: 55px;
+    height: 55px;
   }
 `
 
@@ -107,10 +106,9 @@ const SideNavContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 12%;
+  width: 10%;
   background: #fbfbfb;
-  box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.1);
-  isolation: isolate;
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.1);
 `
 
 export default SideNav

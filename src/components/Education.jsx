@@ -3,13 +3,7 @@ import styled from 'styled-components'
 import { Title } from './Stack.jsx'
 import { useSelector } from 'react-redux'
 import DEMO_EDU_ICON from '../assets/education.webp'
-import {
-  DescriptionText,
-  JobCard,
-  JobImage,
-  JobIndustry,
-  JobTitle,
-} from './Experience.jsx'
+import { DescriptionText, JobCard, JobImage, JobTitle } from './Experience.jsx'
 
 const EducationSection = () => {
   const { education } = useSelector((state) => state.ResumeStore)
@@ -47,7 +41,6 @@ const EducationItem = ({ edu }) => {
 
 const EducationSectionContainer = styled.section`
   display: flex;
-  padding-top: 1em;
   flex-direction: column;
 `
 

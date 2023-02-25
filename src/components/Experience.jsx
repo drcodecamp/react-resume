@@ -39,18 +39,18 @@ const JobItem = ({ job }) => {
 }
 
 export const DescriptionText = styled.div`
-  padding-top: 0.5em;
+  padding-top: 0.35em;
+  word-break: break-word;
 `
 
 export const JobImage = styled.div`
   aspect-ratio: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 10px;
+  padding: 0 10px;
   img {
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     object-fit: cover;
     border-radius: 15px;
   }
@@ -76,7 +76,6 @@ export const JobTitle = styled.div`
   font-weight: bold;
 `
 const ExperienceSectionContainer = styled.section`
-  padding-top: 1em;
   display: flex;
   flex-direction: column;
 `

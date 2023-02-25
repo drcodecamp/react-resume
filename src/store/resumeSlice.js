@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 
 const initialState = {
   display: {
-    sideNav: true,
+    sideNav: false,
     education: true,
     email: false,
     summary: false,
@@ -13,14 +13,14 @@ const initialState = {
     jobIcons: true,
     educationIcons: true,
     social: {
-      facebook: true,
-      link: true,
-      github: true,
+      facebook: false,
+      link: false,
+      github: false,
       youtube: false,
       instagram: false,
     },
   },
-  themeColor: '#ff00ae',
+  themeColor: '#0008ff',
   fullName: 'Doctor Code',
   phone: '050-510-1952',
   title: 'Frontend Developer',
@@ -33,34 +33,34 @@ const initialState = {
       image: '',
       name: 'Coolio',
       info: 'Lizards are a widespread group of squamate reptiles.',
-      codeLink: '',
-      demoLink: '',
+      codeLink: 'https://doctorcode.org/',
+      demoLink: 'https://doctorcode.org/',
     },
     {
       id: nanoid(),
       image: '',
       name: 'Coolio',
       info: 'Lizards are a widespread group of squamate reptiles.',
-      codeLink: '',
-      demoLink: '',
+      codeLink: 'https://doctorcode.org/',
+      demoLink: 'https://doctorcode.org/',
     },
     {
       id: nanoid(),
       image: '',
       name: 'Coolio',
       info: 'Lizards are a widespread group of squamate reptiles.',
-      codeLink: '',
-      demoLink: '',
+      codeLink: 'https://doctorcode.org/',
+      demoLink: 'https://doctorcode.org/',
     },
   ],
   stack:
     'javascript, typescript, react.js, angular, vue.js, node.js,express, mongoDB, micro-services,html,css,sass, bootstrap ',
   socialUrls: {
-    facebook: '',
-    linkedin: '',
-    github: '',
-    youtube: '',
-    instagram: '',
+    facebook: 'https://www.facebook.com/doctorcodecamp',
+    linkedin: 'https://www.linkedin.com/in/doctorcodecamp/',
+    github: 'https://github.com/drcodecamp',
+    youtube: 'https://www.youtube.com/@doctorcode',
+    instagram: 'https://www.instagram.com/_doctorcode/',
   },
   experience: [
     {
@@ -262,7 +262,7 @@ export const resumeSlice = createSlice({
         })
       }
     },
-    addProject: (state, action) => {
+    addProject: (state) => {
       if (state.projects.length === 3) {
         return state
       } else {
@@ -314,6 +314,7 @@ export const {
   removeEducation,
   removeProject,
   addProject,
+  setProjectsLength,
   removeExp,
   addExp,
   setEducationIcon,

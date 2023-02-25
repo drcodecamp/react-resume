@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   setProjectDemoLink,
   setProjectGitLink,
@@ -8,17 +8,17 @@ import {
   setProjectName,
 } from '../store/resumeSlice.js'
 import styled from 'styled-components'
-import { TextInput } from './TextInput.jsx'
+import ImageSelector from './ImageSelector.jsx'
+import { Input } from 'antd'
+import { RowLabel } from './shared/RowLabel.jsx'
 
 export const convertBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader()
     fileReader.readAsDataURL(file)
-
     fileReader.onload = () => {
       resolve(fileReader.result)
     }
-
     fileReader.onerror = (error) => {
       reject(error)
     }
@@ -27,25 +27,25 @@ export const convertBase64 = (file) => {
 
 const ProjectItemForm = ({ project }) => {
   const dispatch = useDispatch()
-  const handleImageSelection = async (e) => {
-    let i = await convertBase64(e.target.files[0])
+  const { display } = useSelector((state) => state.ResumeStore)
+  const isDisabled = !display.projects
+  const handleImageSelection = (e) => {
     dispatch(
       setProjectImageUrl({
         id: project.id,
-        value: i,
+        value: e,
       })
     )
   }
   return (
     <FormContainer>
-      <FormTitle>Project {project.name}</FormTitle>
       <RowLabel>
-        Project image
-        <input type="file" onChange={(e) => handleImageSelection(e)} />
+        <ImageSelector disabled={isDisabled} action={handleImageSelection} />
       </RowLabel>
       <RowLabel>
-        <TextInput
-          onInput={({ target }) =>
+        <Input
+          value={project.name || ''}
+          onChange={({ target }) =>
             dispatch(
               setProjectName({
                 id: project.id,
@@ -55,11 +55,16 @@ const ProjectItemForm = ({ project }) => {
           }
           type="text"
           placeholder="Project Name"
+          disabled={isDisabled}
         />
       </RowLabel>
       <RowLabel>
-        <TextInput
-          onInput={({ target }) =>
+        <Input.TextArea
+          showCount
+          maxLength={60}
+          disabled={isDisabled}
+          value={project.info || ''}
+          onChange={({ target }) =>
             dispatch(
               setProjectInfo({
                 id: project.id,
@@ -72,8 +77,10 @@ const ProjectItemForm = ({ project }) => {
         />
       </RowLabel>
       <RowLabel>
-        <TextInput
-          onInput={({ target }) =>
+        <Input
+          disabled={isDisabled}
+          value={project.codeLink || ''}
+          onChange={({ target }) =>
             dispatch(
               setProjectGitLink({
                 id: project.id,
@@ -86,8 +93,10 @@ const ProjectItemForm = ({ project }) => {
         />
       </RowLabel>
       <RowLabel>
-        <TextInput
-          onInput={({ target }) =>
+        <Input
+          disabled={isDisabled}
+          value={project.demoLink || ''}
+          onChange={({ target }) =>
             dispatch(
               setProjectDemoLink({
                 id: project.id,
@@ -113,15 +122,9 @@ export const FormTitle = styled.p`
 export const FormContainer = styled.div`
   margin-top: 1em;
   padding: 1em;
-  border: 4px solid #1ec77b;
-`
-
-const RowLabel = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  padding: 0.15em;
-  height: 55px;
+  align-items: center;
 `
 
 export default ProjectItemForm

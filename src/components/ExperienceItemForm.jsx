@@ -6,35 +6,33 @@ import {
   setJobIndustry,
   setJobInfo,
   setJobName,
-  setProjectImageUrl,
 } from '../store/resumeSlice.js'
-import styled from 'styled-components'
-import { TextInput } from './TextInput.jsx'
-import { convertBase64, FormContainer, FormTitle } from './ProjectItemForm.jsx'
+import { FormContainer } from './ProjectItemForm.jsx'
+import { Input } from 'antd'
+import ImageSelector from './ImageSelector.jsx'
+import { RowLabel } from './shared/RowLabel.jsx'
 
-const ExperienceItemForm = ({ expItem }) => {
+const ExperienceItemForm = ({ expItem, isDisabled }) => {
   const dispatch = useDispatch()
 
-  const handleImageSelection = async (e) => {
-    let i = await convertBase64(e.target.files[0])
+  const handleImageSelection = (e) => {
     dispatch(
       setJobIconUrl({
         id: expItem.id,
-        value: i,
+        value: e,
       })
     )
   }
 
   return (
     <FormContainer>
-      <FormTitle>Job {expItem.name}</FormTitle>
       <RowLabel>
-        Project image
-        <input type="file" onChange={(e) => handleImageSelection(e)} />
+        <ImageSelector action={handleImageSelection} disabled={isDisabled} />
       </RowLabel>
       <RowLabel>
-        <TextInput
-          onInput={({ target }) =>
+        <Input
+          disabled={isDisabled}
+          onChange={({ target }) =>
             dispatch(
               setJobName({
                 id: expItem.id,
@@ -42,13 +40,16 @@ const ExperienceItemForm = ({ expItem }) => {
               })
             )
           }
+          value={expItem.name}
           type="text"
           placeholder="Work Name"
         />
       </RowLabel>
       <RowLabel>
-        <TextInput
-          onInput={({ target }) =>
+        <Input
+          disabled={isDisabled}
+          value={expItem.industry}
+          onChange={({ target }) =>
             dispatch(
               setJobIndustry({
                 id: expItem.id,
@@ -61,8 +62,10 @@ const ExperienceItemForm = ({ expItem }) => {
         />
       </RowLabel>
       <RowLabel>
-        <TextInput
-          onInput={({ target }) =>
+        <Input
+          disabled={isDisabled}
+          value={expItem.date}
+          onChange={({ target }) =>
             dispatch(
               setJobDate({
                 id: expItem.id,
@@ -75,8 +78,12 @@ const ExperienceItemForm = ({ expItem }) => {
         />
       </RowLabel>
       <RowLabel>
-        <TextInput
-          onInput={({ target }) =>
+        <Input.TextArea
+          showCount
+          maxLength={150}
+          disabled={isDisabled}
+          value={expItem.information}
+          onChange={({ target }) =>
             dispatch(
               setJobInfo({
                 id: expItem.id,
@@ -91,13 +98,5 @@ const ExperienceItemForm = ({ expItem }) => {
     </FormContainer>
   )
 }
-
-const RowLabel = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 0.15em;
-  height: 55px;
-`
 
 export default ExperienceItemForm

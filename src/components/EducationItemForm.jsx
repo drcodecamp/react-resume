@@ -5,36 +5,31 @@ import {
   setEducationDuration,
   setEducationIcon,
   setEducationName,
-  setJobDate,
-  setJobIconUrl,
-  setJobIndustry,
-  setJobInfo,
-  setJobName,
 } from '../store/resumeSlice.js'
-import styled from 'styled-components'
-import { TextInput } from './TextInput.jsx'
-import { convertBase64, FormContainer, FormTitle } from './ProjectItemForm.jsx'
+import { FormContainer } from './ProjectItemForm.jsx'
+import { Input } from 'antd'
+import ImageSelector from './ImageSelector.jsx'
+import { RowLabel } from './shared/RowLabel.jsx'
 
-const EducationItemForm = ({ educationItem }) => {
+const EducationItemForm = ({ educationItem, isDisabled }) => {
   const dispatch = useDispatch()
-  const handleImageSelection = async (e) => {
-    let i = await convertBase64(e.target.files[0])
+  const handleImageSelection = (e) => {
     dispatch(
       setEducationIcon({
         id: educationItem.id,
-        value: i,
+        value: e,
       })
     )
   }
   return (
     <FormContainer>
-      <FormTitle>Job {educationItem.name}</FormTitle>
       <RowLabel>
-        Education image
-        <input type="file" onChange={(e) => handleImageSelection(e)} />
+        <ImageSelector action={handleImageSelection} disabled={isDisabled} />
       </RowLabel>
       <RowLabel>
-        <TextInput
+        <Input
+          disabled={isDisabled}
+          value={educationItem.name}
           onInput={({ target }) =>
             dispatch(
               setEducationName({
@@ -48,7 +43,9 @@ const EducationItemForm = ({ educationItem }) => {
         />
       </RowLabel>
       <RowLabel>
-        <TextInput
+        <Input
+          disabled={isDisabled}
+          value={educationItem.duration}
           onInput={({ target }) =>
             dispatch(
               setEducationDuration({
@@ -62,8 +59,12 @@ const EducationItemForm = ({ educationItem }) => {
         />
       </RowLabel>
       <RowLabel>
-        <TextInput
-          onInput={({ target }) =>
+        <Input.TextArea
+          showCount
+          maxLength={150}
+          disabled={isDisabled}
+          value={educationItem.description}
+          onChange={({ target }) =>
             dispatch(
               setEducationDesc({
                 id: educationItem.id,
@@ -78,13 +79,5 @@ const EducationItemForm = ({ educationItem }) => {
     </FormContainer>
   )
 }
-
-const RowLabel = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 0.15em;
-  height: 55px;
-`
 
 export default EducationItemForm

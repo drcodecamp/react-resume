@@ -1,47 +1,47 @@
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import GlobalStyle from './constants/GlobalStyle.jsx'
 import Controller from './components/ResumeOptions.jsx'
-import SideNav from './components/SideNav.jsx'
-import ResumeContent from './components/ResumeContent.jsx'
-import React, { useMemo, useRef } from 'react'
-import { useSelector } from 'react-redux'
+import AppHeader from './components/AppHeader.jsx'
+import Renderer from './widgets/Renderer.jsx'
+import './index.css'
+import './assets/Square-Regular.otf'
 
 const App = () => {
-  const { display } = useSelector((state) => state.ResumeStore)
-  const ref = useRef()
+  const ref = useRef(null)
+  const initTheme = () => {
+    const colorModeOverride = localStorage.getItem('color-mode')
+    const hasColorModeOverride = typeof colorModeOverride === 'string'
+    if (hasColorModeOverride) {
+      document.documentElement.setAttribute(
+        'data-force-color-mode',
+        colorModeOverride
+      )
+    }
+    if (!hasColorModeOverride) {
+      document.documentElement.setAttribute('data-force-color-mode', 'light')
+      localStorage.setItem('color-mode', 'light')
+    }
+  }
+
+  useEffect(() => {
+    initTheme()
+  }, [])
 
   return (
-    <Layout>
+    <>
       <GlobalStyle />
-      <Controller documentRef={ref} />
-      <ResumeRenderContainer>
-        <Resume ref={ref}>
-          {display.sideNav && <SideNav />}
-          <ResumeContent />
-        </Resume>
-      </ResumeRenderContainer>
-    </Layout>
+      <AppHeader />
+      <Layout>
+        <Controller documentRef={ref} />
+        <Renderer ref={ref} />
+      </Layout>
+    </>
   )
 }
 
-const Resume = styled.div`
-  display: flex;
-  background: #ffffff;
-  height: 1350px;
-  aspect-ratio: 1/1.41;
-  @media (max-width: 1024px) {
-    width: 957px;
-  }
-`
-
-const ResumeRenderContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
 const Layout = styled.div`
   display: flex;
-  overflow: hidden;
   @media (max-width: 1024px) {
     flex-direction: column;
   }

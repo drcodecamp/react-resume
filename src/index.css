@@ -1,0 +1,5 @@
+@font-face {
+  font-family: 'Square';
+  src: local('assets/Square-Regular.otf'),
+    url('./assets/Square-Regular.otf') format('opentype');
+}

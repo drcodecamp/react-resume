@@ -62,7 +62,7 @@ const LabelContainer = styled.label`
   }
 
   input:checked + span {
-    background-color: #00c853;
+    background-color: #1000ff;
   }
 
   input:checked + span:before {
