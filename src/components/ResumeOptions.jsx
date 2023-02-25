@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Collapse } from 'antd'
+import { Button, Collapse } from 'antd'
 import ProfileWidget from '../widgets/Profile'
 import ThemeWidget from '../widgets/Theme'
 import DownloadWidget from '../widgets/Download'
@@ -9,10 +9,23 @@ import ProjectsWidget from '../widgets/Projects'
 import StackWidget from '../widgets/Stack'
 import ExperienceWidget from '../widgets/Experience'
 import EducationWidget from '../widgets/Education'
-
 const { Panel } = Collapse
 
-const ResumeOptions = ({ documentRef }) => {
+const ResumeOptions = () => {
+  const [fullScreen, setFullScreen] = useState(false)
+  const handleFullScreen = () => {
+    if (!fullScreen) {
+      document.body.requestFullscreen().then((r) => {
+        //
+      })
+      setFullScreen(true)
+    } else {
+      document.exitFullscreen().then((r) => {
+        //
+      })
+      setFullScreen(false)
+    }
+  }
   return (
     <ResumeOptionsContainer>
       <Resume>
@@ -20,8 +33,9 @@ const ResumeOptions = ({ documentRef }) => {
           <Logo>דוקטור קוד</Logo>
           <h1>יצירת קורות חיים באנגלית אונליין בחינם</h1>
           <h2>צרו קורות חיים ייחודיים שיעשו את העבודה בכמה קליקים פשוטים</h2>
+          <Button onClick={handleFullScreen}>Toggle full screen</Button>
         </Form>
-        <Collapse bordered={false} defaultActiveKey={['1']}>
+        <Collapse bordered={false}>
           <Panel header="Theme and Style" key="theme">
             <ThemeWidget />
           </Panel>
@@ -44,7 +58,7 @@ const ResumeOptions = ({ documentRef }) => {
             <EducationWidget />
           </Panel>
           <Panel header="Download" key="download">
-            <DownloadWidget documentRef={documentRef} />
+            <DownloadWidget />
           </Panel>
         </Collapse>
       </Resume>
@@ -55,7 +69,7 @@ const ResumeOptions = ({ documentRef }) => {
 const Resume = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 96%;
 `
 
 const Logo = styled.div`
@@ -67,6 +81,7 @@ const Logo = styled.div`
 const Form = styled.div`
   padding: 1em;
   width: 100%;
+  color: black;
   h1 {
     text-align: center;
     font-size: 1.5em;
@@ -74,7 +89,6 @@ const Form = styled.div`
   h2 {
     text-align: center;
     font-size: 1em;
-    color: #565656;
   }
 `
 
@@ -87,7 +101,6 @@ const ResumeOptionsContainer = styled.div`
   padding: 1em;
   z-index: 10;
   flex-basis: 50%;
-  height: 100vh;
   margin-right: 1em;
   @media print {
     display: none;

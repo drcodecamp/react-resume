@@ -61,7 +61,7 @@ const ProjectItemForm = ({ project }) => {
       <RowLabel>
         <Input.TextArea
           showCount
-          maxLength={60}
+          maxLength={85}
           disabled={isDisabled}
           value={project.info || ''}
           onChange={({ target }) =>

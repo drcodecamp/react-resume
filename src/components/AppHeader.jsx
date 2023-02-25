@@ -48,8 +48,10 @@ const HeaderContainer = styled.header`
   z-index: 50;
   background: radial-gradient(#222025, #2b292f);
   color: #fff;
-  box-shadow: -11px 3px 9px 0#1c1b1e;
   @media print {
+    display: none;
+  }
+  @media all and (display-mode: fullscreen) {
     display: none;
   }
 `

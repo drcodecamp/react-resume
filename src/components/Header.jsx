@@ -23,42 +23,41 @@ const HeaderSection = () => {
 }
 
 const Separator = styled.div`
-  background-color: #858585;
+  background-color: var(--primary-color);
   height: 2px;
   width: 222px;
-  margin: 1em 0;
+  margin: 0.5em 0;
 `
 const UserName = styled.h1`
   all: unset;
-  font-size: 2.5em;
+  font-size: 2em;
   font-weight: bolder;
-  color: #434343;
+  color: var(--main);
 `
 
 const Summery = styled.p`
   all: unset;
   word-break: break-word;
-  color: #434343;
+  color: var(--subtitle);
   padding-top: 1em;
   width: 100%;
 `
 
 const EmailAddress = styled.a`
   all: unset;
-  font-size: 1.35em;
-  font-weight: bold;
-  color: #434343;
+  font-size: 1.25em;
+  color: var(--subtitle);
 `
 const PhoneNumber = styled.a`
   all: unset;
-  font-size: 1.35em;
+  font-size: 1.25em;
   font-weight: bold;
-  color: #434343;
+  color: var(--main);
 `
 
 const UserTitle = styled.h2`
   all: unset;
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: bolder;
   color: var(--primary-color);
 `

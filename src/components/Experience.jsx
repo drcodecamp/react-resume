@@ -41,16 +41,16 @@ const JobItem = ({ job }) => {
 export const DescriptionText = styled.div`
   padding-top: 0.35em;
   word-break: break-word;
+  color: var(--subtitle);
 `
 
 export const JobImage = styled.div`
   aspect-ratio: 1;
   display: flex;
-  justify-content: center;
   padding: 0 10px;
   img {
-    width: 55px;
-    height: 55px;
+    width: 45px;
+    height: 45px;
     object-fit: cover;
     border-radius: 15px;
   }
@@ -65,14 +65,13 @@ export const JobIndustry = styled.div`
 
 export const JobCard = styled.div`
   display: flex;
-  align-items: center;
   padding-top: 1em;
 `
 
 export const JobTitle = styled.div`
   display: flex;
   font-size: 1.25em;
-  color: #616161;
+  color: var(--main);
   font-weight: bold;
 `
 const ExperienceSectionContainer = styled.section`

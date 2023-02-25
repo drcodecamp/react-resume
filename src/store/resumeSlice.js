@@ -1,8 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { nanoid } from 'nanoid'
+import SRC from '../assets/bg1.webp'
+import SRC2 from '../assets/bg2.webp'
+import SRC3 from '../assets/bg3.webp'
+import { getRandomIntInclusive } from '../utils/getRandomNumber.js'
+
+const getRandomImage = () => {
+  const randomIdx = getRandomIntInclusive(1, 3)
+  switch (randomIdx) {
+    case 1:
+      return SRC
+    case 2:
+      return SRC2
+    case 3:
+      return SRC3
+    default:
+      return SRC
+  }
+}
 
 const initialState = {
   display: {
+    renderer: false,
     sideNav: false,
     education: true,
     email: false,
@@ -30,25 +49,28 @@ const initialState = {
   projects: [
     {
       id: nanoid(),
-      image: '',
+      image: SRC,
       name: 'Coolio',
-      info: 'Lizards are a widespread group of squamate reptiles.',
+      info:
+        'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
     {
       id: nanoid(),
-      image: '',
+      image: SRC2,
       name: 'Coolio',
-      info: 'Lizards are a widespread group of squamate reptiles.',
+      info:
+        'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
     {
       id: nanoid(),
-      image: '',
+      image: SRC3,
       name: 'Coolio',
-      info: 'Lizards are a widespread group of squamate reptiles.',
+      info:
+        'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
@@ -66,8 +88,8 @@ const initialState = {
     {
       id: nanoid(),
       icon: '',
-      name: 'Apple inc.',
-      industry: 'Wearable Devices',
+      name: 'Apple inc',
+      industry: '| Wearable Devices',
       date: 'Aug 2018 - Preset ',
       information:
         'Apple Inc (Apple) designs, manufactures, and markets smartphones, tablets personal computers (PCs).',
@@ -75,8 +97,8 @@ const initialState = {
     {
       id: nanoid(),
       icon: '',
-      name: 'CISCO inc.',
-      industry: 'Fintech',
+      name: 'CISCO inc',
+      industry: '| Fintech',
       date: 'Aug 2015 - Aug 2018',
       information:
         'Cisco and sells networking hardware, software, telecommunications equipment and other high-technology services and products.',
@@ -203,6 +225,9 @@ export const resumeSlice = createSlice({
     setFullName: (state, action) => {
       state.fullName = action.payload
     },
+    toggleRenderer: (state) => {
+      state.display.renderer = !state.display.renderer
+    },
     toggleSideNav: (state) => {
       state.display.sideNav = !state.display.sideNav
     },
@@ -268,8 +293,10 @@ export const resumeSlice = createSlice({
       } else {
         state.projects.push({
           id: nanoid(),
-          name: 'Coolio',
-          info: 'Lizards are a widespread group of squamate reptiles.',
+          name: 'demo',
+          image: getRandomImage(),
+          info:
+            'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
           codeLink: '',
           demoLink: '',
         })
@@ -277,7 +304,7 @@ export const resumeSlice = createSlice({
     },
   },
 })
-
+const a = 'ipsum23'
 export const {
   setJobInfo,
   setJobDate,
@@ -306,6 +333,7 @@ export const {
   setPhone,
   setEmail,
   setFullName,
+  toggleRenderer,
   toggleSummary,
   setSummary,
   toggleExpIcons,

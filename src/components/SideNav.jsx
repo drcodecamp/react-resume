@@ -80,11 +80,12 @@ const Circle = styled.div`
   justify-content: center;
   align-items: center;
   aspect-ratio: 1/1;
-  background-color: #9b9b9b;
-  border-radius: 100%;
-  width: 100%;
+  background-color: var(--circle);
+  border-radius: 15px;
+  width: 45px;
+  height: 45px;
   margin: 0.2em;
-  font-size: 2em;
+  font-size: 1.25em;
   color: white;
 `
 
@@ -94,11 +95,11 @@ const SocialIconContainer = styled.div`
   align-items: center;
   cursor: default;
   width: 100%;
-  padding: 1em;
+  padding: 0.5em;
   img {
     cursor: pointer;
-    width: 55px;
-    height: 55px;
+    width: 45px;
+    height: 45px;
   }
 `
 
@@ -106,8 +107,8 @@ const SideNavContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 10%;
-  background: #fbfbfb;
+  width: 8%;
+  background: var(--card-bg);
   box-shadow: 0 1px 20px rgba(0, 0, 0, 0.1);
 `
 

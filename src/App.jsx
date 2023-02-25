@@ -6,9 +6,12 @@ import AppHeader from './components/AppHeader.jsx'
 import Renderer from './widgets/Renderer.jsx'
 import './index.css'
 import './assets/Square-Regular.otf'
+import { setThemeColor } from './store/resumeSlice.js'
+import { useDispatch, useSelector } from 'react-redux'
 
 const App = () => {
-  const ref = useRef(null)
+  const dispatch = useDispatch()
+  const { display } = useSelector((state) => state.ResumeStore)
   const initTheme = () => {
     const colorModeOverride = localStorage.getItem('color-mode')
     const hasColorModeOverride = typeof colorModeOverride === 'string'
@@ -22,6 +25,8 @@ const App = () => {
       document.documentElement.setAttribute('data-force-color-mode', 'light')
       localStorage.setItem('color-mode', 'light')
     }
+    const initialColor = colorModeOverride === 'light' ? '#1d1aff' : '#F65164'
+    dispatch(setThemeColor(initialColor))
   }
 
   useEffect(() => {
@@ -33,8 +38,8 @@ const App = () => {
       <GlobalStyle />
       <AppHeader />
       <Layout>
-        <Controller documentRef={ref} />
-        <Renderer ref={ref} />
+        <Controller />
+        <Renderer />
       </Layout>
     </>
   )
@@ -42,7 +47,10 @@ const App = () => {
 
 const Layout = styled.div`
   display: flex;
-  @media (max-width: 1024px) {
+  background-color: #1c1b1f;
+  min-height: 100vh;
+  overflow: hidden;
+  @media (max-width: 1300px) {
     flex-direction: column;
   }
 `

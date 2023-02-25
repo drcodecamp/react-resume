@@ -4,11 +4,11 @@ import SideNav from '../components/SideNav.jsx'
 import ResumeContent from '../components/ResumeContent.jsx'
 import { useSelector } from 'react-redux'
 
-const Renderer = ({ ref }) => {
+const Renderer = () => {
   const { display } = useSelector((state) => state.ResumeStore)
   return (
     <RendererContainer>
-      <ResumeContainer ref={ref}>
+      <ResumeContainer>
         {display.sideNav && <SideNav />}
         <ResumeContent />
       </ResumeContainer>
@@ -18,10 +18,10 @@ const Renderer = ({ ref }) => {
 
 const ResumeContainer = styled.div`
   display: flex;
-  background: #ffffff;
   width: 793.7px;
   height: 1122.5px;
   aspect-ratio: 1/1.41;
+  background: var(--bg-secondary);
 `
 
 const RendererContainer = styled.div`

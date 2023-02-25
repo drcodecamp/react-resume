@@ -45,7 +45,8 @@ const StackSection = () => {
 }
 
 const Tag = styled.span`
-  color: ${({ isActive }) => (isActive ? 'var(--primary-color)' : 'gray')};
+  color: ${({ isActive }) =>
+    isActive ? 'var(--primary-color)' : 'var(--subtitle)'};
   font-weight: ${({ isActive }) => (isActive ? 'bolder' : 'regular')};
   text-align: center;
   cursor: pointer;
@@ -60,8 +61,9 @@ const StackItems = styled.p`
 export const Title = styled.p`
   padding-top: 0.5em;
   font-weight: bold;
-  color: #434343;
+  color: var(--main);
   font-size: 1.25em;
+  text-decoration: underline;
 `
 
 const StackSectionContainer = styled.section`
