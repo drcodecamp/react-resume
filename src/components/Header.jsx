@@ -14,7 +14,7 @@ const HeaderSection = () => {
       <PhoneNumber href="tel:+972556667794">
         {phone || '050-510-1952'}
       </PhoneNumber>
-      <EmailAddress href="#asdasd">
+      <EmailAddress href={`mailto:${email}`}>
         {email || 'info@doctorcode.org'}
       </EmailAddress>
       {display.summary && <Summery>{summary || ''}</Summery>}

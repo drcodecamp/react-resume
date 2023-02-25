@@ -4,10 +4,10 @@ import GlobalStyle from './constants/GlobalStyle.jsx'
 import Controller from './components/ResumeOptions.jsx'
 import AppHeader from './components/AppHeader.jsx'
 import Renderer from './widgets/Renderer.jsx'
-import './index.css'
-import './assets/Square-Regular.otf'
-import { setThemeColor } from './store/resumeSlice.js'
 import { useDispatch, useSelector } from 'react-redux'
+import { setThemeColor } from './store/resumeSlice.js'
+import './assets/Square-Regular.otf'
+import './index.css'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -49,7 +49,6 @@ const Layout = styled.div`
   display: flex;
   background-color: #1c1b1f;
   min-height: 100vh;
-  overflow: hidden;
   @media (max-width: 1300px) {
     flex-direction: column;
   }

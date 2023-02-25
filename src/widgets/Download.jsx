@@ -15,13 +15,6 @@ const DownloadWidget = () => {
     try {
       setIsLoading(true)
       window.print()
-      /*      dispatch(toggleRenderer())
-      setTimeout(() => {
-        window.print()
-        setTimeout(() => {
-          dispatch(toggleRenderer())
-        })
-      }, 1000)*/
     } catch (err) {
       message.error('error converting into pdf').then((r) => {
         //
