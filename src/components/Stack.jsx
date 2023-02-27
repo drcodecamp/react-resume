@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 const StackSection = () => {
   const resume = useSelector((state) => state.ResumeStore)
-  const [skills, setSkills] = useState([''])
+  const [skills, setSkills] = useState([])
 
   useEffect(() => {
     const skills = resume.stack.split(',')
@@ -30,15 +30,16 @@ const StackSection = () => {
     <StackSectionContainer>
       <Title>Stack</Title>
       <StackItems>
-        {skills.map((skill, idx) => (
-          <Tag
-            onClick={() => handleClick(idx)}
-            isActive={skill.isActivated}
-            key={idx}
-          >
-            {skill.name}
-          </Tag>
-        ))}
+        {skills &&
+          skills.map((skill, idx) => (
+            <Tag
+              onClick={() => handleClick(idx)}
+              isActive={skill.isActivated}
+              key={idx}
+            >
+              {skill.name}
+            </Tag>
+          ))}
       </StackItems>
     </StackSectionContainer>
   )

@@ -44,15 +44,16 @@ const Summery = styled.p`
 `
 
 const EmailAddress = styled.a`
-  all: unset;
   font-size: 1.25em;
   color: var(--subtitle);
+  cursor: pointer;
+  margin-top: 0.1em;
 `
 const PhoneNumber = styled.a`
-  all: unset;
   font-size: 1.25em;
   font-weight: bold;
   color: var(--main);
+  cursor: pointer;
 `
 
 const UserTitle = styled.h2`

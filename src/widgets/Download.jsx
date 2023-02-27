@@ -6,7 +6,7 @@ import { Button, message } from 'antd'
 import { DownloadOutlined } from '@ant-design/icons'
 import instructions_image from '../assets/instructions.webp'
 import { useDispatch } from 'react-redux'
-import { toggleRenderer } from '../store/resumeSlice.js'
+import { displayRenderer, toggleRenderer } from '../store/resumeSlice.js'
 
 const DownloadWidget = () => {
   const dispatch = useDispatch()
@@ -14,7 +14,16 @@ const DownloadWidget = () => {
   const printAsPdf = () => {
     try {
       setIsLoading(true)
-      window.print()
+      dispatch(displayRenderer())
+      setTimeout(() => {
+        window.print()
+        setTimeout(() => {
+          const h = window.innerWidth
+          if (h <= 1300) {
+            dispatch(toggleRenderer())
+          }
+        }, 100)
+      }, 1000)
     } catch (err) {
       message.error('error converting into pdf').then((r) => {
         //
@@ -55,7 +64,6 @@ const BoldInstructions = styled.p`
   font-weight: bolder;
   font-size: 1.5em;
 `
-
 const DownloadSection = styled.div`
   display: flex;
   padding: 1em;

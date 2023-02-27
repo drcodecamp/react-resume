@@ -37,13 +37,11 @@ const JobItem = ({ job }) => {
     </JobCard>
   )
 }
-
 export const DescriptionText = styled.div`
   padding-top: 0.35em;
   word-break: break-word;
   color: var(--subtitle);
 `
-
 export const JobImage = styled.div`
   aspect-ratio: 1;
   display: flex;
@@ -55,19 +53,16 @@ export const JobImage = styled.div`
     border-radius: 15px;
   }
 `
-
 export const JobIndustry = styled.div`
   display: flex;
   padding-left: 0.2em;
   color: var(--primary-color);
   font-weight: bold;
 `
-
 export const JobCard = styled.div`
   display: flex;
   padding-top: 1em;
 `
-
 export const JobTitle = styled.div`
   display: flex;
   font-size: 1.25em;

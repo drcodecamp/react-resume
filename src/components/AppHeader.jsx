@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Button } from 'antd'
+import { DollarOutlined, DownloadOutlined } from '@ant-design/icons'
 
 const AppHeader = () => {
   return (
@@ -16,10 +18,44 @@ const AppHeader = () => {
         </a>
         <a href="https://www.doctorcode.org/blog.html">מדריכים / מאמרים</a>
       </MenuItems>
+
+      <MobileMenu>
+        <BurgerMenu>
+          <Button
+            href="https://www.doctorcode.org/free-online-courses.html"
+            type="primary"
+            icon={<DollarOutlined />}
+            size="medium"
+          >
+            קורסים בחינם
+          </Button>
+        </BurgerMenu>
+      </MobileMenu>
     </HeaderContainer>
   )
 }
+
+const MobileMenu = styled.div`
+  display: none;
+  @media only screen and (max-width: 1280px) {
+    display: block;
+  }
+`
+
+const BurgerMenu = styled.div`
+  max-width: 1050px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  height: 100%;
+`
+
 const MenuItems = styled.div`
+  @media only screen and (max-width: 1280px) {
+    display: none;
+  }
   flex: 1;
   justify-content: space-evenly;
   align-items: center;

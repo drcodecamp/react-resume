@@ -7,14 +7,13 @@ import { DescriptionText, JobCard, JobImage, JobTitle } from './Experience.jsx'
 
 const EducationSection = () => {
   const { education } = useSelector((state) => state.ResumeStore)
-
   return (
-    <EducationSectionContainer>
+    <EducationList>
       <Title>Education</Title>
       {education.map((edu, idx) => {
         return <EducationItem key={idx} edu={edu} />
       })}
-    </EducationSectionContainer>
+    </EducationList>
   )
 }
 
@@ -27,7 +26,6 @@ const EducationItem = ({ edu }) => {
           <img src={edu.icon || DEMO_EDU_ICON} alt="work" />
         </JobImage>
       )}
-
       <div>
         <JobTitle>
           <div>{edu.name}</div>
@@ -39,7 +37,7 @@ const EducationItem = ({ edu }) => {
   )
 }
 
-const EducationSectionContainer = styled.section`
+const EducationList = styled.section`
   display: flex;
   flex-direction: column;
 `

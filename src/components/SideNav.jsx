@@ -2,10 +2,13 @@ import React, { useMemo } from 'react'
 import styled from 'styled-components'
 
 import FACEBOOK_ICON from '../assets/facebook.webp'
-import INSTA_ICON from '../assets/instagram.webp'
+import INSTAGRAM_ICON from '../assets/instagram.webp'
 import YOUTUBE_ICON from '../assets/youtube.webp'
-import LINKDIN_ICON from '../assets/linkedin.webp'
+import LINKEDIN_ICON from '../assets/linkedin.webp'
 import GITHUB_ICON from '../assets/github.webp'
+
+// todo add more options
+import MEDIUM_ICON from '../assets/github.webp'
 
 import { useSelector } from 'react-redux'
 
@@ -24,7 +27,6 @@ const SideNav = () => {
       <ProfileContainer>
         <Circle>{shortName}</Circle>
       </ProfileContainer>
-
       {display.social.facebook && (
         <SocialIconContainer>
           <a href={socialUrls.facebook || '#'} target="_blank">
@@ -32,15 +34,13 @@ const SideNav = () => {
           </a>
         </SocialIconContainer>
       )}
-
       {display.social.link && (
         <SocialIconContainer>
           <a href={socialUrls.linkedin || '#'} target="_blank">
-            <img src={LINKDIN_ICON} alt="linkedin" />
+            <img src={LINKEDIN_ICON} alt="linkedin" />
           </a>
         </SocialIconContainer>
       )}
-
       {display.social.github && (
         <SocialIconContainer>
           <a href={socialUrls.github || '#'} target="_blank">
@@ -48,7 +48,6 @@ const SideNav = () => {
           </a>
         </SocialIconContainer>
       )}
-
       {display.social.youtube && (
         <SocialIconContainer>
           <a href={socialUrls.youtube || '#'} target="_blank">
@@ -56,25 +55,22 @@ const SideNav = () => {
           </a>
         </SocialIconContainer>
       )}
-
       {display.social.instagram && (
         <SocialIconContainer>
           <a href={socialUrls.instagram || '#'} target="_blank">
-            <img src={INSTA_ICON} alt="instagram" />
+            <img src={INSTAGRAM_ICON} alt="instagram" />
           </a>
         </SocialIconContainer>
       )}
     </SideNavContainer>
   )
 }
-
 const ProfileContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 10%;
 `
-
 const Circle = styled.div`
   display: flex;
   justify-content: center;
@@ -88,7 +84,6 @@ const Circle = styled.div`
   font-size: 1.25em;
   color: white;
 `
-
 const SocialIconContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -102,7 +97,6 @@ const SocialIconContainer = styled.div`
     height: 45px;
   }
 `
-
 const SideNavContainer = styled.div`
   display: flex;
   flex-direction: column;

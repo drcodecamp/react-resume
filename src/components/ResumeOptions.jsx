@@ -9,10 +9,17 @@ import ProjectsWidget from '../widgets/Projects'
 import StackWidget from '../widgets/Stack'
 import ExperienceWidget from '../widgets/Experience'
 import EducationWidget from '../widgets/Education'
+import CustomRow from './shared/CustomRow.jsx'
+import { useDispatch } from 'react-redux'
+import { displayRenderer, toggleRenderer } from '../store/resumeSlice.js'
 const { Panel } = Collapse
 
 const ResumeOptions = () => {
+  const dispatch = useDispatch()
   const [fullScreen, setFullScreen] = useState(false)
+  const handleRendererToggle = () => {
+    dispatch(toggleRenderer())
+  }
   const handleFullScreen = () => {
     if (!fullScreen) {
       document.body.requestFullscreen().then((r) => {
@@ -33,7 +40,10 @@ const ResumeOptions = () => {
           <Logo>דוקטור קוד</Logo>
           <h1>יצירת קורות חיים באנגלית אונליין בחינם</h1>
           <h2>צרו קורות חיים ייחודיים שיעשו את העבודה בכמה קליקים פשוטים</h2>
-          <Button onClick={handleFullScreen}>Toggle full screen</Button>
+          <CustomRow>
+            <Button onClick={handleFullScreen}>Toggle full screen</Button>
+            <Button onClick={handleRendererToggle}>Toggle PDF</Button>
+          </CustomRow>
         </Form>
         <Collapse bordered={false}>
           <Panel header="Theme and Style" key="theme">
@@ -92,6 +102,8 @@ const Form = styled.div`
   }
 `
 
+const LinkToWebsite = styled.div``
+
 const ResumeOptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -102,6 +114,9 @@ const ResumeOptionsContainer = styled.div`
   z-index: 10;
   flex-basis: 50%;
   margin-right: 1em;
+  @media only screen and (max-width: 1280px) {
+    margin-right: 0;
+  }
   @media print {
     display: none;
   }

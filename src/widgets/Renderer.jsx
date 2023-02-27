@@ -27,6 +27,7 @@ const ResumeContainer = styled.div`
 const RendererContainer = styled.div`
   display: flex;
   flex-direction: column;
+  flex-basis: 50%;
 `
 
 export default Renderer

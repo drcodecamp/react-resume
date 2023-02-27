@@ -12,9 +12,9 @@ const ProjectsSection = () => {
     <ProjectsSectionContainer>
       <Title>Projects</Title>
       <ProjectList>
-        {projects.map((project, idx) => {
+        {projects.map((project) => {
           return (
-            <ProjectItem key={idx}>
+            <ProjectItem key={project.id}>
               <CardA>
                 <ProjectImage>
                   <img src={project.image} alt="proj" />

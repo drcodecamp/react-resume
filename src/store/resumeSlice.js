@@ -21,7 +21,7 @@ const getRandomImage = () => {
 
 const initialState = {
   display: {
-    renderer: false,
+    renderer: true,
     sideNav: false,
     education: true,
     email: false,
@@ -82,7 +82,7 @@ const initialState = {
     linkedin: 'https://www.linkedin.com/in/doctorcodecamp/',
     github: 'https://github.com/drcodecamp',
     youtube: 'https://www.youtube.com/@doctorcode',
-    instagram: 'https://www.instagram.com/_doctorcode/',
+    instagram: 'https://www.instagram.com/doctor_code_official/',
   },
   experience: [
     {
@@ -225,6 +225,9 @@ export const resumeSlice = createSlice({
     setFullName: (state, action) => {
       state.fullName = action.payload
     },
+    displayRenderer: (state) => {
+      state.display.renderer = true
+    },
     toggleRenderer: (state) => {
       state.display.renderer = !state.display.renderer
     },
@@ -247,7 +250,7 @@ export const resumeSlice = createSlice({
       const idx = state.education.findIndex((i) => i.id === action.payload.id)
       state.education[idx].description = action.payload.value
     },
-    addEducation: (state, action) => {
+    addEducation: (state) => {
       if (state.education.length === 2) {
         return state
       } else {
@@ -260,7 +263,7 @@ export const resumeSlice = createSlice({
         })
       }
     },
-    removeEducation: (state, action) => {
+    removeEducation: (state) => {
       if (state.education.length === 1) return state
       state.education.pop()
     },
@@ -272,7 +275,7 @@ export const resumeSlice = createSlice({
       if (state.experience.length === 1) return state
       state.experience.pop()
     },
-    addExp: (state, action) => {
+    addExp: (state) => {
       if (state.experience.length === 2) {
         return state
       } else {
@@ -304,7 +307,7 @@ export const resumeSlice = createSlice({
     },
   },
 })
-const a = 'ipsum23'
+
 export const {
   setJobInfo,
   setJobDate,
@@ -334,6 +337,7 @@ export const {
   setEmail,
   setFullName,
   toggleRenderer,
+  displayRenderer,
   toggleSummary,
   setSummary,
   toggleExpIcons,
@@ -342,7 +346,6 @@ export const {
   removeEducation,
   removeProject,
   addProject,
-  setProjectsLength,
   removeExp,
   addExp,
   setEducationIcon,

@@ -42,7 +42,7 @@ const EducationWidget = () => {
               onClick={() => dispatch(removeEducation())}
               type="primary"
               shape="circle"
-              disabled={isDisabled || education.length <= 1}
+              disabled={isDisabled || education.length <= 1} // todo save const as max min
             >
               -
             </Button>
@@ -51,7 +51,7 @@ const EducationWidget = () => {
               onClick={() => dispatch(addEducation())}
               type="primary"
               shape="circle"
-              disabled={isDisabled || education.length >= 2}
+              disabled={isDisabled || education.length >= 2} // todo save const as max min
             >
               +
             </Button>
@@ -76,7 +76,6 @@ const EducationList = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 `
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
