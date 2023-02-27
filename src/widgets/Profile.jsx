@@ -7,6 +7,7 @@ import {
   setPhone,
   setSummary,
   setTitle,
+  toggleNarrowHeader,
   toggleSummary,
 } from '../store/resumeSlice.js'
 import {
@@ -26,6 +27,13 @@ const ProfileWidget = () => {
   )
   return (
     <Container>
+      <CustomRow>
+        <p>Row / Column Header</p>
+        <Switch
+          checked={display.narrowHeader}
+          onChange={() => dispatch(toggleNarrowHeader())}
+        />
+      </CustomRow>
       <CustomRow>
         <p>
           Display Summary

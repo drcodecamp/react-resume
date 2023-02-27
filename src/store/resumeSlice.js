@@ -23,6 +23,7 @@ const initialState = {
   display: {
     renderer: true,
     sideNav: false,
+    narrowHeader: true,
     education: true,
     email: false,
     summary: false,
@@ -52,7 +53,8 @@ const initialState = {
       id: nanoid(),
       image: SRC,
       name: 'Coolio',
-      info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+      info:
+        'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
@@ -60,7 +62,8 @@ const initialState = {
       id: nanoid(),
       image: SRC2,
       name: 'Coolio',
-      info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+      info:
+        'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
@@ -68,7 +71,8 @@ const initialState = {
       id: nanoid(),
       image: SRC3,
       name: 'Coolio',
-      info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+      info:
+        'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
@@ -197,12 +201,16 @@ export const resumeSlice = createSlice({
       state.display.oneLineProjects = !state.display.oneLineProjects
     },
     toggleSocial: (state, action) => {
-      state.display.social[action.payload] =
-        !state.display.social[action.payload]
+      state.display.social[action.payload] = !state.display.social[
+        action.payload
+      ]
     },
     setSummary: (state, action) => {
       if (action.payload.length > 160) return state
       state.summary = action.payload
+    },
+    toggleNarrowHeader: (state) => {
+      state.display.narrowHeader = !state.display.narrowHeader
     },
     toggleSummary: (state) => {
       state.display.summary = !state.display.summary
@@ -298,7 +306,8 @@ export const resumeSlice = createSlice({
           id: nanoid(),
           name: 'demo',
           image: getRandomImage(),
-          info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+          info:
+            'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
           codeLink: '',
           demoLink: '',
         })
@@ -339,6 +348,7 @@ export const {
   toggleRenderer,
   displayRenderer,
   toggleSummary,
+  toggleNarrowHeader,
   setSummary,
   toggleExpIcons,
   toggleSideNav,

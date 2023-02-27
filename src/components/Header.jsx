@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 
@@ -6,21 +6,54 @@ const HeaderSection = () => {
   const { display, summary, fullName, phone, email, title } = useSelector(
     (state) => state.ResumeStore
   )
+  const headerType = useMemo(() => {
+    return display.narrowHeader ? (
+      <>
+        <Column>
+          <UserName>{fullName || 'Doctor Code'}</UserName>
+          <UserTitle>{title || 'Front End Developer'}</UserTitle>
+        </Column>
+        <Column style={{ alignItems: 'end' }}>
+          <PhoneNumber href="tel:+972556667794">
+            {phone || '050-510-1952'}
+          </PhoneNumber>
+          <EmailAddress href={`mailto:${email}`}>
+            {email || 'info@doctorcode.org'}
+          </EmailAddress>
+        </Column>
+      </>
+    ) : (
+      <>
+        <UserName>{fullName || 'Doctor Code'}</UserName>
+        <UserTitle>{title || 'Front End Developer'}</UserTitle>
+        <Separator />
+        <PhoneNumber href="tel:+972556667794">
+          {phone || '050-510-1952'}
+        </PhoneNumber>
+        <EmailAddress href={`mailto:${email}`}>
+          {email || 'info@doctorcode.org'}
+        </EmailAddress>{' '}
+      </>
+    )
+  }, [display])
+
   return (
-    <HeaderSectionContainer>
-      <UserName>{fullName || 'Doctor Code'}</UserName>
-      <UserTitle>{title || 'Front End Developer'}</UserTitle>
-      <Separator />
-      <PhoneNumber href="tel:+972556667794">
-        {phone || '050-510-1952'}
-      </PhoneNumber>
-      <EmailAddress href={`mailto:${email}`}>
-        {email || 'info@doctorcode.org'}
-      </EmailAddress>
+    <>
+      <HeaderSectionContainer isNarrow={display.narrowHeader}>
+        {headerType}
+      </HeaderSectionContainer>
       {display.summary && <Summery>{summary || ''}</Summery>}
-    </HeaderSectionContainer>
+    </>
   )
 }
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1;
+`
 
 const Separator = styled.div`
   background-color: var(--primary-color);
@@ -65,7 +98,7 @@ const UserTitle = styled.h2`
 
 const HeaderSectionContainer = styled.section`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ isNarrow }) => (isNarrow ? 'row' : 'column')};
 `
 
 export default HeaderSection
