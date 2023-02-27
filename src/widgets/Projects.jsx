@@ -5,6 +5,7 @@ import {
   addProject,
   removeProject,
   toggleProjects,
+  toggleOneLineProjects,
 } from '../store/resumeSlice.js'
 import CustomRow from '../components/shared/CustomRow.jsx'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,8 +19,15 @@ const ProjectsWidget = () => {
       <CustomRow>
         Enable projects section
         <Switch
-          onClick={() => dispatch(toggleProjects())}
           checked={display.projects}
+          onClick={() => dispatch(toggleProjects())}
+        ></Switch>
+      </CustomRow>
+      <CustomRow>
+        Enable one line project view
+        <Switch
+          onClick={() => dispatch(toggleOneLineProjects())}
+          checked={display.projects && display.oneLineProjects}
         ></Switch>
       </CustomRow>
       <CustomRow>

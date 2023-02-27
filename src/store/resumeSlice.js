@@ -28,6 +28,7 @@ const initialState = {
     summary: false,
     stack: true,
     projects: true,
+    oneLineProjects: false,
     experience: true,
     jobIcons: true,
     educationIcons: true,
@@ -51,8 +52,7 @@ const initialState = {
       id: nanoid(),
       image: SRC,
       name: 'Coolio',
-      info:
-        'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+      info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
@@ -60,8 +60,7 @@ const initialState = {
       id: nanoid(),
       image: SRC2,
       name: 'Coolio',
-      info:
-        'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+      info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
@@ -69,8 +68,7 @@ const initialState = {
       id: nanoid(),
       image: SRC3,
       name: 'Coolio',
-      info:
-        'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+      info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
@@ -195,10 +193,12 @@ export const resumeSlice = createSlice({
     toggleProjects: (state) => {
       state.display.projects = !state.display.projects
     },
+    toggleOneLineProjects: (state) => {
+      state.display.oneLineProjects = !state.display.oneLineProjects
+    },
     toggleSocial: (state, action) => {
-      state.display.social[action.payload] = !state.display.social[
-        action.payload
-      ]
+      state.display.social[action.payload] =
+        !state.display.social[action.payload]
     },
     setSummary: (state, action) => {
       if (action.payload.length > 160) return state
@@ -298,8 +298,7 @@ export const resumeSlice = createSlice({
           id: nanoid(),
           name: 'demo',
           image: getRandomImage(),
-          info:
-            'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+          info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
           codeLink: '',
           demoLink: '',
         })
@@ -332,6 +331,7 @@ export const {
   toggleEducationIcons,
   toggleEducation,
   toggleProjects,
+  toggleOneLineProjects,
   setTitle,
   setPhone,
   setEmail,
