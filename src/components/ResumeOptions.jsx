@@ -11,7 +11,8 @@ import ExperienceWidget from '../widgets/Experience'
 import EducationWidget from '../widgets/Education'
 import CustomRow from './shared/CustomRow.jsx'
 import { useDispatch } from 'react-redux'
-import { displayRenderer, toggleRenderer } from '../store/resumeSlice.js'
+import { toggleRenderer } from '../store/resumeSlice.js'
+
 const { Panel } = Collapse
 
 const ResumeOptions = () => {
