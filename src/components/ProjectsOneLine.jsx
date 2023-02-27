@@ -13,9 +13,6 @@ const ProjectsOneLine = () => {
         return (
           <ProjectItem key={project.id}>
             <CardA>
-              <ProjectImage>
-                <img src={project.image} alt="proj" />
-              </ProjectImage>
               <ProjectData>
                 <ProjectName>{project.name}</ProjectName>
                 <ProjectInfo>{project.info}</ProjectInfo>
