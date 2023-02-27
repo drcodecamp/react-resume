@@ -6,6 +6,7 @@ import ProjectsSection from './Projects.jsx'
 import ExperienceSection from './Experience'
 import EducationSection from './Education'
 import { useSelector } from 'react-redux'
+import ProjectsOneLine from './ProjectsOneLine'
 
 const ResumeContent = () => {
   const { display } = useSelector((state) => state.ResumeStore)
@@ -13,7 +14,13 @@ const ResumeContent = () => {
     <ResumeContentContainer>
       <HeaderSection />
       <FlexArea>
-        {display.projects && <ProjectsSection />}
+        {display.projects ? (
+          display.oneLineProjects ? (
+            <ProjectsOneLine />
+          ) : (
+            <ProjectsSection />
+          )
+        ) : null}
         {display.stack && <StackSection />}
         {display.experience && <ExperienceSection />}
         {display.education && <EducationSection />}

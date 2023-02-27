@@ -66,7 +66,7 @@ const ProjectList = styled.div`
   justify-content: stretch;
 `
 
-const Actions = styled.div`
+export const Actions = styled.div`
   padding-top: 0.2em;
   display: flex;
   justify-content: space-evenly;
