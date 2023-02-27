@@ -13,9 +13,6 @@ const ProjectsOneLine = () => {
         return (
           <ProjectItem key={project.id}>
             <CardA>
-              <ProjectImage>
-                <img src={project.image} alt="proj" />
-              </ProjectImage>
               <ProjectData>
                 <ProjectName>{project.name}</ProjectName>
                 <ProjectInfo>{project.info}</ProjectInfo>
@@ -60,7 +57,7 @@ const ProjectImage = styled.div`
 const ProjectsSectionContainer = styled.section`
   display: flex;
   flex-direction: column;
-  padding-top: 0.5em;
+  padding-top: 0.2em 0.5em;
 `
 
 const Actions = styled.div`
@@ -68,7 +65,6 @@ const Actions = styled.div`
   display: flex;
   width: 33%;
   justify-content: space-evenly;
-  gap: 0.75em;
   align-items: center;
 `
 
@@ -128,7 +124,7 @@ const CardA = styled.div`
   word-break: break-word;
   height: 100%;
   width: 100%;
-  padding: 2em;
+  padding: 1em;
 `
 
 export default ProjectsOneLine
