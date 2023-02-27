@@ -5,18 +5,23 @@ const GlobalStyle = createGlobalStyle`
         all: unset;
         display: revert
     }
+
     *, ::after, ::before {
         box-sizing: border-box
     }
+
     input, textarea {
         -webkit-user-select: auto
     }
+
     ::placeholder {
         color: unset
     }
+
     :where([hidden]) {
         display: none
     }
+
     :where([contenteditable]:not([contenteditable=false])) {
         -moz-user-modify: read-write;
         -webkit-user-modify: read-write;
@@ -24,18 +29,22 @@ const GlobalStyle = createGlobalStyle`
         -webkit-line-break: after-white-space;
         -webkit-user-select: auto
     }
+
     :where([draggable=true]) {
         -webkit-user-drag: element
     }
+
     * {
         box-sizing: border-box;
         margin: 0;
         word-break: break-word;
     }
+
     html {
         -webkit-print-color-adjust: exact;
         -moz-box-shadow: -moz-activehyperlinktext;
     }
+
     body {
         font-family: Roboto, sans-serif;
         background-color: var(--bg-main);
@@ -44,7 +53,10 @@ const GlobalStyle = createGlobalStyle`
         overflow-x: hidden;
         overflow-y: scroll;
     }
-    :root {}
+
+    :root {
+    }
+
     :root[data-force-color-mode='light'] {
         color-scheme: light dark;
         --side-nav-bg: #FFF;
@@ -55,6 +67,7 @@ const GlobalStyle = createGlobalStyle`
         --bg-main: #ffffff;
         --bg-secondary: #ffffff;
         --circle: #b0b0b0;
+        --card-bg: #ffffff;
     }
 
     :root[data-force-color-mode='dark'] {
@@ -87,12 +100,15 @@ const GlobalStyle = createGlobalStyle`
     ::-webkit-scrollbar {
         width: 5px;
     }
+
     ::-webkit-scrollbar-track {
         background: #f1f1f1;
     }
+
     ::-webkit-scrollbar-thumb {
         background: #888;
     }
+
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
