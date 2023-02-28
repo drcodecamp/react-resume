@@ -28,6 +28,7 @@ const Separator = styled.div`
   width: 222px;
   margin: 0.5em 0;
 `
+
 const UserName = styled.h1`
   all: unset;
   font-size: 2em;
@@ -46,7 +47,6 @@ const Summery = styled.p`
 const EmailAddress = styled.a`
   font-size: 1.25em;
   color: var(--subtitle);
-  color: var(--main);
   cursor: pointer;
   margin-top: 0.1em;
 `
@@ -67,7 +67,6 @@ const UserTitle = styled.h2`
 const HeaderSectionContainer = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content:space-between
 `
 
 export default HeaderSection
