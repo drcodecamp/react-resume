@@ -44,6 +44,7 @@ const SideNavWidgetWidget = () => {
             }}
             value={socialUrls.facebook}
             disabled={!display.sideNav || !display.social.facebook}
+            status={socialUrls.facebook.includes('https://') ? 'error' : ''}
           />
         </CustomRow>
       </CustomRow>
@@ -62,6 +63,7 @@ const SideNavWidgetWidget = () => {
             }}
             value={socialUrls.linkedin}
             disabled={!display.sideNav || !display.social.link}
+            status={socialUrls.linkedin.includes('https://') ? 'error' : ''}
           />
         </CustomRow>
       </CustomRow>
@@ -80,6 +82,7 @@ const SideNavWidgetWidget = () => {
             }}
             value={socialUrls.github}
             disabled={!display.sideNav || !display.social.github}
+            status={socialUrls.github.includes('https://') ? 'error' : ''}
           />
         </CustomRow>
       </CustomRow>
@@ -98,6 +101,7 @@ const SideNavWidgetWidget = () => {
             }}
             value={socialUrls.youtube}
             disabled={!display.sideNav || !display.social.youtube}
+            status={socialUrls.youtube.includes('https://') ? 'error' : ''}
           />
         </CustomRow>
       </CustomRow>
@@ -117,6 +121,7 @@ const SideNavWidgetWidget = () => {
             }}
             value={socialUrls.instagram}
             disabled={!display.sideNav || !display.social.instagram}
+            status={socialUrls.instagram.includes('https://') ? 'error' : ''}
           />
         </CustomRow>
       </CustomRow>
