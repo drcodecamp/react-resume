@@ -6,6 +6,7 @@ import {
   setGitHubURL,
   setInstagramURL,
   setLinkedinURL,
+  setMediumURL,
   setYoutubeURL,
   toggleNarrowHeader,
   toggleSideNav,
@@ -122,6 +123,23 @@ const SideNavWidgetWidget = () => {
             value={socialUrls.instagram}
             disabled={!display.sideNav || !display.social.instagram}
             status={socialUrls.instagram.includes('http') ? 'error' : ''}
+          />
+        </CustomRow>
+      </CustomRow>
+      <CustomRow>
+        <CustomRow>
+          Medium
+          <Checkbox
+            disabled={!display.sideNav}
+            checked={display.social.medium}
+            onClick={() => dispatch(toggleSocial('medium'))}
+          />
+          <Input
+            onChange={({ target }) => {
+              dispatch(setMediumURL(target.value))
+            }}
+            value={socialUrls.medium}
+            disabled={!display.sideNav || !display.social.medium}
           />
         </CustomRow>
       </CustomRow>

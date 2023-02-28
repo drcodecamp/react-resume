@@ -63,6 +63,7 @@ const Separator = styled.div`
   width: 222px;
   margin: 0.5em 0;
 `
+
 const UserName = styled.h1`
   all: unset;
   font-size: 2em;

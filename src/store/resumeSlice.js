@@ -39,6 +39,7 @@ const initialState = {
       github: false,
       youtube: false,
       instagram: false,
+      medium: false,
     },
   },
   themeColor: '#0008ff',
@@ -113,7 +114,7 @@ const initialState = {
       name: 'Youtube @DoctorCode',
       duration: '3 Months',
       description:
-        'Doctor code a Fullstack free online course, follow me at www.youtube.com/@doctorcode',
+        'Doctor code a Fullstack free online course, follow me at https://www.youtube.com/@doctorcode',
     },
   ],
   value: 0,
@@ -141,6 +142,9 @@ export const resumeSlice = createSlice({
     },
     setInstagramURL: (state, action) => {
       state.socialUrls.instagram = action.payload
+    },
+    setMediumURL: (state, action) => {
+      state.socialUrls.medium = action.payload
     },
     setProjectName: (state, action) => {
       const idx = state.projects.findIndex((i) => i.id === action.payload.id)
@@ -307,8 +311,7 @@ export const resumeSlice = createSlice({
           id: nanoid(),
           name: 'Coolio',
           image: getRandomImage(),
-          info:
-            'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+          info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
           codeLink: '#',
           demoLink: '#',
         })
@@ -330,6 +333,7 @@ export const {
   setGitHubURL,
   setYoutubeURL,
   setInstagramURL,
+  setMediumURL,
   toggleExperience,
   setProjectDemoLink,
   setProjectGitLink,
