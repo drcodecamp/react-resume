@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
+import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
 
 const StackSection = () => {
   const resume = useSelector((state) => state.ResumeStore)
@@ -27,36 +28,41 @@ const StackSection = () => {
     setSkills(skillsClone)
   }
   return (
-    <StackSectionContainer>
+    <ContentSection>
       <Title>Stack</Title>
-      <StackItems>
-        {skills &&
-          skills.map((skill, idx) => (
-            <Tag
-              onClick={() => handleClick(idx)}
-              isActive={skill.isActivated}
-              key={idx}
-            >
-              {skill.name}
-            </Tag>
-          ))}
-      </StackItems>
-    </StackSectionContainer>
+      <InnerContentPadding>
+        <StackItems>
+          {skills &&
+            skills.map((skill, idx) => (
+              <Tag
+                onClick={() => handleClick(idx)}
+                isActive={skill.isActivated}
+                key={idx}
+              >
+                {skill.name}
+              </Tag>
+            ))}
+        </StackItems>
+      </InnerContentPadding>
+    </ContentSection>
   )
 }
 
 const Tag = styled.span`
+  font-size: 1em;
   color: ${({ isActive }) =>
     isActive ? 'var(--primary-color)' : 'var(--subtitle)'};
   font-weight: ${({ isActive }) => (isActive ? 'bolder' : 'regular')};
   text-align: center;
   cursor: pointer;
-  padding: 0.5em;
+  padding-right: 0.75em;
+  padding-bottom: 0.35em;
 `
 
 const StackItems = styled.p`
   display: flex;
   flex-wrap: wrap;
+  padding-top: 1em;
 `
 
 export const Title = styled.p`

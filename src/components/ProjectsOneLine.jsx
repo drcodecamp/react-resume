@@ -2,70 +2,55 @@ import React from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { Title } from './Stack'
+import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
 
 const ProjectsOneLine = () => {
   const { projects } = useSelector((state) => state.ResumeStore)
-
   return (
-    <ProjectsSectionContainer>
+    <ContentSection>
       <Title>Projects</Title>
-      {projects.map((project) => {
-        return (
-          <ProjectItem key={project.id}>
-            <CardA>
-              <ProjectData>
-                <ProjectName>{project.name}</ProjectName>
-                <ProjectInfo>{project.info}</ProjectInfo>
-              </ProjectData>
-              <Actions>
-                <ProjectSourceCode
-                  href={project.codeLink || '#'}
-                  target="_blank"
-                >
-                  Code
-                </ProjectSourceCode>
-                <ProjectDemoButton
-                  href={project.demoLink || '#'}
-                  target="_blank"
-                >
-                  Demo
-                </ProjectDemoButton>
-              </Actions>
-            </CardA>
-          </ProjectItem>
-        )
-      })}
-    </ProjectsSectionContainer>
+      <InnerContentPadding>
+        {projects.map((project) => {
+          return (
+            <ProjectItem key={project.id}>
+              <CardA>
+                <ProjectData>
+                  <ProjectInfo>
+                    <Span>{project.name}</Span>
+                    {project.info}
+                  </ProjectInfo>
+                </ProjectData>
+                <Actions>
+                  <ProjectSourceCode
+                    href={project.codeLink || '#'}
+                    target="_blank"
+                  >
+                    code
+                  </ProjectSourceCode>
+                  <ProjectDemoButton
+                    href={project.demoLink || '#'}
+                    target="_blank"
+                  >
+                    demo
+                  </ProjectDemoButton>
+                </Actions>
+              </CardA>
+            </ProjectItem>
+          )
+        })}
+      </InnerContentPadding>
+    </ContentSection>
   )
 }
-
-const ProjectImage = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 15px;
-  background-color: goldenrod;
-  overflow: hidden;
-  img {
-    width: 140px;
-    height: 95px;
-    object-fit: cover;
-    object-position: center;
-  }
-`
-
-const ProjectsSectionContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  padding-top: 0.2em 0.5em;
-`
 
 const Actions = styled.div`
   padding-top: 0.2em;
   display: flex;
-  width: 33%;
+  width: 150px;
+  height: 100%;
   justify-content: space-evenly;
   align-items: center;
+  flex: 1;
 `
 
 const ProjectItem = styled.div`
@@ -73,45 +58,38 @@ const ProjectItem = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--card-bg);
-  max-height: 250px;
+  height: 65px;
   width: 100%;
-  margin: 0.5em;
-  border-radius: 25px;
-  box-shadow: 0 4px 1em rgb(0 0 0 / 10%);
 `
 
 const ProjectData = styled.div`
   display: flex;
   flex-direction: column;
-`
-
-const ProjectName = styled.div`
-  font-size: 1.2em;
-  font-weight: bold;
-  color: var(--main);
+  flex: 3;
 `
 
 const ProjectInfo = styled.div`
-  color: var(--subtitle);
-  font-size: 0.9em;
-  padding: 0.2em 0;
+  font-size: 1em;
   word-break: break-word;
   width: 100%;
+  color: var(--subtitle);
 `
+const Span = styled.span`
+  color: var(--main);
+  font-weight: bolder;
+  display: flex;
+`
+
 const ProjectSourceCode = styled.a`
   font-size: 1em;
   color: var(--subtitle);
   cursor: pointer;
-  text-decoration: none;
 `
 
 const ProjectDemoButton = styled.a`
   font-weight: bolder;
-  color: white;
-  background-color: #0053f5;
+  color: var(--primary-color);
   font-size: 1em;
-  padding: 0.3em 0.5em;
   border-radius: 7px;
   cursor: pointer;
 `
@@ -119,12 +97,10 @@ const ProjectDemoButton = styled.a`
 const CardA = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 1rem;
   align-items: center;
-  word-break: break-word;
   height: 100%;
   width: 100%;
-  padding: 1em;
+  padding-top: 0.5em;
 `
 
 export default ProjectsOneLine

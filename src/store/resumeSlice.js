@@ -54,7 +54,7 @@ const initialState = {
       image: SRC,
       name: 'Coolio',
       info:
-        'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
@@ -63,7 +63,7 @@ const initialState = {
       image: SRC2,
       name: 'Coolio',
       info:
-        'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
@@ -72,7 +72,7 @@ const initialState = {
       image: SRC3,
       name: 'Coolio',
       info:
-        'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
@@ -113,7 +113,7 @@ const initialState = {
       name: 'Youtube @DoctorCode',
       duration: '3 Months',
       description:
-        'Doctor code is free fFullstack bootcamp to learn in 2023, learning Mern , HTML & CSS Javascript, typescript react and many more... ',
+        'Doctor code is Getting a Fullstack course soon follow me at https://www.youtube.com/@doctorcode',
     },
   ],
   value: 0,
@@ -265,9 +265,10 @@ export const resumeSlice = createSlice({
         state.education.push({
           id: nanoid(),
           icon: '',
-          name: 'Google GPC Academy.',
+          name: 'Youtube @DoctorCode',
           duration: '3 Years',
-          description: 'B.Sc. in computer science, computer engineering.',
+          description:
+            'Doctor code is Getting a Fullstack course soon follow me at https://www.youtube.com/@doctorcode',
         })
       }
     },
@@ -304,12 +305,12 @@ export const resumeSlice = createSlice({
       } else {
         state.projects.push({
           id: nanoid(),
-          name: 'demo',
+          name: 'Coolio',
           image: getRandomImage(),
           info:
             'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
-          codeLink: '',
-          demoLink: '',
+          codeLink: '#',
+          demoLink: '#',
         })
       }
     },

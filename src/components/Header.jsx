@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
+import { InnerContentPadding } from './shared/ContentSection'
 
 const HeaderSection = () => {
   const { display, summary, fullName, phone, email, title } = useSelector(
@@ -42,6 +43,7 @@ const HeaderSection = () => {
       <HeaderSectionContainer isNarrow={display.narrowHeader}>
         {headerType}
       </HeaderSectionContainer>
+
       {display.summary && <Summery>{summary || ''}</Summery>}
     </>
   )

@@ -2,18 +2,20 @@ import React from 'react'
 import styled from 'styled-components'
 import { Title } from './Stack.jsx'
 import { useSelector } from 'react-redux'
-
 import DEMO_WORK_ICON from '../assets/work.webp'
+import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
 
 const ExperienceSection = () => {
   const { experience } = useSelector((state) => state.ResumeStore)
   return (
-    <ExperienceSectionContainer>
+    <ContentSection>
       <Title>Experience</Title>
-      {experience?.map((exp, idx) => {
-        return <JobItem key={idx} job={exp} />
-      })}
-    </ExperienceSectionContainer>
+      <InnerContentPadding>
+        {experience?.map((exp, idx) => {
+          return <JobItem key={idx} job={exp} />
+        })}
+      </InnerContentPadding>
+    </ContentSection>
   )
 }
 
@@ -45,7 +47,7 @@ export const DescriptionText = styled.div`
 export const JobImage = styled.div`
   aspect-ratio: 1;
   display: flex;
-  padding: 0 10px;
+  padding-right: 10px;
   img {
     width: 45px;
     height: 45px;
@@ -65,13 +67,9 @@ export const JobCard = styled.div`
 `
 export const JobTitle = styled.div`
   display: flex;
-  font-size: 1.25em;
+  font-size: 1em;
   color: var(--main);
   font-weight: bold;
-`
-const ExperienceSectionContainer = styled.section`
-  display: flex;
-  flex-direction: column;
 `
 
 export default ExperienceSection

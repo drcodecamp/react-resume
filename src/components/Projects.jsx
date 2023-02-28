@@ -1,17 +1,28 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 import { Title } from './Stack'
 import SRC from '../assets/bg1.webp'
 import SRC2 from '../assets/bg2.webp'
 import SRC3 from '../assets/bg3.webp'
 import { useSelector } from 'react-redux'
+import { ContentSection } from './shared/ContentSection.js'
 
 const ProjectsSection = () => {
   const { projects } = useSelector((state) => state.ResumeStore)
+  const projectListMode = useMemo(() => {
+    switch (projects.length) {
+      case 1:
+        return 'flex-start'
+      case 2:
+        return 'flex-start'
+      default:
+        return 'space-between'
+    }
+  }, [projects.length])
   return (
-    <ProjectsSectionContainer>
+    <ContentSection>
       <Title>Projects</Title>
-      <ProjectList>
+      <ProjectList size={projectListMode}>
         {projects.map((project) => {
           return (
             <ProjectItem key={project.id}>
@@ -26,14 +37,14 @@ const ProjectsSection = () => {
                     href={project.codeLink || '#'}
                     target="_blank"
                   >
-                    Code
+                    code
                   </ProjectSourceCode>
                   |
                   <ProjectDemoButton
                     href={project.demoLink || '#'}
                     target="_blank"
                   >
-                    Demo
+                    demo
                   </ProjectDemoButton>
                 </Actions>
               </CardA>
@@ -41,7 +52,7 @@ const ProjectsSection = () => {
           )
         })}
       </ProjectList>
-    </ProjectsSectionContainer>
+    </ContentSection>
   )
 }
 
@@ -63,11 +74,12 @@ const ProjectImage = styled.div`
 
 const ProjectList = styled.div`
   display: flex;
-  justify-content: stretch;
+  justify-content: ${({ mode }) => mode || 'stretch'};
+  padding-top: 1em;
 `
 
 export const Actions = styled.div`
-  padding-top: 0.2em;
+  padding-top: 0.5em;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -80,24 +92,24 @@ const ProjectItem = styled.div`
   background-color: var(--card-bg);
   max-height: 250px;
   width: 33%;
-  margin: 0.5em;
+  margin-right: 0.5em;
   border-radius: 25px;
   box-shadow: 0 4px 1em rgb(0 0 0 / 10%);
 `
 const ProjectName = styled.div`
-  font-size: 1.2em;
+  font-size: 20px;
   font-weight: bold;
   color: var(--main);
 `
 
 const ProjectInfo = styled.div`
   color: var(--subtitle);
-  font-size: 0.9em;
+  font-size: 1em;
   padding: 0.2em 0;
   min-height: 50px;
 `
 const ProjectSourceCode = styled.a`
-  font-size: 1.1em;
+  font-size: 1em;
   color: var(--subtitle);
   cursor: pointer;
   text-decoration: none;
@@ -106,7 +118,7 @@ const ProjectSourceCode = styled.a`
 const ProjectDemoButton = styled.a`
   font-weight: bolder;
   color: var(--primary-color);
-  font-size: 1.25em;
+  font-size: 1em;
   cursor: pointer;
 `
 
@@ -118,12 +130,6 @@ const CardA = styled.div`
   height: 100%;
   width: 100%;
   padding: 0.5em;
-`
-
-const ProjectsSectionContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  padding-top: 0.5em;
 `
 
 export default ProjectsSection

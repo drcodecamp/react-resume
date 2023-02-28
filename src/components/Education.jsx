@@ -1,19 +1,21 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Title } from './Stack.jsx'
 import { useSelector } from 'react-redux'
 import DEMO_EDU_ICON from '../assets/education.webp'
 import { DescriptionText, JobCard, JobImage, JobTitle } from './Experience.jsx'
+import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
 
 const EducationSection = () => {
   const { education } = useSelector((state) => state.ResumeStore)
   return (
-    <EducationList>
+    <ContentSection>
       <Title>Education</Title>
-      {education.map((edu, idx) => {
-        return <EducationItem key={idx} edu={edu} />
-      })}
-    </EducationList>
+      <InnerContentPadding>
+        {education.map((edu, idx) => {
+          return <EducationItem key={idx} edu={edu} />
+        })}
+      </InnerContentPadding>
+    </ContentSection>
   )
 }
 
@@ -36,10 +38,5 @@ const EducationItem = ({ edu }) => {
     </JobCard>
   )
 }
-
-const EducationList = styled.section`
-  display: flex;
-  flex-direction: column;
-`
 
 export default EducationSection
