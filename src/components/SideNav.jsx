@@ -64,7 +64,7 @@ const SideNav = () => {
       )}
       {display.social.medium && (
         <SocialIconContainer>
-          <a href={socialUrls.medium || '#'} target="_blank">
+          <a href={'https://' + socialUrls.medium || '#'} target="_blank">
             <img src={MEDIUM_ICON} alt="medium" />
           </a>
         </SocialIconContainer>

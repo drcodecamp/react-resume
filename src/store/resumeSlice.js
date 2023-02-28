@@ -86,6 +86,7 @@ const initialState = {
     github: 'github.com/drcodecamp',
     youtube: 'www.youtube.com/@doctorcode',
     instagram: 'instagram.com/doctor_code_official/',
+    medium: 'medium.com/doctor_code_official/',
   },
   experience: [
     {
@@ -311,7 +312,8 @@ export const resumeSlice = createSlice({
           id: nanoid(),
           name: 'Coolio',
           image: getRandomImage(),
-          info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+          info:
+            'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
           codeLink: '#',
           demoLink: '#',
         })

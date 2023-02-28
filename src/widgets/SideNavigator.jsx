@@ -135,6 +135,8 @@ const SideNavWidgetWidget = () => {
             onClick={() => dispatch(toggleSocial('medium'))}
           />
           <Input
+            allowClear
+            addonBefore="https://"
             onChange={({ target }) => {
               dispatch(setMediumURL(target.value))
             }}
