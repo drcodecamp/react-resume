@@ -78,7 +78,7 @@ const initialState = {
     },
   ],
   stack:
-    'javascript, typescript, react.js, angular, vue.js, node.js,express, mongoDB, micro-services,html,css,sass, bootstrap ',
+    'javascript,typescript,react.js,angular,vue.js,node.js,express,mongoDB,micro-services,html,css,sass, bootstrap ',
   socialUrls: {
     facebook: 'https://www.facebook.com/doctorcodecamp',
     linkedin: 'https://www.linkedin.com/in/doctorcodecamp/',

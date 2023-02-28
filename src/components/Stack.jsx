@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
 
+const initialSelectedSkills = ['javascript', 'react.js', 'node.js']
+
 const StackSection = () => {
   const resume = useSelector((state) => state.ResumeStore)
   const [skills, setSkills] = useState([])
@@ -13,7 +15,7 @@ const StackSection = () => {
     skills.forEach((skill, i) => {
       skillsArray[i] = {
         name: skill,
-        isActivated: false,
+        isActivated: initialSelectedSkills.includes(skill),
       }
     })
     setSkills(skillsArray)
