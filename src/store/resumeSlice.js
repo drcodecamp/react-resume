@@ -113,7 +113,7 @@ const initialState = {
       name: 'Youtube @DoctorCode',
       duration: '3 Months',
       description:
-        'Doctor code is Getting a Fullstack course soon follow me at https://www.youtube.com/@doctorcode',
+        'Doctor code a Fullstack free online course, follow me at https://www.youtube.com/@doctorcode',
     },
   ],
   value: 0,
@@ -268,7 +268,7 @@ export const resumeSlice = createSlice({
           name: 'Youtube @DoctorCode',
           duration: '3 Years',
           description:
-            'Doctor code is Getting a Fullstack course soon follow me at https://www.youtube.com/@doctorcode',
+            'Doctor code a Fullstack free online course, follow me at https://www.youtube.com/@doctorcode',
         })
       }
     },

@@ -7,6 +7,7 @@ import {
   setInstagramURL,
   setLinkedinURL,
   setYoutubeURL,
+  toggleNarrowHeader,
   toggleSideNav,
   toggleSocial,
 } from '../store/resumeSlice.js'
@@ -16,14 +17,17 @@ import { useDispatch, useSelector } from 'react-redux'
 const SideNavWidgetWidget = () => {
   const dispatch = useDispatch()
   const { display, socialUrls } = useSelector((state) => state.ResumeStore)
+  const handleToggleSideNav = () => {
+    if (!display.narrowHeader) {
+      dispatch(toggleNarrowHeader())
+    }
+    dispatch(toggleSideNav())
+  }
   return (
     <Container>
       <CustomRow>
         Enable navigator section
-        <Switch
-          checked={display.sideNav}
-          onClick={() => dispatch(toggleSideNav())}
-        />
+        <Switch checked={display.sideNav} onClick={handleToggleSideNav} />
       </CustomRow>
       <CustomRow>
         <CustomRow>
