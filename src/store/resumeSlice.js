@@ -53,8 +53,7 @@ const initialState = {
       id: nanoid(),
       image: SRC,
       name: 'Coolio',
-      info:
-        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
+      info: 'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
@@ -62,8 +61,7 @@ const initialState = {
       id: nanoid(),
       image: SRC2,
       name: 'Coolio',
-      info:
-        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
+      info: 'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
@@ -71,14 +69,26 @@ const initialState = {
       id: nanoid(),
       image: SRC3,
       name: 'Coolio',
-      info:
-        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
+      info: 'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'https://doctorcode.org/',
       demoLink: 'https://doctorcode.org/',
     },
   ],
-  stack:
-    'javascript,typescript,react.js,angular,vue.js,node.js,express,mongoDB,micro-services,html,css,sass, bootstrap ',
+  stack: [
+    { id: nanoid(), name: 'javascript', isActivated: true },
+    { id: nanoid(), name: 'typescript', isActivated: false },
+    { id: nanoid(), name: 'react.js', isActivated: true },
+    { id: nanoid(), name: 'angular', isActivated: false },
+    { id: nanoid(), name: 'vue.js', isActivated: false },
+    { id: nanoid(), name: 'node.js', isActivated: true },
+    { id: nanoid(), name: 'express', isActivated: false },
+    { id: nanoid(), name: 'mongoDB', isActivated: false },
+    { id: nanoid(), name: 'micro-services', isActivated: false },
+    { id: nanoid(), name: 'html', isActivated: false },
+    { id: nanoid(), name: 'css', isActivated: false },
+    { id: nanoid(), name: 'sass', isActivated: false },
+    { id: nanoid(), name: 'bootstrap', isActivated: false },
+  ],
   socialUrls: {
     facebook: 'https://www.facebook.com/doctorcodecamp',
     linkedin: 'https://www.linkedin.com/in/doctorcodecamp/',
@@ -125,7 +135,18 @@ export const resumeSlice = createSlice({
   reducers: {
     setSkills: (state, action) => {
       if (action.payload.length > 160) return state
-      state.stack = action.payload
+      state.stack.push({
+        id: nanoid(),
+        name: action.payload,
+        isActivated: false,
+      })
+    },
+    toggleActivatedSkill: (state, action) => {
+      state.stack[action.payload].isActivated =
+        !state.stack[action.payload].isActivated
+    },
+    removeSkill: (state, action) => {
+      state.stack = state.stack.filter((skill) => skill.id !== action.payload)
     },
     setFacebookURL: (state, action) => {
       state.socialUrls.facebook = action.payload
@@ -201,9 +222,8 @@ export const resumeSlice = createSlice({
       state.display.oneLineProjects = !state.display.oneLineProjects
     },
     toggleSocial: (state, action) => {
-      state.display.social[action.payload] = !state.display.social[
-        action.payload
-      ]
+      state.display.social[action.payload] =
+        !state.display.social[action.payload]
     },
     setSummary: (state, action) => {
       if (action.payload.length > 160) return state
@@ -307,8 +327,7 @@ export const resumeSlice = createSlice({
           id: nanoid(),
           name: 'Coolio',
           image: getRandomImage(),
-          info:
-            'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+          info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
           codeLink: '#',
           demoLink: '#',
         })
@@ -326,7 +345,6 @@ export const {
   toggleStack,
   setFacebookURL,
   setLinkedinURL,
-  setSkills,
   setGitHubURL,
   setYoutubeURL,
   setInstagramURL,
@@ -363,6 +381,9 @@ export const {
   setEducationName,
   setEducationDuration,
   setEducationDesc,
+  setSkills,
+  toggleActivatedSkill,
+  removeSkill,
 } = resumeSlice.actions
 
 export default resumeSlice.reducer

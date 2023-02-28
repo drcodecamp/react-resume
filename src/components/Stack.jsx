@@ -1,45 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
-
-const initialSelectedSkills = ['javascript', 'react.js', 'node.js']
+import { toggleActivatedSkill } from '../store/resumeSlice.js'
 
 const StackSection = () => {
-  const resume = useSelector((state) => state.ResumeStore)
-  const [skills, setSkills] = useState([])
+  const { stack } = useSelector((state) => state.ResumeStore)
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-    const skills = resume.stack.split(',')
-    let skillsArray = []
-    skills.forEach((skill, i) => {
-      skillsArray[i] = {
-        name: skill,
-        isActivated: initialSelectedSkills.includes(skill),
-      }
-    })
-    setSkills(skillsArray)
-  }, [resume.stack])
-
-  const handleClick = (idx) => {
-    const skillsClone = [...skills]
-    skillsClone[idx] = {
-      ...skillsClone[idx],
-      isActivated: !skillsClone[idx].isActivated,
-    }
-    setSkills(skillsClone)
-  }
   return (
     <ContentSection>
       <Title>Stack</Title>
       <InnerContentPadding>
         <StackItems>
-          {skills &&
-            skills.map((skill, idx) => (
+          {stack &&
+            stack.map((skill, index) => (
               <Tag
-                onClick={() => handleClick(idx)}
+                onClick={() => dispatch(toggleActivatedSkill(index))}
                 isActive={skill.isActivated}
-                key={idx}
+                key={index}
               >
                 {skill.name}
               </Tag>
