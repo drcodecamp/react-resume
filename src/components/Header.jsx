@@ -11,12 +11,12 @@ const HeaderSection = () => {
       <UserName>{fullName || 'Doctor Code'}</UserName>
       <UserTitle>{title || 'Front End Developer'}</UserTitle>
       <Separator />
-      <EmailAddress href={`mailto:${email}`}>
-        {email || 'info@doctorcode.org'}
-      </EmailAddress>
       <PhoneNumber href="tel:+972556667794">
         {phone || '050-510-1952'}
       </PhoneNumber>
+      <EmailAddress href={`mailto:${email}`}>
+        {email || 'info@doctorcode.org'}
+      </EmailAddress>
       {display.summary && <Summery>{summary || ''}</Summery>}
     </HeaderSectionContainer>
   )
