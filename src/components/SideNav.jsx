@@ -8,7 +8,7 @@ import LINKEDIN_ICON from '../assets/linkedin.webp'
 import GITHUB_ICON from '../assets/github.webp'
 
 // todo add more options
-import MEDIUM_ICON from '../assets/github.webp'
+import MEDIUM_ICON from '../assets/medium.webp'
 
 import { useSelector } from 'react-redux'
 
@@ -59,6 +59,13 @@ const SideNav = () => {
         <SocialIconContainer>
           <a href={socialUrls.instagram || '#'} target="_blank">
             <img src={INSTAGRAM_ICON} alt="instagram" />
+          </a>
+        </SocialIconContainer>
+      )}
+      {display.social.medium && (
+        <SocialIconContainer>
+          <a href={socialUrls.medium || '#'} target="_blank">
+            <img src={MEDIUM_ICON} alt="medium" />
           </a>
         </SocialIconContainer>
       )}
