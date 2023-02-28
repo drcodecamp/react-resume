@@ -7,5 +7,5 @@ export const ContentSection = styled.section`
 `
 
 export const InnerContentPadding = styled.section`
-  padding: 0.5em;
+  padding: 0 0 1em 0;
 `

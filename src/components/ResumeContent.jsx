@@ -41,7 +41,7 @@ const ResumeContentContainer = styled.div`
   flex: 1;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 1em;
+  padding: 1.75em;
 `
 
 export default ResumeContent

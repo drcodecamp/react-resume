@@ -66,6 +66,7 @@ const Separator = styled.div`
 const UserName = styled.h1`
   all: unset;
   font-size: 2em;
+  padding-bottom: 0.15em;
   font-weight: bolder;
   color: var(--main);
 `
@@ -94,7 +95,7 @@ const PhoneNumber = styled.a`
 const UserTitle = styled.h2`
   all: unset;
   font-size: 1.5em;
-  font-weight: bolder;
+  font-weight: 400;
   color: var(--primary-color);
 `
 

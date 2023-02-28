@@ -41,7 +41,8 @@ const StackSection = () => {
                 isActive={skill.isActivated}
                 key={idx}
               >
-                {skill.name}
+                {skill.name[0].toUpperCase() +
+                  skill.name.slice(1, skill.name.length)}
               </Tag>
             ))}
         </StackItems>
@@ -63,15 +64,16 @@ const Tag = styled.span`
 
 const StackItems = styled.p`
   display: flex;
+  gap: 0.25em;
+  padding-top: 0.25em;
   flex-wrap: wrap;
 `
 
 export const Title = styled.p`
-  padding-top: 0.5em;
-  font-weight: bold;
+  padding: 0.5em 0;
+  font-weight: 700;
   color: var(--main);
   font-size: 1.25em;
-  text-decoration: underline;
 `
 
 const StackSectionContainer = styled.section`
