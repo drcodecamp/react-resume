@@ -48,35 +48,31 @@ const ProfileWidget = () => {
       </CustomRow>
       <CustomRow>
         <Input
-          value={fullName}
           onChange={({ target }) => dispatch(setFullName(target.value))}
-          placeholder="Enter your full name"
+          placeholder="Enter your full name eg. Doctor Code"
           prefix={<UserOutlined className="site-form-item-icon" />}
         />
       </CustomRow>
       <CustomRow>
         <Input
-          value={title}
           onChange={({ target }) => dispatch(setTitle(target.value))}
-          placeholder="Enter tour title"
+          placeholder="Enter your title eg. Frontend Developer"
           maxLength={38}
           prefix={<QqOutlined className="site-form-item-icon" />}
         />
       </CustomRow>
       <CustomRow>
         <Input
-          value={phone}
           onChange={({ target }) => dispatch(setPhone(target.value))}
-          placeholder="050-510-1952"
+          placeholder={`Enter your phone eg. ${phone}`}
           maxLength={38}
           prefix={<PhoneOutlined className="site-form-item-icon" />}
         />
       </CustomRow>
       <CustomRow>
         <Input
-          value={email}
           onChange={({ target }) => dispatch(setEmail(target.value))}
-          placeholder="info@doctorcode.org"
+          placeholder="Enter your email eg. info@doctorcode.org"
           prefix={<MailOutlined className="site-form-item-icon" />}
         />
       </CustomRow>

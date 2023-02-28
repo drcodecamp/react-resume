@@ -36,7 +36,7 @@ const HeaderSection = () => {
         </EmailAddress>{' '}
       </>
     )
-  }, [display])
+  }, [display, summary, fullName, phone, email, title])
 
   return (
     <>
