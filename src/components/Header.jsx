@@ -11,12 +11,12 @@ const HeaderSection = () => {
       <UserName>{fullName || 'Doctor Code'}</UserName>
       <UserTitle>{title || 'Front End Developer'}</UserTitle>
       <Separator />
-      <PhoneNumber href="tel:+972556667794">
-        {phone || '050-510-1952'}
-      </PhoneNumber>
       <EmailAddress href={`mailto:${email}`}>
         {email || 'info@doctorcode.org'}
       </EmailAddress>
+      <PhoneNumber href="tel:+972556667794">
+        {phone || '050-510-1952'}
+      </PhoneNumber>
       {display.summary && <Summery>{summary || ''}</Summery>}
     </HeaderSectionContainer>
   )
@@ -46,6 +46,7 @@ const Summery = styled.p`
 const EmailAddress = styled.a`
   font-size: 1.25em;
   color: var(--subtitle);
+  color: var(--main);
   cursor: pointer;
   margin-top: 0.1em;
 `
@@ -66,6 +67,7 @@ const UserTitle = styled.h2`
 const HeaderSectionContainer = styled.section`
   display: flex;
   flex-direction: column;
+  justify-content:space-between
 `
 
 export default HeaderSection

@@ -38,6 +38,7 @@ const initialState = {
       github: false,
       youtube: false,
       instagram: false,
+      medium: false,
     },
   },
   themeColor: '#0008ff',
@@ -81,6 +82,7 @@ const initialState = {
     github: 'https://github.com/drcodecamp',
     youtube: 'https://www.youtube.com/@doctorcode',
     instagram: 'https://www.instagram.com/doctor_code_official/',
+    medium: 'https://www.medium.com/doctor_code_official/',
   },
   experience: [
     {
@@ -137,6 +139,9 @@ export const resumeSlice = createSlice({
     },
     setInstagramURL: (state, action) => {
       state.socialUrls.instagram = action.payload
+    },
+    setMediumURL: (state, action) => {
+      state.socialUrls.medium = action.payload
     },
     setProjectName: (state, action) => {
       const idx = state.projects.findIndex((i) => i.id === action.payload.id)
@@ -320,6 +325,7 @@ export const {
   setGitHubURL,
   setYoutubeURL,
   setInstagramURL,
+  setMediumURL,
   toggleExperience,
   setProjectDemoLink,
   setProjectGitLink,
