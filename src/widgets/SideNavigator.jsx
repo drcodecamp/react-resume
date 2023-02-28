@@ -38,6 +38,7 @@ const SideNavWidgetWidget = () => {
             onClick={() => dispatch(toggleSocial('facebook'))}
           />
           <Input
+            addonBefore="https://"
             onChange={({ target }) => {
               dispatch(setFacebookURL(target.value))
             }}
@@ -55,6 +56,7 @@ const SideNavWidgetWidget = () => {
             onClick={() => dispatch(toggleSocial('link'))}
           />
           <Input
+            addonBefore="https://"
             onChange={({ target }) => {
               dispatch(setLinkedinURL(target.value))
             }}
@@ -72,6 +74,7 @@ const SideNavWidgetWidget = () => {
             onClick={() => dispatch(toggleSocial('github'))}
           />
           <Input
+            addonBefore="https://"
             onChange={({ target }) => {
               dispatch(setGitHubURL(target.value))
             }}
@@ -89,6 +92,7 @@ const SideNavWidgetWidget = () => {
             onClick={() => dispatch(toggleSocial('youtube'))}
           />
           <Input
+            addonBefore="https://"
             onChange={({ target }) => {
               dispatch(setYoutubeURL(target.value))
             }}
@@ -106,6 +110,8 @@ const SideNavWidgetWidget = () => {
             onClick={() => dispatch(toggleSocial('instagram'))}
           />
           <Input
+            allowClear
+            addonBefore="https://"
             onChange={({ target }) => {
               dispatch(setInstagramURL(target.value))
             }}
