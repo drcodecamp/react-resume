@@ -64,7 +64,6 @@ const Tag = styled.span`
 const StackItems = styled.p`
   display: flex;
   flex-wrap: wrap;
-  padding-top: 1em;
 `
 
 export const Title = styled.p`
