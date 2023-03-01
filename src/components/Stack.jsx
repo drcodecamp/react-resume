@@ -18,7 +18,7 @@ const StackSection = () => {
               <Tag
                 onClick={() => dispatch(toggleActivatedSkill(index))}
                 isActive={skill.isActivated}
-                key={index}
+                key={skill.id}
               >
                 {skill.name}
               </Tag>

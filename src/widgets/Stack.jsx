@@ -55,7 +55,7 @@ const StackWidget = () => {
             stack.map((skill) => (
               <Tag
                 key={skill.id}
-                closable={true}
+                closable
                 onClose={() => {
                   dispatch(removeSkill(skill.id))
                 }}
