@@ -96,8 +96,8 @@ const initialState = {
       name: 'Apple inc',
       industry: '| Wearable Devices',
       date: 'Aug 2018 - Preset ',
-      //
-      informationLi: []
+      informationLi: [],
+      information: '',
 
 
     },
