@@ -54,36 +54,39 @@ const initialState = {
       id: nanoid(),
       image: SRC,
       name: 'Coolio',
-      info: 'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
-      codeLink: 'https://doctorcode.org/',
-      demoLink: 'https://doctorcode.org/',
+      info:
+        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
+      codeLink: 'doctorcode.org/',
+      demoLink: 'doctorcode.org/',
     },
     {
       id: nanoid(),
       image: SRC2,
       name: 'Coolio',
-      info: 'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
-      codeLink: 'https://doctorcode.org/',
-      demoLink: 'https://doctorcode.org/',
+      info:
+        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
+      codeLink: 'doctorcode.org/',
+      demoLink: 'doctorcode.org/',
     },
     {
       id: nanoid(),
       image: SRC3,
       name: 'Coolio',
-      info: 'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
-      codeLink: 'https://doctorcode.org/',
-      demoLink: 'https://doctorcode.org/',
+      info:
+        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
+      codeLink: 'doctorcode.org/',
+      demoLink: 'doctorcode.org/',
     },
   ],
   stack:
     'javascript,typescript,react.js,angular,vue.js,node.js,express,mongoDB,micro-services,html,css,sass, bootstrap ',
   socialUrls: {
-    facebook: 'https://www.facebook.com/doctorcodecamp',
-    linkedin: 'https://www.linkedin.com/in/doctorcodecamp/',
-    github: 'https://github.com/drcodecamp',
-    youtube: 'https://www.youtube.com/@doctorcode',
-    instagram: 'https://www.instagram.com/doctor_code_official/',
-    medium: 'https://www.medium.com/doctor_code_official/',
+    facebook: 'facebook.com/doctorcodecamp',
+    linkedin: 'linkedin.com/in/doctorcodecamp/',
+    github: 'github.com/drcodecamp',
+    youtube: 'www.youtube.com/@doctorcode',
+    instagram: 'instagram.com/doctor_code_official/',
+    medium: 'medium.com/doctor_code_official/',
   },
   experience: [
     {
@@ -203,8 +206,9 @@ export const resumeSlice = createSlice({
       state.display.oneLineProjects = !state.display.oneLineProjects
     },
     toggleSocial: (state, action) => {
-      state.display.social[action.payload] =
-        !state.display.social[action.payload]
+      state.display.social[action.payload] = !state.display.social[
+        action.payload
+      ]
     },
     setSummary: (state, action) => {
       if (action.payload.length > 160) return state
@@ -269,7 +273,7 @@ export const resumeSlice = createSlice({
           name: 'Youtube @DoctorCode',
           duration: '3 Years',
           description:
-            'Doctor code a Fullstack free online course, follow me at https://www.youtube.com/@doctorcode',
+            'Doctor code a Fullstack free online course, follow me at www.youtube.com/@doctorcode',
         })
       }
     },
@@ -308,7 +312,8 @@ export const resumeSlice = createSlice({
           id: nanoid(),
           name: 'Coolio',
           image: getRandomImage(),
-          info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+          info:
+            'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
           codeLink: '#',
           demoLink: '#',
         })
