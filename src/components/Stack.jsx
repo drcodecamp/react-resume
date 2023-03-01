@@ -15,11 +15,7 @@ const StackSection = () => {
         <StackItems>
           {stack &&
             stack.map((skill, index) => (
-              <Tag
-                onClick={() => dispatch(toggleActivatedSkill(index))}
-                isActive={skill.isActivated}
-                key={skill.id}
-              >
+              <Tag isActive={skill.isActivated} key={skill.id}>
                 {skill.name}
               </Tag>
             ))}
@@ -35,7 +31,6 @@ const Tag = styled.span`
     isActive ? 'var(--primary-color)' : 'var(--subtitle)'};
   font-weight: ${({ isActive }) => (isActive ? 'bolder' : 'regular')};
   text-align: center;
-  cursor: pointer;
   padding-right: 0.75em;
   padding-bottom: 0.35em;
 `

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Input, Switch } from 'antd'
 import {
@@ -11,6 +11,7 @@ import {
   toggleSummary,
 } from '../store/resumeSlice.js'
 import {
+  InsertRowAboveOutlined,
   MailOutlined,
   PhoneOutlined,
   QqOutlined,
@@ -19,25 +20,50 @@ import {
 } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import CustomRow from '../components/shared/CustomRow.jsx'
+import { Segmented } from 'antd'
+import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons'
 
 const ProfileWidget = () => {
   const dispatch = useDispatch()
-  const { summary, fullName, title, phone, email, display } = useSelector(
-    (state) => state.ResumeStore
-  )
+  const { summary, display } = useSelector((state) => state.ResumeStore)
+  const [options, setOptions] = useState([
+    {
+      label: 'Vertical',
+      value: 'Vertical',
+      icon: <BarsOutlined />,
+    },
+    {
+      label: 'Horizontal',
+      value: 'Horizontal',
+      icon: <InsertRowAboveOutlined />,
+    },
+  ])
+
+  const handleToggleNarrowHeader = (e) => {
+    if (display.sideNav) return
+    dispatch(toggleNarrowHeader())
+  }
+
   return (
     <Container>
       <CustomRow>
-        <p>Row / Column Header</p>
-        <Switch
-          checked={display.narrowHeader}
-          onChange={() => dispatch(toggleNarrowHeader())}
+        <p>
+          Toggle vertical header
+          <span style={{ fontWeight: 'bolder', paddingLeft: 5 }}>
+            (disabled when side navigator is open!)
+          </span>
+        </p>
+        <Segmented
+          disabled={display.sideNav}
+          value={display.narrowHeader ? 'Vertical' : 'Horizontal'}
+          onChange={(e) => handleToggleNarrowHeader(e)}
+          options={options}
         />
       </CustomRow>
       <CustomRow>
         <p>
           Display Summary
-          <span style={{ fontWeight: 'bolder', fontSize: 15 }}>
+          <span style={{ fontWeight: 'bolder', paddingLeft: 5 }}>
             (not recommended!)
           </span>
         </p>
@@ -49,14 +75,14 @@ const ProfileWidget = () => {
       <CustomRow>
         <Input
           onChange={({ target }) => dispatch(setFullName(target.value))}
-          placeholder="Enter your full name eg. Doctor Code"
+          placeholder="Doctor Code"
           prefix={<UserOutlined className="site-form-item-icon" />}
         />
       </CustomRow>
       <CustomRow>
         <Input
           onChange={({ target }) => dispatch(setTitle(target.value))}
-          placeholder="Enter your title eg. Frontend Developer"
+          placeholder="Frontend Developer"
           maxLength={38}
           prefix={<QqOutlined className="site-form-item-icon" />}
         />
@@ -64,7 +90,7 @@ const ProfileWidget = () => {
       <CustomRow>
         <Input
           onChange={({ target }) => dispatch(setPhone(target.value))}
-          placeholder={`Enter your phone eg. ${phone}`}
+          placeholder="050-5101952"
           maxLength={38}
           prefix={<PhoneOutlined className="site-form-item-icon" />}
         />
@@ -72,16 +98,18 @@ const ProfileWidget = () => {
       <CustomRow>
         <Input
           onChange={({ target }) => dispatch(setEmail(target.value))}
-          placeholder="Enter your email eg. info@doctorcode.org"
+          placeholder="info@doctorcode.org"
           prefix={<MailOutlined className="site-form-item-icon" />}
         />
       </CustomRow>
       <CustomRow>
         <Input
+          maxLength={150}
+          showCount
           value={summary}
           disabled={!display.summary}
           onChange={({ target }) => dispatch(setSummary(target.value))}
-          placeholder="Do not write a story!"
+          placeholder="Keep it Short! no more than 1 line!"
           prefix={<SolutionOutlined className="site-form-item-icon" />}
         />
       </CustomRow>

@@ -74,7 +74,7 @@ export const ItemControllers = styled.div`
 `
 const ProjectList = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
 `

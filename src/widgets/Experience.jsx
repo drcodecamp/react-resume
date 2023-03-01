@@ -16,11 +16,9 @@ import ExperienceItemForm from '../components/ExperienceItemForm.jsx'
 const ExperienceWidget = () => {
   const dispatch = useDispatch()
   const { display, experience } = useSelector((state) => state.ResumeStore)
-
   const isDisabled = useMemo(() => {
     return !display.experience
   }, [display.experience])
-
   return (
     <Container>
       <CustomForm>
@@ -79,7 +77,7 @@ const ExperienceWidget = () => {
 const JobList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 `
 
 const Container = styled.div`

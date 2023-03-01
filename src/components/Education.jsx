@@ -25,7 +25,7 @@ const EducationItem = ({ edu }) => {
     <JobCard>
       {display.educationIcons && (
         <JobImage>
-          <img src={edu.icon || DEMO_EDU_ICON} alt="work" />
+          <img src={edu.icon} alt="work" />
         </JobImage>
       )}
       <div>

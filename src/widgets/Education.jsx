@@ -61,9 +61,11 @@ const EducationWidget = () => {
       <EducationList>
         {education.map((edu) => {
           return (
-            <div key={edu.id}>
-              <EducationItemForm educationItem={edu} isDisabled={isDisabled} />
-            </div>
+            <EducationItemForm
+              key={edu.id}
+              educationItem={edu}
+              isDisabled={isDisabled}
+            />
           )
         })}
       </EducationList>
@@ -74,7 +76,7 @@ const EducationWidget = () => {
 const EducationList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 `
 const Container = styled.div`
   display: flex;
