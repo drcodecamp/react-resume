@@ -78,6 +78,8 @@ const ProjectItemForm = ({ project }) => {
       </RowLabel>
       <RowLabel>
         <Input
+          addonBefore="https://"
+          status={project.codeLink.includes('http') ? 'error' : ''}
           disabled={isDisabled}
           value={project.codeLink || ''}
           onChange={({ target }) =>
@@ -94,6 +96,8 @@ const ProjectItemForm = ({ project }) => {
       </RowLabel>
       <RowLabel>
         <Input
+          status={project.demoLink.includes('http') ? 'error' : ''}
+          addonBefore="https://"
           disabled={isDisabled}
           value={project.demoLink || ''}
           onChange={({ target }) =>

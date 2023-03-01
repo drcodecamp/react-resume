@@ -8,7 +8,7 @@ import LINKEDIN_ICON from '../assets/linkedin.webp'
 import GITHUB_ICON from '../assets/github.webp'
 
 // todo add more options
-import MEDIUM_ICON from '../assets/github.webp'
+import MEDIUM_ICON from '../assets/medium.webp'
 
 import { useSelector } from 'react-redux'
 
@@ -29,36 +29,43 @@ const SideNav = () => {
       </ProfileContainer>
       {display.social.facebook && (
         <SocialIconContainer>
-          <a href={socialUrls.facebook || '#'} target="_blank">
+          <a href={'https://' + socialUrls.facebook || '#'} target="_blank">
             <img src={FACEBOOK_ICON} alt="facebook" />
           </a>
         </SocialIconContainer>
       )}
       {display.social.link && (
         <SocialIconContainer>
-          <a href={socialUrls.linkedin || '#'} target="_blank">
+          <a href={'https://' + socialUrls.linkedin || '#'} target="_blank">
             <img src={LINKEDIN_ICON} alt="linkedin" />
           </a>
         </SocialIconContainer>
       )}
       {display.social.github && (
         <SocialIconContainer>
-          <a href={socialUrls.github || '#'} target="_blank">
+          <a href={'https://' + socialUrls.github || '#'} target="_blank">
             <img src={GITHUB_ICON} alt="github" />
           </a>
         </SocialIconContainer>
       )}
       {display.social.youtube && (
         <SocialIconContainer>
-          <a href={socialUrls.youtube || '#'} target="_blank">
+          <a href={'https://' + socialUrls.youtube || '#'} target="_blank">
             <img src={YOUTUBE_ICON} alt="youtube" />
           </a>
         </SocialIconContainer>
       )}
       {display.social.instagram && (
         <SocialIconContainer>
-          <a href={socialUrls.instagram || '#'} target="_blank">
+          <a href={'https://' + socialUrls.instagram || '#'} target="_blank">
             <img src={INSTAGRAM_ICON} alt="instagram" />
+          </a>
+        </SocialIconContainer>
+      )}
+      {display.social.medium && (
+        <SocialIconContainer>
+          <a href={'https://' + socialUrls.medium || '#'} target="_blank">
+            <img src={MEDIUM_ICON} alt="medium" />
           </a>
         </SocialIconContainer>
       )}

@@ -22,13 +22,13 @@ const ProjectsOneLine = () => {
                 </ProjectData>
                 <Actions>
                   <ProjectSourceCode
-                    href={project.codeLink || '#'}
+                    href={'https://' + project.codeLink || '#'}
                     target="_blank"
                   >
                     code
                   </ProjectSourceCode>
                   <ProjectDemoButton
-                    href={project.demoLink || '#'}
+                    href={'https://' + project.demoLink || '#'}
                     target="_blank"
                   >
                     demo

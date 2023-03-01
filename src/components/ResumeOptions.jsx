@@ -46,7 +46,7 @@ const ResumeOptions = () => {
             <Button onClick={handleRendererToggle}>Toggle PDF</Button>
           </CustomRow>
         </Form>
-        <Collapse bordered={false}>
+        <Collapse>
           <Panel header="Theme and Style" key="theme">
             <ThemeWidget />
           </Panel>

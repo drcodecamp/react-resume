@@ -6,6 +6,7 @@ import {
   setGitHubURL,
   setInstagramURL,
   setLinkedinURL,
+  setMediumURL,
   setYoutubeURL,
   toggleNarrowHeader,
   toggleSideNav,
@@ -38,11 +39,13 @@ const SideNavWidgetWidget = () => {
             onClick={() => dispatch(toggleSocial('facebook'))}
           />
           <Input
+            addonBefore="https://"
             onChange={({ target }) => {
               dispatch(setFacebookURL(target.value))
             }}
             value={socialUrls.facebook}
             disabled={!display.sideNav || !display.social.facebook}
+            status={socialUrls.facebook.includes('http') ? 'error' : ''}
           />
         </CustomRow>
       </CustomRow>
@@ -55,11 +58,13 @@ const SideNavWidgetWidget = () => {
             onClick={() => dispatch(toggleSocial('link'))}
           />
           <Input
+            addonBefore="https://"
             onChange={({ target }) => {
               dispatch(setLinkedinURL(target.value))
             }}
             value={socialUrls.linkedin}
             disabled={!display.sideNav || !display.social.link}
+            status={socialUrls.linkedin.includes('http') ? 'error' : ''}
           />
         </CustomRow>
       </CustomRow>
@@ -72,11 +77,13 @@ const SideNavWidgetWidget = () => {
             onClick={() => dispatch(toggleSocial('github'))}
           />
           <Input
+            addonBefore="https://"
             onChange={({ target }) => {
               dispatch(setGitHubURL(target.value))
             }}
             value={socialUrls.github}
             disabled={!display.sideNav || !display.social.github}
+            status={socialUrls.github.includes('http') ? 'error' : ''}
           />
         </CustomRow>
       </CustomRow>
@@ -89,11 +96,13 @@ const SideNavWidgetWidget = () => {
             onClick={() => dispatch(toggleSocial('youtube'))}
           />
           <Input
+            addonBefore="https://"
             onChange={({ target }) => {
               dispatch(setYoutubeURL(target.value))
             }}
             value={socialUrls.youtube}
             disabled={!display.sideNav || !display.social.youtube}
+            status={socialUrls.youtube.includes('http') ? 'error' : ''}
           />
         </CustomRow>
       </CustomRow>
@@ -106,11 +115,33 @@ const SideNavWidgetWidget = () => {
             onClick={() => dispatch(toggleSocial('instagram'))}
           />
           <Input
+            allowClear
+            addonBefore="https://"
             onChange={({ target }) => {
               dispatch(setInstagramURL(target.value))
             }}
             value={socialUrls.instagram}
             disabled={!display.sideNav || !display.social.instagram}
+            status={socialUrls.instagram.includes('http') ? 'error' : ''}
+          />
+        </CustomRow>
+      </CustomRow>
+      <CustomRow>
+        <CustomRow>
+          Medium
+          <Checkbox
+            disabled={!display.sideNav}
+            checked={display.social.medium}
+            onClick={() => dispatch(toggleSocial('medium'))}
+          />
+          <Input
+            allowClear
+            addonBefore="https://"
+            onChange={({ target }) => {
+              dispatch(setMediumURL(target.value))
+            }}
+            value={socialUrls.medium}
+            disabled={!display.sideNav || !display.social.medium}
           />
         </CustomRow>
       </CustomRow>
