@@ -118,7 +118,6 @@ const ProjectSourceCode = styled.a`
 
 const ProjectDemoButton = styled.a`
   font-weight: bold;
-  background-color: white;
   color: var(--primary-color);
   padding: 0.25rem 0.5rem;
   font-size: 1em;
