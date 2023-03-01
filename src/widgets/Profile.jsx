@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { Input, Switch } from 'antd'
 import {
+  forceNarrowHeader,
   setEmail,
   setFullName,
   setPhone,
@@ -22,11 +23,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import CustomRow from '../components/shared/CustomRow.jsx'
 import { Segmented } from 'antd'
 import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons'
+import { useEffect } from 'react'
 
 const ProfileWidget = () => {
   const dispatch = useDispatch()
-  const { summary, display } = useSelector((state) => state.ResumeStore)
-  const [options, setOptions] = useState([
+  const { summary, display, education, experience } = useSelector(
+    (state) => state.ResumeStore
+  )
+  const [options] = useState([
     {
       label: 'Vertical',
       value: 'Vertical',
@@ -39,7 +43,18 @@ const ProfileWidget = () => {
     },
   ])
 
-  const handleToggleNarrowHeader = (e) => {
+  const shouldForceNarrowHeader = useMemo(() => {
+    if (!display.education || !display.experience) return false
+    return education.length === 2 && experience.length === 2
+  }, [education, experience, display.education, display.experience])
+
+  useEffect(() => {
+    if (shouldForceNarrowHeader) {
+      dispatch(forceNarrowHeader())
+    }
+  }, [shouldForceNarrowHeader])
+
+  const handleToggleNarrowHeader = () => {
     if (display.sideNav) return
     dispatch(toggleNarrowHeader())
   }
@@ -54,7 +69,7 @@ const ProfileWidget = () => {
           </span>
         </p>
         <Segmented
-          disabled={display.sideNav}
+          disabled={display.sideNav || shouldForceNarrowHeader}
           value={display.narrowHeader ? 'Vertical' : 'Horizontal'}
           onChange={(e) => handleToggleNarrowHeader(e)}
           options={options}

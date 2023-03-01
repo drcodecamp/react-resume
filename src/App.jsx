@@ -5,7 +5,12 @@ import Controller from './components/ResumeOptions.jsx'
 import AppHeader from './components/AppHeader.jsx'
 import Renderer from './widgets/Renderer.jsx'
 import { useDispatch, useSelector } from 'react-redux'
-import { setThemeColor, toggleRenderer } from './store/resumeSlice.js'
+import {
+  forceNarrowHeader,
+  setThemeColor,
+  toggleNarrowHeader,
+  toggleRenderer,
+} from './store/resumeSlice.js'
 import './assets/Square-Regular.otf'
 import './index.css'
 
