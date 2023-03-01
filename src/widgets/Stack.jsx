@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { setSkills, toggleStack, removeSkill } from '../store/resumeSlice.js'
 import { useDispatch, useSelector } from 'react-redux'
-import { Input, Switch, Tag } from 'antd'
+import { Input, Switch, Tag, Button } from 'antd'
 import { useState } from 'react'
 import CustomRow from '../components/shared/CustomRow.jsx'
 
@@ -29,6 +29,24 @@ const StackWidget = () => {
         document!
       </CustomRow>
       <CustomRow>
+        <SkillForm>
+          <Input
+            style={{ width: '200px' }}
+            placeholder="Add skill"
+            value={userInput}
+            disabled={!display.stack}
+            onChange={({ target }) => setUserInput(target.value)}
+            onPressEnter={handleOnEnter}
+          />
+          <Button
+            onClick={handleOnEnter}
+            style={{ float: 'left', marginLeft: '20px' }}
+          >
+            Add
+          </Button>
+        </SkillForm>
+      </CustomRow>
+      <CustomRow>
         <StackItems>
           {stack &&
             stack.map((skill) => (
@@ -43,14 +61,6 @@ const StackWidget = () => {
               </Tag>
             ))}
         </StackItems>
-        <Input
-          placeholder="Add skill"
-          value={userInput}
-          disabled={!display.stack}
-          size="small"
-          onChange={({ target }) => setUserInput(target.value)}
-          onPressEnter={handleOnEnter}
-        />
       </CustomRow>
     </Container>
   )
@@ -64,6 +74,10 @@ const Container = styled.div`
 const StackItems = styled.p`
   display: flex;
   flex-wrap: wrap;
+`
+const SkillForm = styled.p`
+  width: 100%;
+  display: flex;
 `
 
 export default StackWidget
