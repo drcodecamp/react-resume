@@ -1,19 +1,25 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   setJobDate,
   setJobIconUrl,
   setJobIndustry,
   setJobInfo,
+  setJobInfoLi,
   setJobName,
 } from '../store/resumeSlice.js'
 import { FormContainer } from './ProjectItemForm.jsx'
-import { Input } from 'antd'
+import { Input, List } from 'antd'
 import ImageSelector from './ImageSelector.jsx'
 import { RowLabel } from './shared/RowLabel.jsx'
 
 const ExperienceItemForm = ({ expItem, isDisabled }) => {
   const dispatch = useDispatch()
+
+
+  const { display, experience } = useSelector((state) => state.ResumeStore)
+
+
 
   const handleImageSelection = (e) => {
     dispatch(
@@ -78,7 +84,7 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
         />
       </RowLabel>
       <RowLabel>
-        <Input.TextArea
+        {display.experienceInFreeText ? <Input.TextArea
           showCount
           maxLength={150}
           disabled={isDisabled}
@@ -93,7 +99,67 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
           }
           type="text"
           placeholder="Work information"
-        />
+        /> :
+          <RowLabel>
+            <RowLabel>
+              <Input
+                showCount
+                maxLength={90}
+                onChange={({ target }) =>
+                  dispatch(
+                    setJobInfoLi({
+                      id: expItem.id,
+                      value: target.value,
+                      name: 0,
+                    })
+                  )
+                } />
+            </RowLabel>
+            <RowLabel>
+              <Input
+                showCount
+                maxLength={90}
+                onChange={({ target }) =>
+                  dispatch(
+                    setJobInfoLi({
+                      id: expItem.id,
+                      value: target.value,
+                      name: 1,
+                    })
+                  )
+                } />
+            </RowLabel>
+            <RowLabel>
+              <Input
+                showCount
+                maxLength={90}
+                onChange={({ target }) =>
+                  dispatch(
+                    setJobInfoLi({
+                      id: expItem.id,
+                      value: target.value,
+                      name: 2,
+                    })
+                  )
+                } />
+            </RowLabel>
+            <RowLabel>
+              <Input
+                showCount
+                maxLength={90}
+                onChange={({ target }) =>
+                  dispatch(
+                    setJobInfoLi({
+                      id: expItem.id,
+                      value: target.value,
+                      name: 3,
+                    })
+                  )
+                } />
+            </RowLabel>
+          </RowLabel>
+        }
+
       </RowLabel>
     </FormContainer>
   )

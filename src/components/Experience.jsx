@@ -20,6 +20,12 @@ const ExperienceSection = () => {
 }
 
 const JobItem = ({ job }) => {
+
+  let inforamtionUpdate = []
+  inforamtionUpdate = job.informationLi?.filter(item => item !== '')
+
+
+
   const { display } = useSelector((state) => state.ResumeStore)
   return (
     <JobCard>
@@ -34,15 +40,29 @@ const JobItem = ({ job }) => {
           <JobIndustry>{job.industry}</JobIndustry>
         </JobTitle>
         <div>{job.date}</div>
-        <DescriptionText>{job.information}</DescriptionText>
+        {display.experienceInFreeText ? <DescriptionText>{job.information}
+        </DescriptionText>
+          :
+          <DescriptionLi>{inforamtionUpdate.map(item => {
+            return <li>{item}</li>
+          })}
+          </DescriptionLi>}
       </div>
     </JobCard>
   )
 }
+
+
 export const DescriptionText = styled.div`
   padding-top: 0.35em;
   word-break: break-word;
   color: var(--subtitle);
+`
+
+export const DescriptionLi = styled.ul`
+  padding-top: 0.35em;
+  word-break: break-word;
+  color: var(--main);
 `
 export const JobImage = styled.div`
   aspect-ratio: 1;

@@ -31,6 +31,7 @@ const initialState = {
     projects: true,
     oneLineProjects: false,
     experience: true,
+    experienceInFreeText: true,
     jobIcons: true,
     educationIcons: true,
     social: {
@@ -95,8 +96,10 @@ const initialState = {
       name: 'Apple inc',
       industry: '| Wearable Devices',
       date: 'Aug 2018 - Preset ',
-      information:
-        'Apple Inc (Apple) designs, manufactures, and markets smartphones, tablets personal computers (PCs).',
+      //
+      informationLi: []
+
+
     },
     {
       id: nanoid(),
@@ -104,8 +107,8 @@ const initialState = {
       name: 'CISCO inc',
       industry: '| Fintech',
       date: 'Aug 2015 - Aug 2018',
-      information:
-        'Cisco and sells networking hardware, software, telecommunications equipment and other high-technology services and products.',
+      informationLi: [],
+      information: '',
     },
   ],
   education: [
@@ -120,6 +123,8 @@ const initialState = {
   ],
   value: 0,
 }
+
+
 
 export const resumeSlice = createSlice({
   name: 'resumeSlice',
@@ -171,6 +176,10 @@ export const resumeSlice = createSlice({
       const idx = state.experience.findIndex((i) => i.id === action.payload.id)
       state.experience[idx].information = action.payload.value
     },
+    setJobInfoLi: (state, action) => {
+      const idx = state.experience.findIndex((i) => i.id === action.payload.id)
+      state.experience[idx].informationLi[action.payload.name] = action.payload.value
+    },
     setJobDate: (state, action) => {
       const idx = state.experience.findIndex((i) => i.id === action.payload.id)
       state.experience[idx].date = action.payload.value
@@ -189,6 +198,9 @@ export const resumeSlice = createSlice({
     },
     toggleExperience: (state) => {
       state.display.experience = !state.display.experience
+    },
+    toggleExperienceInFreeText: (state) => {
+      state.display.experienceInFreeText = !state.display.experienceInFreeText
     },
     toggleEducationIcons: (state) => {
       state.display.educationIcons = !state.display.educationIcons
@@ -324,6 +336,7 @@ export const resumeSlice = createSlice({
 
 export const {
   setJobInfo,
+  setJobInfoLi,
   setJobDate,
   setJobIndustry,
   setJobName,
@@ -337,6 +350,7 @@ export const {
   setInstagramURL,
   setMediumURL,
   toggleExperience,
+  toggleExperienceInFreeText,
   setProjectDemoLink,
   setProjectGitLink,
   setProjectImageUrl,
