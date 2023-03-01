@@ -34,14 +34,14 @@ const ProjectsSection = () => {
                 <ProjectInfo>{project.info}</ProjectInfo>
                 <Actions>
                   <ProjectSourceCode
-                    href={project.codeLink || '#'}
+                    href={'https://' + project.codeLink || '#'}
                     target="_blank"
                   >
                     code
                   </ProjectSourceCode>
                   |
                   <ProjectDemoButton
-                    href={project.demoLink || '#'}
+                    href={'https://' + project.codeLink || '#'}
                     target="_blank"
                   >
                     demo
