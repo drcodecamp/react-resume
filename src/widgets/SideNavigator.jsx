@@ -43,6 +43,7 @@ const SideNavWidgetWidget = () => {
             onChange={({ target }) => {
               dispatch(setFacebookURL(target.value))
             }}
+            placeholder="facebook.com/doctorcodecamp"
             value={socialUrls.facebook}
             disabled={!display.sideNav || !display.social.facebook}
             status={socialUrls.facebook.includes('http') ? 'error' : ''}
@@ -59,6 +60,7 @@ const SideNavWidgetWidget = () => {
           />
           <Input
             addonBefore="https://"
+            placeholder="linkedin.com/in/doctorcodecamp/"
             onChange={({ target }) => {
               dispatch(setLinkedinURL(target.value))
             }}
@@ -78,6 +80,7 @@ const SideNavWidgetWidget = () => {
           />
           <Input
             addonBefore="https://"
+            placeholder="github.com/drcodecamp"
             onChange={({ target }) => {
               dispatch(setGitHubURL(target.value))
             }}
@@ -100,6 +103,7 @@ const SideNavWidgetWidget = () => {
             onChange={({ target }) => {
               dispatch(setYoutubeURL(target.value))
             }}
+            placeholder="youtube.com/@doctorcode"
             value={socialUrls.youtube}
             disabled={!display.sideNav || !display.social.youtube}
             status={socialUrls.youtube.includes('http') ? 'error' : ''}
@@ -117,6 +121,7 @@ const SideNavWidgetWidget = () => {
           <Input
             allowClear
             addonBefore="https://"
+            placeholder="instagram.com/doctor_code_official/"
             onChange={({ target }) => {
               dispatch(setInstagramURL(target.value))
             }}
@@ -137,6 +142,7 @@ const SideNavWidgetWidget = () => {
           <Input
             allowClear
             addonBefore="https://"
+            placeholder="medium.com/doctor_code_official/"
             onChange={({ target }) => {
               dispatch(setMediumURL(target.value))
             }}

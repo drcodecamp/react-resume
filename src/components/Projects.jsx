@@ -61,7 +61,6 @@ const ProjectImage = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 15px;
-  background-color: goldenrod;
   width: 100%;
   overflow: hidden;
   img {
