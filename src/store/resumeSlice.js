@@ -97,7 +97,8 @@ const initialState = {
       industry: '| Wearable Devices',
       date: 'Aug 2018 - Preset ',
       informationLi: [],
-      information: '',
+      information:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
 
 
     },
@@ -108,7 +109,8 @@ const initialState = {
       industry: '| Fintech',
       date: 'Aug 2015 - Aug 2018',
       informationLi: [],
-      information: '',
+      information:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
   ],
   education: [
