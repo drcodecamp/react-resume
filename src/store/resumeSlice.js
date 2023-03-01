@@ -242,6 +242,9 @@ export const resumeSlice = createSlice({
       if (action.payload.length > 160) return state
       state.summary = action.payload
     },
+    forceNarrowHeader: (state) => {
+      state.display.narrowHeader = true
+    },
     toggleNarrowHeader: (state) => {
       state.display.narrowHeader = !state.display.narrowHeader
     },
@@ -382,6 +385,7 @@ export const {
   toggleRenderer,
   displayRenderer,
   toggleSummary,
+  forceNarrowHeader,
   toggleNarrowHeader,
   setSummary,
   toggleExpIcons,

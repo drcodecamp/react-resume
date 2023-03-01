@@ -41,7 +41,7 @@ const ProjectsSection = () => {
                   </ProjectSourceCode>
                   |
                   <ProjectDemoButton
-                    href={'https://' + project.demoLink || '#'}
+                    href={'https://' + project.codeLink || '#'}
                     target="_blank"
                   >
                     demo
@@ -65,7 +65,7 @@ const ProjectImage = styled.div`
   overflow: hidden;
   img {
     width: 125%;
-    height: 125px;
+    height: 110px;
     object-fit: cover;
     object-position: center;
   }
@@ -75,6 +75,7 @@ const ProjectList = styled.div`
   display: flex;
   justify-content: ${({ mode }) => mode || 'stretch'};
   padding-top: 1em;
+  gap: 1rem;
 `
 
 export const Actions = styled.div`
@@ -87,23 +88,24 @@ export const Actions = styled.div`
 const ProjectItem = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 1rem;
   background-color: var(--card-bg);
-  max-height: 250px;
+  max-height: 350px;
   width: 33%;
   margin-right: 0.5em;
   border-radius: 25px;
+
   box-shadow: 0 4px 1em rgb(0 0 0 / 10%);
 `
 const ProjectName = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   color: var(--main);
 `
 
 const ProjectInfo = styled.div`
   color: var(--subtitle);
-  font-size: 1em;
+  font-size: 0.875em;
   padding: 0.2em 0;
   min-height: 50px;
 `
@@ -115,9 +117,12 @@ const ProjectSourceCode = styled.a`
 `
 
 const ProjectDemoButton = styled.a`
-  font-weight: bolder;
+  font-weight: bold;
+  background-color: white;
   color: var(--primary-color);
+  padding: 0.25rem 0.5rem;
   font-size: 1em;
+  border-radius: 8px;
   cursor: pointer;
 `
 
@@ -126,9 +131,10 @@ const CardA = styled.div`
   flex-direction: column;
   justify-content: space-between;
   word-break: break-word;
+  gap: 0.5rem;
   height: 100%;
   width: 100%;
-  padding: 0.5em;
+  padding: 1em;
 `
 
 export default ProjectsSection
