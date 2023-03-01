@@ -99,8 +99,6 @@ const initialState = {
       informationLi: [],
       information:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
-
-
     },
     {
       id: nanoid(),
