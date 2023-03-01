@@ -12,9 +12,12 @@ const StackWidget = () => {
   const [userInput, setUserInput] = useState('')
 
   const handleOnEnter = () => {
-    userInput.length > 0 && dispatch(setSkills(userInput)), setUserInput('')
-    return
+    if (userInput.length) {
+      dispatch(setSkills(userInput))
+      setUserInput('')
+    }
   }
+
   return (
     <Container>
       <CustomRow>
