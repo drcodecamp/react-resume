@@ -4,6 +4,8 @@ import SRC from '../assets/bg1.webp'
 import SRC2 from '../assets/bg2.webp'
 import SRC3 from '../assets/bg3.webp'
 import { getRandomIntInclusive } from '../utils/getRandomNumber.js'
+import DEMO_WORK_ICON from '../assets/work.webp'
+import EDUCATION_ICON from '../assets/education.webp'
 
 const getRandomImage = () => {
   const randomIdx = getRandomIntInclusive(1, 3)
@@ -48,7 +50,7 @@ const initialState = {
   title: 'Frontend Developer',
   email: 'info@doctorcode.org',
   summary:
-    'please dont start telling us that you are so smart and u like to wake up every morning we really dont care about those things and no one reads it.',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam',
   projects: [
     {
       id: nanoid(),
@@ -75,44 +77,57 @@ const initialState = {
       demoLink: 'doctorcode.org/',
     },
   ],
-  stack:
-    'javascript,typescript,react.js,angular,vue.js,node.js,express,mongoDB,micro-services,html,css,sass, bootstrap ',
+  stack: [
+    { id: nanoid(), name: 'javascript', isActivated: true },
+    { id: nanoid(), name: 'typescript', isActivated: false },
+    { id: nanoid(), name: 'react.js', isActivated: true },
+    { id: nanoid(), name: 'angular', isActivated: false },
+    { id: nanoid(), name: 'vue.js', isActivated: false },
+    { id: nanoid(), name: 'node.js', isActivated: true },
+    { id: nanoid(), name: 'express', isActivated: false },
+    { id: nanoid(), name: 'mongoDB', isActivated: false },
+    { id: nanoid(), name: 'micro-services', isActivated: false },
+    { id: nanoid(), name: 'html', isActivated: false },
+    { id: nanoid(), name: 'css', isActivated: false },
+    { id: nanoid(), name: 'sass', isActivated: false },
+    { id: nanoid(), name: 'bootstrap', isActivated: false },
+  ],
   socialUrls: {
-    facebook: 'facebook.com/doctorcodecamp',
-    linkedin: 'linkedin.com/in/doctorcodecamp/',
-    github: 'github.com/drcodecamp',
-    youtube: 'www.youtube.com/@doctorcode',
-    instagram: 'instagram.com/doctor_code_official/',
-    medium: 'medium.com/doctor_code_official/',
+    facebook: '',
+    linkedin: '',
+    github: '',
+    youtube: '',
+    instagram: '',
+    medium: '',
   },
   experience: [
     {
       id: nanoid(),
-      icon: '',
-      name: 'Apple inc',
-      industry: '| Wearable Devices',
+      icon: DEMO_WORK_ICON,
+      name: 'Demo company',
+      industry: '| Crypto',
       date: 'Aug 2018 - Preset ',
       information:
-        'Apple Inc (Apple) designs, manufactures, and markets smartphones, tablets personal computers (PCs).',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
     {
       id: nanoid(),
-      icon: '',
-      name: 'CISCO inc',
+      icon: DEMO_WORK_ICON,
+      name: 'Demo company',
       industry: '| Fintech',
       date: 'Aug 2015 - Aug 2018',
       information:
-        'Cisco and sells networking hardware, software, telecommunications equipment and other high-technology services and products.',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
   ],
   education: [
     {
       id: nanoid(),
-      icon: '',
+      icon: EDUCATION_ICON,
       name: 'Youtube @DoctorCode',
       duration: '3 Months',
       description:
-        'Doctor code a Fullstack free online course, follow me at https://www.youtube.com/@doctorcode',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
   ],
   value: 0,
@@ -124,7 +139,20 @@ export const resumeSlice = createSlice({
   reducers: {
     setSkills: (state, action) => {
       if (action.payload.length > 160) return state
-      state.stack = action.payload
+      state.stack.push({
+        id: nanoid(),
+        name: action.payload,
+        isActivated: false,
+      })
+    },
+    toggleActivatedSkill: (state, action) => {
+      const skill = state.stack.find((skill) => skill.id === action.payload)
+      if (skill) {
+        skill.isActivated = !skill.isActivated
+      }
+    },
+    removeSkill: (state, action) => {
+      state.stack = state.stack.filter((skill) => skill.id !== action.payload)
     },
     setFacebookURL: (state, action) => {
       state.socialUrls.facebook = action.payload
@@ -210,6 +238,9 @@ export const resumeSlice = createSlice({
       if (action.payload.length > 160) return state
       state.summary = action.payload
     },
+    forceNarrowHeader: (state) => {
+      state.display.narrowHeader = true
+    },
     toggleNarrowHeader: (state) => {
       state.display.narrowHeader = !state.display.narrowHeader
     },
@@ -265,11 +296,11 @@ export const resumeSlice = createSlice({
       } else {
         state.education.push({
           id: nanoid(),
-          icon: '',
+          icon: EDUCATION_ICON,
           name: 'Youtube @DoctorCode',
           duration: '3 Years',
           description:
-            'Doctor code a Fullstack free online course, follow me at www.youtube.com/@doctorcode',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
         })
       }
     },
@@ -292,7 +323,7 @@ export const resumeSlice = createSlice({
         state.experience.push({
           id: nanoid(),
           icon: '',
-          name: 'Apple inc.',
+          name: 'Demo company',
           industry: 'Wearable Devices',
           time: 'Aug 2018 - Preset ',
           information:
@@ -326,7 +357,6 @@ export const {
   toggleStack,
   setFacebookURL,
   setLinkedinURL,
-  setSkills,
   setGitHubURL,
   setYoutubeURL,
   setInstagramURL,
@@ -350,6 +380,7 @@ export const {
   toggleRenderer,
   displayRenderer,
   toggleSummary,
+  forceNarrowHeader,
   toggleNarrowHeader,
   setSummary,
   toggleExpIcons,
@@ -364,6 +395,9 @@ export const {
   setEducationName,
   setEducationDuration,
   setEducationDesc,
+  setSkills,
+  toggleActivatedSkill,
+  removeSkill,
 } = resumeSlice.actions
 
 export default resumeSlice.reducer

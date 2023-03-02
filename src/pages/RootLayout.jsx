@@ -1,14 +1,20 @@
 import { Outlet } from 'react-router-dom'
+
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import GlobalStyle from '../constants/GlobalStyle.jsx'
-import AppHeader from '../components/AppHeader.jsx'
+import GlobalStyle from './constants/GlobalStyle.jsx'
+import AppHeader from './components/AppHeader.jsx'
 import { useDispatch } from 'react-redux'
-import { setThemeColor, toggleRenderer } from '../store/resumeSlice.js'
-import '../assets/Square-Regular.otf'
-import '../index.css'
+import {
+  forceNarrowHeader,
+  setThemeColor,
+  toggleNarrowHeader,
+  toggleRenderer,
+} from './store/resumeSlice.js'
+import './assets/Square-Regular.otf'
+import './index.css'
 
-function RootLayout() {
+const RootLayout = () => {
   const dispatch = useDispatch()
 
   const [windowDimensions, setWindowDimensions] = useState(
@@ -60,16 +66,15 @@ function RootLayout() {
 
   return (
     <>
+      <GlobalStyle />
       <AppHeader />
-      <main>
-        <GlobalStyle />
-        <Layout>
-          <Outlet />
-        </Layout>
-      </main>
+      <Layout>
+        <Outlet />
+      </Layout>
     </>
   )
 }
+
 const Layout = styled.div`
   display: flex;
   background-color: #1c1b1f;

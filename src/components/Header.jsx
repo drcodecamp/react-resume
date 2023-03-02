@@ -11,29 +11,25 @@ const HeaderSection = () => {
     return display.narrowHeader ? (
       <>
         <Column>
-          <UserName>{fullName || 'Doctor Code'}</UserName>
-          <UserTitle>{title || 'Front End Developer'}</UserTitle>
+          <Title>{fullName || 'Doctor Code'}</Title>
+          <SubTitle primary>{title || 'Front End Developer'}</SubTitle>
         </Column>
         <Column style={{ alignItems: 'end' }}>
-          <PhoneNumber href="tel:+972556667794">
-            {phone || '050-510-1952'}
-          </PhoneNumber>
-          <EmailAddress href={`mailto:${email}`}>
+          <Title href="tel:+972556667794">{phone || '050-510-1952'}</Title>
+          <SubTitle href={`mailto:${email}`}>
             {email || 'info@doctorcode.org'}
-          </EmailAddress>
+          </SubTitle>
         </Column>
       </>
     ) : (
       <>
-        <UserName>{fullName || 'Doctor Code'}</UserName>
-        <UserTitle>{title || 'Front End Developer'}</UserTitle>
+        <Title>{fullName || 'Doctor Code'}</Title>
+        <SubTitle primary>{title || 'Front End Developer'}</SubTitle>
         <Separator />
-        <PhoneNumber href="tel:+972556667794">
-          {phone || '050-510-1952'}
-        </PhoneNumber>
-        <EmailAddress href={`mailto:${email}`}>
+        <SubTitle href="tel:+972556667794">{phone || '050-510-1952'}</SubTitle>
+        <SubTitle href={`mailto:${email}`}>
           {email || 'info@doctorcode.org'}
-        </EmailAddress>{' '}
+        </SubTitle>
       </>
     )
   }, [display, summary, fullName, phone, email, title])
@@ -43,7 +39,6 @@ const HeaderSection = () => {
       <HeaderSectionContainer isNarrow={display.narrowHeader}>
         {headerType}
       </HeaderSectionContainer>
-
       {display.summary && <Summery>{summary || ''}</Summery>}
     </>
   )
@@ -64,7 +59,15 @@ const Separator = styled.div`
   margin: 0.5em 0;
 `
 
-const UserName = styled.h1`
+const SubTitle = styled.h2`
+  all: unset;
+  font-size: 1.5em;
+  font-weight: ${({ primary }) => (primary ? 'bold' : 'normal')};
+  color: ${({ primary }) =>
+    primary ? ' var(--primary-color)' : 'var(--subtitle)'};
+`
+
+const Title = styled.h1`
   all: unset;
   font-size: 2em;
   font-weight: bolder;

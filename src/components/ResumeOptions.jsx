@@ -12,6 +12,7 @@ import EducationWidget from '../widgets/Education'
 import CustomRow from './shared/CustomRow.jsx'
 import { useDispatch } from 'react-redux'
 import { toggleRenderer } from '../store/resumeSlice.js'
+import { message } from 'antd'
 
 const { Panel } = Collapse
 
@@ -24,12 +25,12 @@ const ResumeOptions = () => {
   const handleFullScreen = () => {
     if (!fullScreen) {
       document.body.requestFullscreen().then((r) => {
-        //
+        message.success('Enter full screen')
       })
       setFullScreen(true)
     } else {
       document.exitFullscreen().then((r) => {
-        //
+        message.warning('Exit full screen')
       })
       setFullScreen(false)
     }
@@ -46,7 +47,7 @@ const ResumeOptions = () => {
             <Button onClick={handleRendererToggle}>Toggle PDF</Button>
           </CustomRow>
         </Form>
-        <Collapse bordered={false}>
+        <Collapse>
           <Panel header="Theme and Style" key="theme">
             <ThemeWidget />
           </Panel>

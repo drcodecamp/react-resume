@@ -29,7 +29,6 @@ const EducationItemForm = ({ educationItem, isDisabled }) => {
       <RowLabel>
         <Input
           disabled={isDisabled}
-          value={educationItem.name}
           onInput={({ target }) =>
             dispatch(
               setEducationName({
@@ -45,7 +44,6 @@ const EducationItemForm = ({ educationItem, isDisabled }) => {
       <RowLabel>
         <Input
           disabled={isDisabled}
-          value={educationItem.duration}
           onInput={({ target }) =>
             dispatch(
               setEducationDuration({
@@ -63,7 +61,6 @@ const EducationItemForm = ({ educationItem, isDisabled }) => {
           showCount
           maxLength={150}
           disabled={isDisabled}
-          value={educationItem.description}
           onChange={({ target }) =>
             dispatch(
               setEducationDesc({

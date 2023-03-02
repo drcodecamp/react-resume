@@ -44,7 +44,6 @@ const ProjectItemForm = ({ project }) => {
       </RowLabel>
       <RowLabel>
         <Input
-          value={project.name || ''}
           onChange={({ target }) =>
             dispatch(
               setProjectName({
@@ -63,7 +62,6 @@ const ProjectItemForm = ({ project }) => {
           showCount
           maxLength={85}
           disabled={isDisabled}
-          value={project.info || ''}
           onChange={({ target }) =>
             dispatch(
               setProjectInfo({
@@ -81,7 +79,6 @@ const ProjectItemForm = ({ project }) => {
           addonBefore="https://"
           status={project.codeLink.includes('http') ? 'error' : ''}
           disabled={isDisabled}
-          value={project.codeLink || ''}
           onChange={({ target }) =>
             dispatch(
               setProjectGitLink({
@@ -99,7 +96,6 @@ const ProjectItemForm = ({ project }) => {
           status={project.demoLink.includes('http') ? 'error' : ''}
           addonBefore="https://"
           disabled={isDisabled}
-          value={project.demoLink || ''}
           onChange={({ target }) =>
             dispatch(
               setProjectDemoLink({
