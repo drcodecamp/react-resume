@@ -2,17 +2,17 @@ import { Outlet } from 'react-router-dom'
 
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import GlobalStyle from './constants/GlobalStyle.jsx'
-import AppHeader from './components/AppHeader.jsx'
+import GlobalStyle from '../constants/GlobalStyle.jsx'
+import AppHeader from '../components/AppHeader.jsx'
 import { useDispatch } from 'react-redux'
 import {
   forceNarrowHeader,
   setThemeColor,
   toggleNarrowHeader,
   toggleRenderer,
-} from './store/resumeSlice.js'
-import './assets/Square-Regular.otf'
-import './index.css'
+} from '../store/resumeSlice.js'
+import '../assets/Square-Regular.otf'
+import '../index.css'
 
 const RootLayout = () => {
   const dispatch = useDispatch()
