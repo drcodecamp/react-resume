@@ -41,7 +41,7 @@ const ProjectsSection = () => {
                   </ProjectSourceCode>
                   |
                   <ProjectDemoButton
-                    href={'https://' + project.codeLink || '#'}
+                    href={'https://' + project.demoLink || '#'}
                     target="_blank"
                   >
                     demo

@@ -36,7 +36,7 @@ const EducationWidget = () => {
           />
         </CustomRow>
         <CustomRow>
-          Number of Jobs (1-2)
+          Educations
           <ItemControllers>
             <Button
               onClick={() => dispatch(removeEducation())}
