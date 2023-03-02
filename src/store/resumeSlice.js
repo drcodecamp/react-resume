@@ -96,7 +96,7 @@ const initialState = {
       name: 'Apple inc',
       industry: '| Wearable Devices',
       date: 'Aug 2018 - Preset ',
-      informationLi: [],
+      informationList: [],
       information:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
@@ -106,7 +106,7 @@ const initialState = {
       name: 'CISCO inc',
       industry: '| Fintech',
       date: 'Aug 2015 - Aug 2018',
-      informationLi: [],
+      informationList: [],
       information:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
@@ -176,9 +176,9 @@ export const resumeSlice = createSlice({
       const idx = state.experience.findIndex((i) => i.id === action.payload.id)
       state.experience[idx].information = action.payload.value
     },
-    setJobInfoLi: (state, action) => {
+    setJobInfoList: (state, action) => {
       const idx = state.experience.findIndex((i) => i.id === action.payload.id)
-      state.experience[idx].informationLi[action.payload.name] = action.payload.value
+      state.experience[idx].informationList[action.payload.index] = action.payload.value
     },
     setJobDate: (state, action) => {
       const idx = state.experience.findIndex((i) => i.id === action.payload.id)
@@ -301,6 +301,10 @@ export const resumeSlice = createSlice({
       if (state.experience.length === 1) return state
       state.experience.pop()
     },
+    removeInfoList: (state, action) => {
+      const idx = state.experience.findIndex((i) => i.id === action.payload.id)
+      state.experience[idx].informationList.splice(action.payload.index, 1)
+    },
     addExp: (state) => {
       if (state.experience.length === 2) {
         return state
@@ -336,7 +340,7 @@ export const resumeSlice = createSlice({
 
 export const {
   setJobInfo,
-  setJobInfoLi,
+  setJobInfoList,
   setJobDate,
   setJobIndustry,
   setJobName,
@@ -379,6 +383,7 @@ export const {
   addProject,
   removeExp,
   addExp,
+  removeInfoList,
   setEducationIcon,
   setEducationName,
   setEducationDuration,

@@ -22,7 +22,7 @@ const ExperienceSection = () => {
 const JobItem = ({ job }) => {
 
   let inforamtionUpdate = []
-  inforamtionUpdate = job.informationLi?.filter(item => item !== '')
+  inforamtionUpdate = job.informationList?.filter(item => item !== '')
 
 
 
@@ -43,10 +43,10 @@ const JobItem = ({ job }) => {
         {display.experienceInFreeText ? <DescriptionText>{job.information}
         </DescriptionText>
           :
-          <DescriptionLi>{inforamtionUpdate.map(item => {
-            return <li>{item}</li>
+          <DescriptionList>{inforamtionUpdate.map((item, index) => {
+            return <li key={index}>{item}</li>
           })}
-          </DescriptionLi>}
+          </DescriptionList>}
       </div>
     </JobCard>
   )
@@ -59,8 +59,9 @@ export const DescriptionText = styled.div`
   color: var(--subtitle);
 `
 
-export const DescriptionLi = styled.ul`
-  padding-top: 0.35em;
+export const DescriptionList = styled.ul`
+  padding-top: 0.80em;
+  padding-left:25px;
   word-break: break-word;
   color: var(--main);
 `

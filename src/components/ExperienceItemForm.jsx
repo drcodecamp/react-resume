@@ -1,25 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  removeInfoList,
   setJobDate,
   setJobIconUrl,
   setJobIndustry,
   setJobInfo,
-  setJobInfoLi,
+  setJobInfoList,
   setJobName,
 } from '../store/resumeSlice.js'
 import { FormContainer } from './ProjectItemForm.jsx'
 import { Input, List } from 'antd'
 import ImageSelector from './ImageSelector.jsx'
-import { RowLabel } from './shared/RowLabel.jsx'
+import { RowLabel, RowLabel2 } from './shared/RowLabel.jsx'
 
 const ExperienceItemForm = ({ expItem, isDisabled }) => {
   const dispatch = useDispatch()
 
-
   const { display, experience } = useSelector((state) => state.ResumeStore)
 
+  const [inputs, setInputs] = useState([<input />]);
+  const [nextId, setNextId] = useState(1);
 
+  const handleAddInput = () => {
+    if (inputs.length < 4) {
+      setInputs([...inputs, { id: nextId }]);
+      setNextId(nextId + 1);
+    }
+  };
+
+  const handleRemoveInput = (id, index) => {
+    if (inputs.length > 1) {
+      const newInputs = inputs.filter((input) => input.id !== id);
+      setInputs(newInputs);
+      dispatch(
+        removeInfoList({
+          id: expItem.id,
+          index: index
+        })
+      )
+    }
+  };
 
   const handleImageSelection = (e) => {
     dispatch(
@@ -100,66 +121,31 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
           type="text"
           placeholder="Work information"
         /> :
-          <RowLabel>
-            <RowLabel>
-              <Input
-                showCount
-                maxLength={90}
-                onChange={({ target }) =>
-                  dispatch(
-                    setJobInfoLi({
-                      id: expItem.id,
-                      value: target.value,
-                      name: 0,
-                    })
-                  )
-                } />
-            </RowLabel>
-            <RowLabel>
-              <Input
-                showCount
-                maxLength={90}
-                onChange={({ target }) =>
-                  dispatch(
-                    setJobInfoLi({
-                      id: expItem.id,
-                      value: target.value,
-                      name: 1,
-                    })
-                  )
-                } />
-            </RowLabel>
-            <RowLabel>
-              <Input
-                showCount
-                maxLength={90}
-                onChange={({ target }) =>
-                  dispatch(
-                    setJobInfoLi({
-                      id: expItem.id,
-                      value: target.value,
-                      name: 2,
-                    })
-                  )
-                } />
-            </RowLabel>
-            <RowLabel>
-              <Input
-                showCount
-                maxLength={90}
-                onChange={({ target }) =>
-                  dispatch(
-                    setJobInfoLi({
-                      id: expItem.id,
-                      value: target.value,
-                      name: 3,
-                    })
-                  )
-                } />
-            </RowLabel>
-          </RowLabel>
+          <div>
+            {inputs.map((input, index) => (
+              <RowLabel2 key={input.id}>
+                <Input
+                  showCount
+                  maxLength={90}
+                  onChange={({ target }) =>
+                    dispatch(
+                      setJobInfoList({
+                        id: expItem.id,
+                        value: target.value,
+                        index: index
+                      })
+                    )
+                  }
+                  key={input.id}
+                  placeholder={`info ${index + 1}`}
+                />
+                <button onClick={handleAddInput}>+</button>
+                <button onClick={() => handleRemoveInput(input.id, index)}>-</button>
+              </RowLabel2>
+            ))
+            }
+          </div>
         }
-
       </RowLabel>
     </FormContainer>
   )
