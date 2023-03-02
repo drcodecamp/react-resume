@@ -38,7 +38,7 @@ const ExperienceWidget = () => {
           />
         </CustomRow>
         <CustomRow>
-          Number of Jobs (1-2)
+          Jobs (1-2)
           <ItemControllers>
             <Button
               onClick={() => dispatch(removeExp())}
