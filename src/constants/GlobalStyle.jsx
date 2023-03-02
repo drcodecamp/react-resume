@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
+
     :where(:not(html,iframe,canvas,img,svg,video):not(svg *,symbol *)) {
         all: unset;
         display: revert
@@ -111,6 +112,11 @@ const GlobalStyle = createGlobalStyle`
 
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
+    }
+
+
+    a {
+        cursor:pointer;
     }
 `
 export default GlobalStyle
