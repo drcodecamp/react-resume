@@ -15,7 +15,7 @@ import ExperienceItemForm from '../components/ExperienceItemForm.jsx'
 
 const ExperienceWidget = () => {
   const dispatch = useDispatch()
-  const { display, experience } = useSelector((state) => state.ResumeStore)
+  const { display, experience } = useSelector((state) => state.resume)
   const isDisabled = useMemo(() => {
     return !display.experience
   }, [display.experience])

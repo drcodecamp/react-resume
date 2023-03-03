@@ -28,7 +28,7 @@ import { useEffect } from 'react'
 const ProfileWidget = () => {
   const dispatch = useDispatch()
   const { summary, display, education, experience } = useSelector(
-    (state) => state.ResumeStore
+    (state) => state.resume
   )
   const [options] = useState([
     {

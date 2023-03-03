@@ -13,7 +13,7 @@ import ProjectItemForm from '../components/ProjectItemForm.jsx'
 
 const ProjectsWidget = () => {
   const dispatch = useDispatch()
-  const { display, projects } = useSelector((state) => state.ResumeStore)
+  const { display, projects } = useSelector((state) => state.resume)
   return (
     <Container>
       <CustomRow>

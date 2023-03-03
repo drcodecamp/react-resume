@@ -56,7 +56,8 @@ const initialState = {
       id: nanoid(),
       image: SRC,
       name: 'Coolio',
-      info: 'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
+      info:
+        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'doctorcode.org/',
       demoLink: 'doctorcode.org/',
     },
@@ -64,7 +65,8 @@ const initialState = {
       id: nanoid(),
       image: SRC2,
       name: 'Coolio',
-      info: 'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
+      info:
+        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'doctorcode.org/',
       demoLink: 'doctorcode.org/',
     },
@@ -72,7 +74,8 @@ const initialState = {
       id: nanoid(),
       image: SRC3,
       name: 'Coolio',
-      info: 'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
+      info:
+        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'doctorcode.org/',
       demoLink: 'doctorcode.org/',
     },
@@ -132,6 +135,11 @@ const initialState = {
   ],
   value: 0,
 }
+
+// implement templates to choose from as initial states
+const templateA = {}
+const templateB = {}
+const templateC = {}
 
 export const resumeSlice = createSlice({
   name: 'resumeSlice',
@@ -231,8 +239,9 @@ export const resumeSlice = createSlice({
       state.display.oneLineProjects = !state.display.oneLineProjects
     },
     toggleSocial: (state, action) => {
-      state.display.social[action.payload] =
-        !state.display.social[action.payload]
+      state.display.social[action.payload] = !state.display.social[
+        action.payload
+      ]
     },
     setSummary: (state, action) => {
       if (action.payload.length > 160) return state
@@ -339,7 +348,8 @@ export const resumeSlice = createSlice({
           id: nanoid(),
           name: 'Coolio',
           image: getRandomImage(),
-          info: 'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
+          info:
+            'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
           codeLink: '#',
           demoLink: '#',
         })

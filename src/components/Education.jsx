@@ -6,7 +6,7 @@ import { DescriptionText, JobCard, JobImage, JobTitle } from './Experience.jsx'
 import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
 
 const EducationSection = () => {
-  const { education } = useSelector((state) => state.ResumeStore)
+  const { education } = useSelector((state) => state.resume)
   return (
     <ContentSection>
       <Title>Education</Title>
@@ -20,7 +20,7 @@ const EducationSection = () => {
 }
 
 const EducationItem = ({ edu }) => {
-  const { display } = useSelector((state) => state.ResumeStore)
+  const { display } = useSelector((state) => state.resume)
   return (
     <JobCard>
       {display.educationIcons && (

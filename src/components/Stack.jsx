@@ -5,7 +5,7 @@ import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
 import { toggleActivatedSkill } from '../store/resumeSlice.js'
 
 const StackSection = () => {
-  const { stack } = useSelector((state) => state.ResumeStore)
+  const { stack } = useSelector((state) => state.resume)
   const dispatch = useDispatch()
 
   return (

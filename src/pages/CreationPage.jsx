@@ -3,7 +3,7 @@ import Renderer from '../widgets/Renderer.jsx'
 import { useSelector } from 'react-redux'
 
 const CreationPage = () => {
-  const { display } = useSelector((state) => state.ResumeStore)
+  const { display } = useSelector((state) => state.resume)
 
   return (
     <>

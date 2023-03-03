@@ -13,7 +13,7 @@ import CustomRow from '../components/shared/CustomRow.jsx'
 
 const StackWidget = () => {
   const dispatch = useDispatch()
-  const { display, stack } = useSelector((state) => state.ResumeStore)
+  const { display, stack } = useSelector((state) => state.resume)
   const [userInput, setUserInput] = useState('')
 
   const isAlreadyIncluded = useMemo(() => {

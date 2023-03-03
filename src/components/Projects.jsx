@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import { ContentSection } from './shared/ContentSection.js'
 
 const ProjectsSection = () => {
-  const { projects } = useSelector((state) => state.ResumeStore)
+  const { projects } = useSelector((state) => state.resume)
   const projectListMode = useMemo(() => {
     switch (projects.length) {
       case 1:

@@ -8,7 +8,7 @@ import { Switch } from 'antd'
 const ThemeWidget = () => {
   const dispatch = useDispatch()
   const [isDarkMode, setIsDarkMode] = useState(false)
-  const { themeColor } = useSelector((state) => state.ResumeStore)
+  const { themeColor } = useSelector((state) => state.resume)
   const handleColorChange = (e) => {
     let r = document.querySelector(':root')
     r.style.setProperty('--primary-color', e.target.value)

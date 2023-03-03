@@ -5,7 +5,7 @@ import { InnerContentPadding } from './shared/ContentSection'
 
 const HeaderSection = () => {
   const { display, summary, fullName, phone, email, title } = useSelector(
-    (state) => state.ResumeStore
+    (state) => state.resume
   )
   const headerType = useMemo(() => {
     return display.narrowHeader ? (
