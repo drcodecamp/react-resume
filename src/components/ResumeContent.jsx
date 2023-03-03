@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import ProjectsOneLine from './ProjectsOneLine'
 
 const ResumeContent = () => {
-  const { display } = useSelector((state) => state.ResumeStore)
+  const { display } = useSelector((state) => state.resume)
   return (
     <ResumeContentContainer>
       <HeaderSection />

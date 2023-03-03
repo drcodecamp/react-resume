@@ -8,7 +8,7 @@ const HomePage = () => {
     <Action>
       <Link to="cv">
         <ActionImage>
-          <img src={addCvImage}></img>
+          <img src={addCvImage} alt="resume creator icon"></img>
         </ActionImage>
         <p>צור חדש</p>
       </Link>

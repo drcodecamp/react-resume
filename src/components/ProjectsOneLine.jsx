@@ -5,7 +5,7 @@ import { Title } from './Stack'
 import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
 
 const ProjectsOneLine = () => {
-  const { projects } = useSelector((state) => state.ResumeStore)
+  const { projects } = useSelector((state) => state.resume)
   return (
     <ContentSection>
       <Title>Projects</Title>

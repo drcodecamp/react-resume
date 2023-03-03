@@ -6,7 +6,7 @@ import DEMO_WORK_ICON from '../assets/work.webp'
 import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
 
 const ExperienceSection = () => {
-  const { experience } = useSelector((state) => state.ResumeStore)
+  const { experience } = useSelector((state) => state.resume)
   return (
     <ContentSection>
       <Title>Experience</Title>
@@ -20,7 +20,7 @@ const ExperienceSection = () => {
 }
 
 const JobItem = ({ job }) => {
-  const { display } = useSelector((state) => state.ResumeStore)
+  const { display } = useSelector((state) => state.resume)
   return (
     <JobCard>
       {display.jobIcons && (

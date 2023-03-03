@@ -27,7 +27,7 @@ export const convertBase64 = (file) => {
 
 const ProjectItemForm = ({ project }) => {
   const dispatch = useDispatch()
-  const { display } = useSelector((state) => state.ResumeStore)
+  const { display } = useSelector((state) => state.resume)
   const isDisabled = !display.projects
   const handleImageSelection = (e) => {
     dispatch(

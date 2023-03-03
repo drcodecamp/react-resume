@@ -5,7 +5,7 @@ import ResumeContent from '../components/ResumeContent.jsx'
 import { useSelector } from 'react-redux'
 
 const Renderer = () => {
-  const { display } = useSelector((state) => state.ResumeStore)
+  const { display } = useSelector((state) => state.resume)
   return (
     <RendererContainer>
       <ResumeContainer>

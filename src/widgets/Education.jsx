@@ -15,7 +15,7 @@ import { ItemControllers } from './Projects.jsx'
 
 const EducationWidget = () => {
   const dispatch = useDispatch()
-  const { display, education } = useSelector((state) => state.ResumeStore)
+  const { display, education } = useSelector((state) => state.resume)
   const isDisabled = !display.education
   return (
     <Container>

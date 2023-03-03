@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const SideNavWidgetWidget = () => {
   const dispatch = useDispatch()
-  const { display, socialUrls } = useSelector((state) => state.ResumeStore)
+  const { display, socialUrls } = useSelector((state) => state.resume)
   const handleToggleSideNav = () => {
     if (!display.narrowHeader) {
       dispatch(toggleNarrowHeader())

@@ -13,9 +13,7 @@ import MEDIUM_ICON from '../assets/medium.webp'
 import { useSelector } from 'react-redux'
 
 const SideNav = () => {
-  const { fullName, display, socialUrls } = useSelector(
-    (state) => state.ResumeStore
-  )
+  const { fullName, display, socialUrls } = useSelector((state) => state.resume)
   const shortName = useMemo(() => {
     const names = fullName.split(' ')
     if (!names[0] || !names[1]) return 'dc'
