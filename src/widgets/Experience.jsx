@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   addExp,
   removeExp,
+  selectDisplaySettings,
+  selectResumeExp,
   toggleExperience,
   toggleExpIcons,
 } from '../store/resumeSlice.js'
@@ -15,7 +17,8 @@ import ExperienceItemForm from '../components/ExperienceItemForm.jsx'
 
 const ExperienceWidget = () => {
   const dispatch = useDispatch()
-  const { display, experience } = useSelector((state) => state.resume)
+  const display = useSelector(selectDisplaySettings)
+  const experience = useSelector(selectResumeExp)
   const isDisabled = useMemo(() => {
     return !display.experience
   }, [display.experience])

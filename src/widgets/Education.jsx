@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   addEducation,
   removeEducation,
+  selectDisplaySettings,
+  selectResumeEducation,
   toggleEducation,
   toggleEducationIcons,
 } from '../store/resumeSlice.js'
@@ -15,7 +17,8 @@ import { ItemControllers } from './Projects.jsx'
 
 const EducationWidget = () => {
   const dispatch = useDispatch()
-  const { display, education } = useSelector((state) => state.resume)
+  const education = useSelector(selectResumeEducation)
+  const display = useSelector(selectDisplaySettings)
   const isDisabled = !display.education
   return (
     <Container>
@@ -59,15 +62,14 @@ const EducationWidget = () => {
         </CustomRow>
       </CustomForm>
       <EducationList>
-        {education.map((edu) => {
-          return (
+        {education &&
+          education.map((edu) => (
             <EducationItemForm
               key={edu.id}
               educationItem={edu}
               isDisabled={isDisabled}
             />
-          )
-        })}
+          ))}
       </EducationList>
     </Container>
   )

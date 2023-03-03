@@ -2,12 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { Checkbox, Input, Switch } from 'antd'
 import {
-  setFacebookURL,
-  setGitHubURL,
-  setInstagramURL,
-  setLinkedinURL,
-  setMediumURL,
-  setYoutubeURL,
+  selectFullResume,
+  setSocialURL,
   toggleNarrowHeader,
   toggleSideNav,
   toggleSocial,
@@ -17,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const SideNavWidgetWidget = () => {
   const dispatch = useDispatch()
-  const { display, socialUrls } = useSelector((state) => state.resume)
+  const { display, socialUrls } = useSelector(selectFullResume)
   const handleToggleSideNav = () => {
     if (!display.narrowHeader) {
       dispatch(toggleNarrowHeader())
@@ -41,7 +37,12 @@ const SideNavWidgetWidget = () => {
           <Input
             addonBefore="https://"
             onChange={({ target }) => {
-              dispatch(setFacebookURL(target.value))
+              dispatch(
+                setSocialURL({
+                  id: 'facebook',
+                  value: target.value,
+                })
+              )
             }}
             placeholder="facebook.com/doctorcodecamp"
             value={socialUrls.facebook}
@@ -60,9 +61,14 @@ const SideNavWidgetWidget = () => {
           />
           <Input
             addonBefore="https://"
-            placeholder="linkedin.com/in/doctorcodecamp/"
+            placeholder="https://www.linkedin.com/in/doctorcodecamp/"
             onChange={({ target }) => {
-              dispatch(setLinkedinURL(target.value))
+              dispatch(
+                setSocialURL({
+                  id: 'linkedin',
+                  value: target.value,
+                })
+              )
             }}
             value={socialUrls.linkedin}
             disabled={!display.sideNav || !display.social.link}
@@ -82,7 +88,12 @@ const SideNavWidgetWidget = () => {
             addonBefore="https://"
             placeholder="github.com/drcodecamp"
             onChange={({ target }) => {
-              dispatch(setGitHubURL(target.value))
+              dispatch(
+                setSocialURL({
+                  id: 'github',
+                  value: target.value,
+                })
+              )
             }}
             value={socialUrls.github}
             disabled={!display.sideNav || !display.social.github}
@@ -101,7 +112,12 @@ const SideNavWidgetWidget = () => {
           <Input
             addonBefore="https://"
             onChange={({ target }) => {
-              dispatch(setYoutubeURL(target.value))
+              dispatch(
+                setSocialURL({
+                  id: 'youtube',
+                  value: target.value,
+                })
+              )
             }}
             placeholder="youtube.com/@doctorcode"
             value={socialUrls.youtube}
@@ -123,7 +139,12 @@ const SideNavWidgetWidget = () => {
             addonBefore="https://"
             placeholder="instagram.com/doctor_code_official/"
             onChange={({ target }) => {
-              dispatch(setInstagramURL(target.value))
+              dispatch(
+                setSocialURL({
+                  id: 'instagram',
+                  value: target.value,
+                })
+              )
             }}
             value={socialUrls.instagram}
             disabled={!display.sideNav || !display.social.instagram}
@@ -144,7 +165,12 @@ const SideNavWidgetWidget = () => {
             addonBefore="https://"
             placeholder="medium.com/doctor_code_official/"
             onChange={({ target }) => {
-              dispatch(setMediumURL(target.value))
+              dispatch(
+                setSocialURL({
+                  id: 'medium',
+                  value: target.value,
+                })
+              )
             }}
             value={socialUrls.medium}
             disabled={!display.sideNav || !display.social.medium}

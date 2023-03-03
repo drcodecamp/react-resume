@@ -40,15 +40,13 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
               })
             )
           }
-          value={expItem.name}
           type="text"
-          placeholder="Work Name"
+          placeholder="Job Name"
         />
       </RowLabel>
       <RowLabel>
         <Input
           disabled={isDisabled}
-          value={expItem.industry}
           onChange={({ target }) =>
             dispatch(
               setJobIndustry({
@@ -58,13 +56,12 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
             )
           }
           type="text"
-          placeholder="Work Industry"
+          placeholder="Job Industry"
         />
       </RowLabel>
       <RowLabel>
         <Input
           disabled={isDisabled}
-          value={expItem.date}
           onChange={({ target }) =>
             dispatch(
               setJobDate({
@@ -74,7 +71,7 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
             )
           }
           type="text"
-          placeholder="Work Dates"
+          placeholder="Job dates"
         />
       </RowLabel>
       <RowLabel>
@@ -82,7 +79,6 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
           showCount
           maxLength={150}
           disabled={isDisabled}
-          value={expItem.information}
           onChange={({ target }) =>
             dispatch(
               setJobInfo({
@@ -92,7 +88,7 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
             )
           }
           type="text"
-          placeholder="Work information"
+          placeholder="Job information"
         />
       </RowLabel>
     </FormContainer>
