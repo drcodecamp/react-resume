@@ -1,49 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { setThemeColor } from '../store/resumeSlice.js'
+import {
+  selectFullResume,
+  setThemeColor,
+  toggleDarkMode,
+} from '../store/resumeSlice.js'
 import CustomRow from '../components/shared/CustomRow.jsx'
 import { Switch } from 'antd'
+import { selectThemeColor } from '../store/resumeSlice.js'
 
 const ThemeWidget = () => {
   const dispatch = useDispatch()
-  const [isDarkMode, setIsDarkMode] = useState(false)
-  const { themeColor } = useSelector((state) => state.resume)
+  const resume = useSelector(selectFullResume)
+
   const handleColorChange = (e) => {
-    let r = document.querySelector(':root')
-    r.style.setProperty('--primary-color', e.target.value)
     dispatch(setThemeColor(e.target.value))
   }
-  const toggleDarkMode = () => {
-    const colorModeOverride = localStorage.getItem('color-mode')
-    let r = document.querySelector(':root')
-    if (colorModeOverride === 'dark') {
-      document.documentElement.setAttribute('data-force-color-mode', 'light')
-      localStorage.setItem('color-mode', 'light')
-      dispatch(setThemeColor('#1d1aff'))
-      r.style.setProperty('--primary-color', '#1d1aff')
-    } else {
-      document.documentElement.setAttribute('data-force-color-mode', 'dark')
-      localStorage.setItem('color-mode', 'dark')
-      dispatch(setThemeColor('#F65164'))
-      r.style.setProperty('--primary-color', '#F65164')
-    }
+
+  const handleDarkModeChange = () => {
+    dispatch(toggleDarkMode())
   }
-  useEffect(() => {
-    const colorModeOverride = localStorage.getItem('color-mode')
-    if (colorModeOverride === 'light') {
-      setIsDarkMode(false)
-    } else {
-      setIsDarkMode(true)
-    }
-  })
+
   return (
     <Container>
       <CustomRow>
         Select main color
         <ColorPicker
           type="color"
-          value={themeColor}
+          value={resume.themeColor}
           onInput={(e) => {
             handleColorChange(e)
           }}
@@ -51,7 +36,7 @@ const ThemeWidget = () => {
       </CustomRow>
       <CustomRow>
         Toggle light / Dark Mode (light mode is MOST Recommended!)
-        <Switch checked={isDarkMode} onChange={() => toggleDarkMode()} />
+        <Switch checked={resume.isDarkMode} onChange={handleDarkModeChange} />
       </CustomRow>
     </Container>
   )

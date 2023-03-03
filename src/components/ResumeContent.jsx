@@ -7,20 +7,16 @@ import ExperienceSection from './Experience'
 import EducationSection from './Education'
 import { useSelector } from 'react-redux'
 import ProjectsOneLine from './ProjectsOneLine'
+import { selectDisplaySettings } from '../store/resumeSlice.js'
 
 const ResumeContent = () => {
-  const { display } = useSelector((state) => state.resume)
+  const display = useSelector(selectDisplaySettings)
   return (
     <ResumeContentContainer>
       <HeaderSection />
       <FlexArea>
-        {display.projects ? (
-          display.oneLineProjects ? (
-            <ProjectsOneLine />
-          ) : (
-            <ProjectsSection />
-          )
-        ) : null}
+        {display.projects &&
+          (display.oneLineProjects ? <ProjectsOneLine /> : <ProjectsSection />)}
         {display.stack && <StackSection />}
         {display.experience && <ExperienceSection />}
         {display.education && <EducationSection />}

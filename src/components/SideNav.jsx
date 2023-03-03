@@ -1,19 +1,16 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-
 import FACEBOOK_ICON from '../assets/facebook.webp'
 import INSTAGRAM_ICON from '../assets/instagram.webp'
 import YOUTUBE_ICON from '../assets/youtube.webp'
 import LINKEDIN_ICON from '../assets/linkedin.webp'
 import GITHUB_ICON from '../assets/github.webp'
-
-// todo add more options
 import MEDIUM_ICON from '../assets/medium.webp'
-
 import { useSelector } from 'react-redux'
+import { selectFullResume } from '../store/resumeSlice.js'
 
 const SideNav = () => {
-  const { fullName, display, socialUrls } = useSelector((state) => state.resume)
+  const { fullName, display, socialUrls } = useSelector(selectFullResume)
   const shortName = useMemo(() => {
     const names = fullName.split(' ')
     if (!names[0] || !names[1]) return 'dc'

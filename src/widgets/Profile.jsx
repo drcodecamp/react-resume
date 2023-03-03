@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Input, Switch } from 'antd'
 import {
   forceNarrowHeader,
+  selectFullResume,
   setEmail,
   setFullName,
   setPhone,
@@ -28,7 +29,7 @@ import { useEffect } from 'react'
 const ProfileWidget = () => {
   const dispatch = useDispatch()
   const { summary, display, education, experience } = useSelector(
-    (state) => state.resume
+    selectFullResume
   )
   const [options] = useState([
     {

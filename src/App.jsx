@@ -3,21 +3,18 @@ import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import { createBrowserRouter } from 'react-router-dom'
 import HomePage from './pages/HomePage'
-import CreationPage from './pages/CreationPage'
+import CreationPage from './pages/EditorPage.jsx'
 import RootLayout from './pages/RootLayout'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <RootLayout />, // <-- main layout is here
+    element: <RootLayout />,
     children: [
       { index: true, element: <HomePage /> },
       {
-        path: 'cv',
-        children: [
-          { index: true, element: <CreationPage /> }, // <= cv creation is here
-          { path: ':id', element: <CreationPage /> },
-        ],
+        path: 'editor',
+        children: [{ index: true, element: <CreationPage /> }],
       },
     ],
   },

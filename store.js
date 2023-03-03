@@ -10,10 +10,10 @@ import {
   persistStore,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import resumeStore from './src/store/resumeSlice.js' // defaults to localStorage for web
+import resumeSlice from './src/store/resumeSlice.js' // defaults to localStorage for web
 
 const rootReducer = combineReducers({
-  resume: resumeStore,
+  resume: resumeSlice,
 })
 
 const persistConfig = {

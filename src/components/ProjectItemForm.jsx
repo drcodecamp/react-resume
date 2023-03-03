@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  selectDisplaySettings,
   setProjectDemoLink,
   setProjectGitLink,
   setProjectImageUrl,
@@ -27,7 +28,7 @@ export const convertBase64 = (file) => {
 
 const ProjectItemForm = ({ project }) => {
   const dispatch = useDispatch()
-  const { display } = useSelector((state) => state.resume)
+  const display = useSelector(selectDisplaySettings)
   const isDisabled = !display.projects
   const handleImageSelection = (e) => {
     dispatch(

@@ -1,14 +1,13 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { Title } from './Stack'
-import SRC from '../assets/bg1.webp'
-import SRC2 from '../assets/bg2.webp'
-import SRC3 from '../assets/bg3.webp'
 import { useSelector } from 'react-redux'
 import { ContentSection } from './shared/ContentSection.js'
+import { selectFullResume, selectResumeProjects } from '../store/resumeSlice.js'
 
 const ProjectsSection = () => {
-  const { projects } = useSelector((state) => state.resume)
+  const resume = useSelector(selectFullResume)
+  const projects = useSelector(selectResumeProjects)
   const projectListMode = useMemo(() => {
     switch (projects.length) {
       case 1:
@@ -41,6 +40,7 @@ const ProjectsSection = () => {
                   </ProjectSourceCode>
                   |
                   <ProjectDemoButton
+                    color={resume.themeColor}
                     href={'https://' + project.demoLink || '#'}
                     target="_blank"
                   >
@@ -118,7 +118,7 @@ const ProjectSourceCode = styled.a`
 
 const ProjectDemoButton = styled.a`
   font-weight: bold;
-  color: var(--primary-color);
+  color: ${({ color }) => color || 'white'};
   padding: 0.25rem 0.5rem;
   font-size: 1em;
   border-radius: 8px;

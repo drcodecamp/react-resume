@@ -4,23 +4,28 @@ import { Title } from './Stack.jsx'
 import { useSelector } from 'react-redux'
 import DEMO_WORK_ICON from '../assets/work.webp'
 import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
+import {
+  selectDisplaySettings,
+  selectFullResume,
+  selectResumeExp,
+} from '../store/resumeSlice.js'
 
 const ExperienceSection = () => {
-  const { experience } = useSelector((state) => state.resume)
+  const experience = useSelector(selectResumeExp)
   return (
     <ContentSection>
       <Title>Experience</Title>
       <InnerContentPadding>
-        {experience?.map((exp, idx) => {
-          return <JobItem key={idx} job={exp} />
-        })}
+        {experience &&
+          experience?.map((exp) => <JobItem key={exp.id} job={exp} />)}
       </InnerContentPadding>
     </ContentSection>
   )
 }
 
 const JobItem = ({ job }) => {
-  const { display } = useSelector((state) => state.resume)
+  const resume = useSelector(selectFullResume)
+  const display = useSelector(selectDisplaySettings)
   return (
     <JobCard>
       {display.jobIcons && (
@@ -31,7 +36,7 @@ const JobItem = ({ job }) => {
       <div>
         <JobTitle>
           <div>{job.name}</div>
-          <JobIndustry>{job.industry}</JobIndustry>
+          <JobIndustry color={resume.themeColor}>{job.industry}</JobIndustry>
         </JobTitle>
         <div>{job.date}</div>
         <DescriptionText>{job.information}</DescriptionText>
@@ -58,7 +63,7 @@ export const JobImage = styled.div`
 export const JobIndustry = styled.div`
   display: flex;
   padding-left: 0.2em;
-  color: var(--primary-color);
+  color: ${({ color }) => color || 'white'};
   font-weight: bold;
 `
 export const JobCard = styled.div`

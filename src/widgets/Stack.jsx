@@ -5,6 +5,8 @@ import {
   toggleStack,
   removeSkill,
   toggleActivatedSkill,
+  selectDisplaySettings,
+  selectResumeStack,
 } from '../store/resumeSlice.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { Input, Switch, Tag, Button } from 'antd'
@@ -13,7 +15,8 @@ import CustomRow from '../components/shared/CustomRow.jsx'
 
 const StackWidget = () => {
   const dispatch = useDispatch()
-  const { display, stack } = useSelector((state) => state.resume)
+  const display = useSelector(selectDisplaySettings)
+  const stack = useSelector(selectResumeStack)
   const [userInput, setUserInput] = useState('')
 
   const isAlreadyIncluded = useMemo(() => {

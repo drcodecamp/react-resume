@@ -2,17 +2,27 @@ import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { InnerContentPadding } from './shared/ContentSection'
+import { selectFullResume } from '../store/resumeSlice.js'
 
 const HeaderSection = () => {
-  const { display, summary, fullName, phone, email, title } = useSelector(
-    (state) => state.resume
-  )
+  const {
+    display,
+    themeColor,
+    summary,
+    fullName,
+    phone,
+    email,
+    title,
+  } = useSelector(selectFullResume)
+
   const headerType = useMemo(() => {
     return display.narrowHeader ? (
       <>
         <Column>
           <Title>{fullName || 'Doctor Code'}</Title>
-          <SubTitle primary>{title || 'Front End Developer'}</SubTitle>
+          <SubTitle color={themeColor} primary>
+            {title || 'Front End Developer'}
+          </SubTitle>
         </Column>
         <Column style={{ alignItems: 'end' }}>
           <Title href="tel:+972556667794">{phone || '050-510-1952'}</Title>
@@ -24,15 +34,17 @@ const HeaderSection = () => {
     ) : (
       <>
         <Title>{fullName || 'Doctor Code'}</Title>
-        <SubTitle primary>{title || 'Front End Developer'}</SubTitle>
-        <Separator />
+        <SubTitle color={themeColor} primary>
+          {title || 'Front End Developer'}
+        </SubTitle>
+        <Separator color={themeColor} />
         <SubTitle href="tel:+972556667794">{phone || '050-510-1952'}</SubTitle>
         <SubTitle href={`mailto:${email}`}>
           {email || 'info@doctorcode.org'}
         </SubTitle>
       </>
     )
-  }, [display, summary, fullName, phone, email, title])
+  }, [display, summary, themeColor, fullName, phone, email, title])
 
   return (
     <>
@@ -53,7 +65,7 @@ const Column = styled.div`
 `
 
 const Separator = styled.div`
-  background-color: var(--primary-color);
+  background-color: ${({ color }) => (color ? color : 'black')};
   height: 2px;
   width: 222px;
   margin: 0.5em 0;
@@ -63,8 +75,7 @@ const SubTitle = styled.h2`
   all: unset;
   font-size: 1.5em;
   font-weight: ${({ primary }) => (primary ? 'bold' : 'normal')};
-  color: ${({ primary }) =>
-    primary ? ' var(--primary-color)' : 'var(--subtitle)'};
+  color: ${({ primary, color }) => (primary ? color : 'var(--subtitle)')};
 `
 
 const Title = styled.h1`

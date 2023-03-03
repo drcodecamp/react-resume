@@ -1,21 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
-import { toggleActivatedSkill } from '../store/resumeSlice.js'
+import { selectFullResume, selectResumeStack } from '../store/resumeSlice.js'
 
 const StackSection = () => {
-  const { stack } = useSelector((state) => state.resume)
-  const dispatch = useDispatch()
-
+  const stack = useSelector(selectResumeStack)
+  const resume = useSelector(selectFullResume)
   return (
     <ContentSection>
       <Title>Stack</Title>
       <InnerContentPadding>
         <StackItems>
           {stack &&
-            stack.map((skill, index) => (
-              <Tag isActive={skill.isActivated} key={skill.id}>
+            stack.map((skill) => (
+              <Tag
+                color={resume.themeColor}
+                isActive={skill.isActivated}
+                key={skill.id}
+              >
                 {skill.name}
               </Tag>
             ))}
@@ -27,8 +30,7 @@ const StackSection = () => {
 
 const Tag = styled.span`
   font-size: 1em;
-  color: ${({ isActive }) =>
-    isActive ? 'var(--primary-color)' : 'var(--subtitle)'};
+  color: ${({ isActive, color }) => (isActive ? color : 'var(--subtitle)')};
   font-weight: ${({ isActive }) => (isActive ? 'bolder' : 'regular')};
   text-align: center;
   padding-right: 0.75em;
