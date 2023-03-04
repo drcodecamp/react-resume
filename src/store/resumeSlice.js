@@ -96,7 +96,7 @@ const initialState = {
       name: 'Apple inc',
       industry: '| Wearable Devices',
       date: 'Aug 2018 - Preset ',
-      informationList: [],
+      informationList: [{ id: nanoid(), val: '' }],
       information:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
@@ -106,7 +106,7 @@ const initialState = {
       name: 'CISCO inc',
       industry: '| Fintech',
       date: 'Aug 2015 - Aug 2018',
-      informationList: [],
+      informationList: [{ id: nanoid(), val: '' }],
       information:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
@@ -178,7 +178,7 @@ export const resumeSlice = createSlice({
     },
     setJobInfoList: (state, action) => {
       const idx = state.experience.findIndex((i) => i.id === action.payload.id)
-      state.experience[idx].informationList[action.payload.index] = action.payload.value
+      state.experience[idx].informationList[action.payload.index].val = action.payload.value
     },
     setJobDate: (state, action) => {
       const idx = state.experience.findIndex((i) => i.id === action.payload.id)
@@ -303,7 +303,10 @@ export const resumeSlice = createSlice({
     },
     removeInfoList: (state, action) => {
       const idx = state.experience.findIndex((i) => i.id === action.payload.id)
-      state.experience[idx].informationList.splice(action.payload.index, 1)
+      if (state.experience[idx].informationList.length === 1) {
+        return state
+      }
+      state.experience[idx].informationList.pop()
     },
     addExp: (state) => {
       if (state.experience.length === 2) {
@@ -319,6 +322,17 @@ export const resumeSlice = createSlice({
             'Apple Inc (Apple) designs, manufactures, and markets smartphones, tablets personal computers (PCs).',
         })
       }
+    },
+    addInfoList: (state, action) => {
+      const idx = state.experience.findIndex((i) => i.id === action.payload.id)
+      if (state.experience[idx].informationList.length === 4) {
+        return state
+      }
+      state.experience[idx].informationList.push({
+        id: nanoid(),
+        val: ''
+      })
+
     },
     addProject: (state) => {
       if (state.projects.length === 3) {
@@ -383,6 +397,7 @@ export const {
   addProject,
   removeExp,
   addExp,
+  addInfoList,
   removeInfoList,
   setEducationIcon,
   setEducationName,

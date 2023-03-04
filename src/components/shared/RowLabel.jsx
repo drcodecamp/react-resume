@@ -7,7 +7,15 @@ export const RowLabel = styled.div`
   padding: 0.15em;
   margin-bottom: 1em;
 `
-export const RowLabel2 = styled.div`
+
+export const InputsQuantity = styled.div`
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  width:100%;
+margin-bottom: 1em;
+`
+export const RowLabelList = styled.div`
   display: flex;
   justify-content: space-around;
   padding: 0.15em;

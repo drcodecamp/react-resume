@@ -6,6 +6,7 @@ import DEMO_WORK_ICON from '../assets/work.webp'
 import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
 
 const ExperienceSection = () => {
+
   const { experience } = useSelector((state) => state.ResumeStore)
   return (
     <ContentSection>
@@ -20,35 +21,31 @@ const ExperienceSection = () => {
 }
 
 const JobItem = ({ job }) => {
-
-  let inforamtionUpdate = []
-  inforamtionUpdate = job.informationList?.filter(item => item !== '')
-
-
-
   const { display } = useSelector((state) => state.ResumeStore)
-  return (
-    <JobCard>
-      {display.jobIcons && (
-        <JobImage>
-          <img src={job.icon || DEMO_WORK_ICON} alt="work" />
-        </JobImage>
-      )}
-      <div>
-        <JobTitle>
-          <div>{job.name}</div>
-          <JobIndustry>{job.industry}</JobIndustry>
-        </JobTitle>
-        <div>{job.date}</div>
-        {display.experienceInFreeText ? <DescriptionText>{job.information}
-        </DescriptionText>
-          :
-          <DescriptionList>{inforamtionUpdate.map((item, index) => {
-            return <li key={index}>{item}</li>
-          })}
-          </DescriptionList>}
-      </div>
-    </JobCard>
+  return (<JobCard>
+    {display.jobIcons && (
+      <JobImage>
+        <img src={job.icon || DEMO_WORK_ICON} alt="work" />
+      </JobImage>
+    )}
+    <div>
+      <JobTitle>
+        <div>{job.name}</div>
+        <JobIndustry>{job.industry}</JobIndustry>
+      </JobTitle>
+      <div>{job.date}</div>
+      {display.experienceInFreeText ? <DescriptionText>{job.information}
+      </DescriptionText>
+        :
+        <DescriptionList>{job.informationList.map((item) => {
+          if (item.val === '') return
+          return <li key={item.id}>{item.val}</li>
+        }
+        )
+        }
+        </DescriptionList>}
+    </div>
+  </JobCard>
   )
 }
 

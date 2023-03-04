@@ -64,7 +64,7 @@ const ProjectsWidget = () => {
 export const ItemControllers = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   p {
     margin-left: 1em;
   }
@@ -72,6 +72,16 @@ export const ItemControllers = styled.div`
     margin-left: 1em;
   }
 `
+
+export const ItemControllersInputsList = styled.div`
+display: flex;
+ align-items: center;
+ justify-content: space-around;
+ width:60%;
+ margin-top:5px;
+`
+
+
 const ProjectList = styled.div`
   display: flex;
   justify-content: space-around;

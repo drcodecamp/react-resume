@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  addInfoList,
   removeInfoList,
   setJobDate,
   setJobIconUrl,
@@ -10,37 +11,15 @@ import {
   setJobName,
 } from '../store/resumeSlice.js'
 import { FormContainer } from './ProjectItemForm.jsx'
-import { Input, List } from 'antd'
+import { Button, Input, } from 'antd'
 import ImageSelector from './ImageSelector.jsx'
-import { RowLabel, RowLabel2 } from './shared/RowLabel.jsx'
+import { InputsQuantity, RowLabel, RowLabelList } from './shared/RowLabel.jsx'
+import { ItemControllersInputsList } from '../widgets/Projects.jsx'
 
 const ExperienceItemForm = ({ expItem, isDisabled }) => {
   const dispatch = useDispatch()
 
   const { display, experience } = useSelector((state) => state.ResumeStore)
-
-  const [inputs, setInputs] = useState([<input />]);
-  const [nextId, setNextId] = useState(1);
-
-  const handleAddInput = () => {
-    if (inputs.length < 4) {
-      setInputs([...inputs, { id: nextId }]);
-      setNextId(nextId + 1);
-    }
-  };
-
-  const handleRemoveInput = (id, index) => {
-    if (inputs.length > 1) {
-      const newInputs = inputs.filter((input) => input.id !== id);
-      setInputs(newInputs);
-      dispatch(
-        removeInfoList({
-          id: expItem.id,
-          index: index
-        })
-      )
-    }
-  };
 
   const handleImageSelection = (e) => {
     dispatch(
@@ -104,8 +83,37 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
           placeholder="Work Dates"
         />
       </RowLabel>
-      <RowLabel>
-        {display.experienceInFreeText ? <Input.TextArea
+      {!display.experienceInFreeText ?
+        <InputsQuantity>
+          Number of Inputs (1-4)
+          <ItemControllersInputsList>
+            <Button
+              type="primary"
+              shape="circle"
+              onClick={() => dispatch(
+                removeInfoList({
+                  id: expItem.id,
+                }))}
+              disabled={expItem.informationList.length === 1}
+            >
+              -
+            </Button>
+            <p>{expItem.informationList.length} / 4</p>
+            <Button
+              disabled={expItem.informationList.length === 4}
+              type="primary"
+              shape="circle"
+              onClick={() => dispatch(
+                addInfoList({
+                  id: expItem.id,
+                }))}
+            >
+              +
+            </Button>
+          </ItemControllersInputsList>
+        </InputsQuantity> : null}
+      {
+        display.experienceInFreeText ? <Input.TextArea
           showCount
           maxLength={150}
           disabled={isDisabled}
@@ -122,11 +130,11 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
           placeholder="Work information"
         /> :
           <div>
-            {inputs.map((input, index) => (
-              <RowLabel2 key={input.id}>
-                <Input
+            {expItem.informationList.map((item, index) => {
+              return <RowLabelList key={item.id}>
+                <Input.TextArea
                   showCount
-                  maxLength={90}
+                  maxLength={80}
                   onChange={({ target }) =>
                     dispatch(
                       setJobInfoList({
@@ -136,17 +144,13 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
                       })
                     )
                   }
-                  key={input.id}
+                  key={item.id}
                   placeholder={`info ${index + 1}`}
                 />
-                <button onClick={handleAddInput}>+</button>
-                <button onClick={() => handleRemoveInput(input.id, index)}>-</button>
-              </RowLabel2>
-            ))
-            }
+              </RowLabelList>
+            })}
           </div>
-        }
-      </RowLabel>
+      }
     </FormContainer>
   )
 }
