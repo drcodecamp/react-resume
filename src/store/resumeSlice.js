@@ -147,6 +147,10 @@ export const resumeSlice = createSlice({
     setCurrentDocumentId: (state, action) => {
       state.selectedDocumentId = action.payload
     },
+    removeDocumentById: (state, action) => {
+      console.log(action.payload)
+      delete state.documents[action.payload]
+    },
     addResumeDocument: (state, action) => {
       const uniqueId = nanoid()
       state.selectedDocumentId = uniqueId
@@ -440,6 +444,7 @@ export const {
   toggleDarkMode,
   setJobInfo,
   setJobDate,
+  removeDocumentById,
   setDarkMode,
   setJobIndustry,
   setJobName,

@@ -4,11 +4,10 @@ import { Button, Switch } from 'antd'
 import {
   addProject,
   removeProject,
-  toggleProjects,
-  toggleOneLineProjects,
-  selectFullResume,
   selectDisplaySettings,
   selectResumeProjects,
+  toggleOneLineProjects,
+  toggleProjects,
 } from '../store/resumeSlice.js'
 import CustomRow from '../components/shared/CustomRow.jsx'
 import { useDispatch, useSelector } from 'react-redux'

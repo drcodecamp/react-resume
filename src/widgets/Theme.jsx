@@ -8,31 +8,31 @@ import {
 } from '../store/resumeSlice.js'
 import CustomRow from '../components/shared/CustomRow.jsx'
 import { Switch } from 'antd'
-import { selectThemeColor } from '../store/resumeSlice.js'
+import { useDebounce } from 'usehooks-ts'
 
 const ThemeWidget = () => {
   const dispatch = useDispatch()
   const resume = useSelector(selectFullResume)
-
-  const handleColorChange = (e) => {
-    dispatch(setThemeColor(e.target.value))
-  }
+  const [color, setColor] = useState(resume.themeColor)
+  const debouncedValue = useDebounce(color, 350)
 
   const handleDarkModeChange = () => {
     dispatch(toggleDarkMode())
   }
 
+  const handleChange = (event) => {
+    setColor(event.target.value)
+  }
+
+  useEffect(() => {
+    dispatch(setThemeColor(color))
+  }, [debouncedValue])
+
   return (
     <Container>
       <CustomRow>
         Select main color
-        <ColorPicker
-          type="color"
-          value={resume.themeColor}
-          onInput={(e) => {
-            handleColorChange(e)
-          }}
-        />
+        <ColorPicker type="color" onChange={handleChange} value={color} />
       </CustomRow>
       <CustomRow>
         Toggle light / Dark Mode (light mode is MOST Recommended!)

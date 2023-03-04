@@ -1,7 +1,6 @@
 import './assets/Square-Regular.otf'
 import './index.css'
-import { RouterProvider } from 'react-router-dom'
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import CreationPage from './pages/EditorPage.jsx'
 import RootLayout from './pages/RootLayout'

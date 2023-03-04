@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button, Collapse, Input } from 'antd'
+import { Collapse, Input, message } from 'antd'
 import ProfileWidget from '../widgets/Profile'
 import ThemeWidget from '../widgets/Theme'
 import DownloadWidget from '../widgets/Download'
@@ -9,16 +9,13 @@ import ProjectsWidget from '../widgets/Projects'
 import StackWidget from '../widgets/Stack'
 import ExperienceWidget from '../widgets/Experience'
 import EducationWidget from '../widgets/Education'
-import CustomRow from './shared/CustomRow.jsx'
 import { useDispatch, useSelector } from 'react-redux'
-import { message } from 'antd'
 import {
   selectFullResume,
   setDocumentName,
-  setFullName,
   toggleRenderer,
 } from '../store/resumeSlice.js'
-import { UserOutlined } from '@ant-design/icons'
+
 const { Panel } = Collapse
 
 const ResumeOptions = () => {

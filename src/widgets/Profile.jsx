@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import { Input, Switch } from 'antd'
+import { Input, Segmented, Switch } from 'antd'
 import {
   forceNarrowHeader,
   selectFullResume,
@@ -13,6 +13,7 @@ import {
   toggleSummary,
 } from '../store/resumeSlice.js'
 import {
+  BarsOutlined,
   InsertRowAboveOutlined,
   MailOutlined,
   PhoneOutlined,
@@ -22,9 +23,6 @@ import {
 } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import CustomRow from '../components/shared/CustomRow.jsx'
-import { Segmented } from 'antd'
-import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons'
-import { useEffect } from 'react'
 
 const ProfileWidget = () => {
   const dispatch = useDispatch()

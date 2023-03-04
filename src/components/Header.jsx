@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
-import { InnerContentPadding } from './shared/ContentSection'
 import { selectFullResume } from '../store/resumeSlice.js'
 
 const HeaderSection = () => {

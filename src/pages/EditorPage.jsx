@@ -1,8 +1,4 @@
 import { useSelector } from 'react-redux'
-import {
-  selectDisplaySettings,
-  selectFullResume,
-} from '../store/resumeSlice.js'
 import Renderer from '../widgets/Renderer.jsx'
 import Controller from '../components/ResumeOptions.jsx'
 import { useNavigate } from 'react-router-dom'

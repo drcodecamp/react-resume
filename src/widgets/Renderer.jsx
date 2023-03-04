@@ -2,11 +2,10 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import SideNav from '../components/SideNav.jsx'
 import ResumeContent from '../components/ResumeContent.jsx'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {
   selectDisplaySettings,
   selectFullResume,
-  setThemeColor,
 } from '../store/resumeSlice.js'
 
 const Renderer = () => {
