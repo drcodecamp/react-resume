@@ -5,5 +5,6 @@ export const RowLabel = styled.div`
   flex-direction: column;
   justify-content: space-around;
   padding: 0.15em;
+  width: 100%;
   margin-bottom: 1em;
 `

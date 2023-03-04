@@ -1,16 +1,15 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import {
-  setSkills,
-  toggleStack,
   removeSkill,
-  toggleActivatedSkill,
   selectDisplaySettings,
   selectResumeStack,
+  setSkills,
+  toggleActivatedSkill,
+  toggleStack,
 } from '../store/resumeSlice.js'
 import { useDispatch, useSelector } from 'react-redux'
-import { Input, Switch, Tag, Button } from 'antd'
-import { useState } from 'react'
+import { Button, Input, Switch, Tag } from 'antd'
 import CustomRow from '../components/shared/CustomRow.jsx'
 
 const StackWidget = () => {

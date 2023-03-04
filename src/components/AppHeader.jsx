@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button } from 'antd'
-import { DollarOutlined, DownloadOutlined } from '@ant-design/icons'
+import { DollarOutlined } from '@ant-design/icons'
 
 const AppHeader = () => {
   return (
