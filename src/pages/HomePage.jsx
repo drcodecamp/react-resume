@@ -17,8 +17,9 @@ const HomePage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const documents = useSelector((state) => state.resume.documents)
+
   const handleNewDocumentCreation = () => {
-    if (Object.keys(documents).length < 3) {
+    if (documents && Object.keys(documents).length < 3) {
       dispatch(addResumeDocument())
       navigate('/editor')
     }
@@ -48,7 +49,8 @@ const HomePage = () => {
             <p>צור חדש</p>
           </ButtonContainer>
 
-          {Object.keys(documents).length > 0 &&
+          {documents &&
+            Object.keys(documents).length > 0 &&
             Object.keys(documents).map((documentId) => {
               return (
                 <ButtonContainer key={documentId}>
