@@ -10,6 +10,7 @@ import {
   selectDisplaySettings,
   selectResumeExp,
   toggleExperience,
+  toggleExperienceInFreeText,
   toggleExpIcons,
 } from '../store/resumeSlice.js'
 import { ItemControllers } from './Projects.jsx'
@@ -61,6 +62,14 @@ const ExperienceWidget = () => {
               +
             </Button>
           </ItemControllers>
+        </CustomRow>
+        <CustomRow>
+          Enable/Disable free text
+          <Switch
+            onClick={() => dispatch(toggleExperienceInFreeText())}
+            checked={display.experienceInFreeText}
+            disabled={isDisabled}
+          />
         </CustomRow>
       </CustomForm>
 

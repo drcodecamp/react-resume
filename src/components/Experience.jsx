@@ -39,15 +39,33 @@ const JobItem = ({ job }) => {
           <JobIndustry color={resume.themeColor}>{job.industry}</JobIndustry>
         </JobTitle>
         <div>{job.date}</div>
-        <DescriptionText>{job.information}</DescriptionText>
+        {display.experienceInFreeText ? <DescriptionText>{job.information}
+        </DescriptionText>
+          :
+          <DescriptionList>{job.informationList && job.informationList.map((item) => {
+            if (item.val === '') return
+            return <li key={item.id}>{item.val}</li>
+          }
+          )
+          }
+          </DescriptionList>}
       </div>
     </JobCard>
   )
 }
+
+
 export const DescriptionText = styled.div`
   padding-top: 0.35em;
   word-break: break-word;
   color: var(--subtitle);
+`
+
+export const DescriptionList = styled.ul`
+  padding-top: 0.80em;
+  padding-left:25px;
+  word-break: break-word;
+  color: var(--main);
 `
 export const JobImage = styled.div`
   aspect-ratio: 1;

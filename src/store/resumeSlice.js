@@ -22,6 +22,7 @@ export const initialState = {
     projects: true,
     oneLineProjects: false,
     experience: true,
+    experienceInFreeText: true,
     jobIcons: true,
     educationIcons: true,
     social: {
@@ -100,6 +101,7 @@ export const initialState = {
       name: 'Demo company',
       industry: '| Crypto',
       date: 'Aug 2018 - Preset ',
+      informationList: [{ id: nanoid(), val: '' }],
       information:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
@@ -109,6 +111,7 @@ export const initialState = {
       name: 'Demo company',
       industry: '| Fintech',
       date: 'Aug 2015 - Aug 2018',
+      informationList: [{ id: nanoid(), val: '' }],
       information:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
@@ -125,6 +128,8 @@ export const initialState = {
   ],
   value: 0,
 }
+
+
 
 export const resumeSlice = createSlice({
   name: 'resume',
@@ -243,6 +248,10 @@ export const resumeSlice = createSlice({
       state.documents[state.selectedDocumentId].experience[idx].information =
         action.payload.value
     },
+    setJobInfoList: (state, action) => {
+      const idx = state.documents[state.selectedDocumentId].experience.findIndex((i) => i.id === action.payload.id)
+      state.documents[state.selectedDocumentId].experience[idx].informationList[action.payload.index].val = action.payload.value
+    },
     setJobDate: (state, action) => {
       const idx = state.documents[
         state.selectedDocumentId
@@ -330,6 +339,9 @@ export const resumeSlice = createSlice({
       state.documents[state.selectedDocumentId].display.experience = !state
         .documents[state.selectedDocumentId].display.experience
     },
+    toggleExperienceInFreeText: (state) => {
+      state.documents[state.selectedDocumentId].display.experienceInFreeText = !state.documents[state.selectedDocumentId].display.experienceInFreeText
+    },
     toggleEducationIcons: (state) => {
       state.documents[state.selectedDocumentId].display.educationIcons = !state
         .documents[state.selectedDocumentId].display.educationIcons
@@ -354,7 +366,7 @@ export const resumeSlice = createSlice({
       state.documents[state.selectedDocumentId].display.social[
         action.payload
       ] = !state.documents[state.selectedDocumentId].display.social[
-        action.payload
+      action.payload
       ]
     },
     toggleNarrowHeader: (state) => {
@@ -408,6 +420,13 @@ export const resumeSlice = createSlice({
         })
       }
     },
+    removeInfoList: (state, action) => {
+      const idx = state.documents[state.selectedDocumentId].experience.findIndex((i) => i.id === action.payload.id)
+      if (state.documents[state.selectedDocumentId].experience[idx].informationList.length === 1) {
+        return state
+      }
+      state.documents[state.selectedDocumentId].experience[idx].informationList.pop()
+    },
     addExp: (state) => {
       if (state.documents[state.selectedDocumentId].experience.length < 2) {
         state.documents[state.selectedDocumentId].experience.push({
@@ -416,10 +435,21 @@ export const resumeSlice = createSlice({
           name: 'Demo company',
           industry: 'Wearable Devices',
           date: 'Aug 2018 - Preset ',
+          informationList: [{ id: nanoid(), val: '' }],
           information:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.\n',
         })
       }
+    },
+    addInfoList: (state, action) => {
+      const idx = state.documents[state.selectedDocumentId].experience.findIndex((i) => i.id === action.payload.id)
+      if (state.documents[state.selectedDocumentId].experience[idx].informationList.length === 4) {
+        return state
+      }
+      state.documents[state.selectedDocumentId].experience[idx].informationList.push({
+        id: nanoid(),
+        val: ''
+      })
     },
     removeEducation: (state) => {
       if (state.documents[state.selectedDocumentId].education.length >= 2) {
@@ -443,6 +473,7 @@ export const {
   addResumeDocument,
   toggleDarkMode,
   setJobInfo,
+  setJobInfoList,
   setJobDate,
   removeDocumentById,
   setDarkMode,
@@ -452,6 +483,7 @@ export const {
   toggleStack,
   setSocialURL,
   toggleExperience,
+  toggleExperienceInFreeText,
   setProjectDemoLink,
   setProjectGitLink,
   setProjectImageUrl,
@@ -481,6 +513,8 @@ export const {
   addProject,
   removeExp,
   addExp,
+  addInfoList,
+  removeInfoList,
   setEducationIcon,
   setEducationName,
   setEducationDuration,
