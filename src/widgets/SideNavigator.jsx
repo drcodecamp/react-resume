@@ -3,17 +3,21 @@ import styled from 'styled-components'
 import { Checkbox, Input, Switch } from 'antd'
 import {
   selectFullResume,
+  selectResumeSocials,
   setSocialURL,
   toggleNarrowHeader,
   toggleSideNav,
   toggleSocial,
+  setSocials,
 } from '../store/resumeSlice.js'
 import CustomRow from '../components/shared/CustomRow.jsx'
 import { useDispatch, useSelector } from 'react-redux'
 
 const SideNavWidgetWidget = () => {
   const dispatch = useDispatch()
-  const { display, socialUrls } = useSelector(selectFullResume)
+  const { display } = useSelector(selectFullResume)
+  const socials = useSelector(selectResumeSocials)
+
   const handleToggleSideNav = () => {
     if (!display.narrowHeader) {
       dispatch(toggleNarrowHeader())
@@ -26,165 +30,127 @@ const SideNavWidgetWidget = () => {
         Enable navigator section
         <Switch checked={display.sideNav} onClick={handleToggleSideNav} />
       </CustomRow>
-      <CustomRow>
-        <CustomRow>
-          Facebook
-          <Checkbox
-            disabled={!display.sideNav}
-            checked={display.social.facebook}
-            onClick={() => dispatch(toggleSocial('facebook'))}
-          />
-          <Input
-            addonBefore="https://"
-            onChange={({ target }) => {
-              dispatch(
-                setSocialURL({
-                  id: 'facebook',
-                  value: target.value,
-                })
-              )
-            }}
-            placeholder="facebook.com/doctorcodecamp"
-            value={socialUrls.facebook}
-            disabled={!display.sideNav || !display.social.facebook}
-            status={socialUrls.facebook.includes('http') ? 'error' : ''}
-          />
-        </CustomRow>
-      </CustomRow>
-      <CustomRow>
-        <CustomRow>
-          Linkedin
-          <Checkbox
-            disabled={!display.sideNav}
-            checked={display.social.link}
-            onClick={() => dispatch(toggleSocial('link'))}
-          />
-          <Input
-            addonBefore="https://"
-            placeholder="https://www.linkedin.com/in/doctorcodecamp/"
-            onChange={({ target }) => {
-              dispatch(
-                setSocialURL({
-                  id: 'linkedin',
-                  value: target.value,
-                })
-              )
-            }}
-            value={socialUrls.linkedin}
-            disabled={!display.sideNav || !display.social.link}
-            status={socialUrls.linkedin.includes('http') ? 'error' : ''}
-          />
-        </CustomRow>
-      </CustomRow>
-      <CustomRow>
-        <CustomRow>
-          Git
-          <Checkbox
-            disabled={!display.sideNav}
-            checked={display.social.github}
-            onClick={() => dispatch(toggleSocial('github'))}
-          />
-          <Input
-            addonBefore="https://"
-            placeholder="github.com/drcodecamp"
-            onChange={({ target }) => {
-              dispatch(
-                setSocialURL({
-                  id: 'github',
-                  value: target.value,
-                })
-              )
-            }}
-            value={socialUrls.github}
-            disabled={!display.sideNav || !display.social.github}
-            status={socialUrls.github.includes('http') ? 'error' : ''}
-          />
-        </CustomRow>
-      </CustomRow>
-      <CustomRow>
-        <CustomRow>
-          Youtube
-          <Checkbox
-            disabled={!display.sideNav}
-            checked={display.social.youtube}
-            onClick={() => dispatch(toggleSocial('youtube'))}
-          />
-          <Input
-            addonBefore="https://"
-            onChange={({ target }) => {
-              dispatch(
-                setSocialURL({
-                  id: 'youtube',
-                  value: target.value,
-                })
-              )
-            }}
-            placeholder="youtube.com/@doctorcode"
-            value={socialUrls.youtube}
-            disabled={!display.sideNav || !display.social.youtube}
-            status={socialUrls.youtube.includes('http') ? 'error' : ''}
-          />
-        </CustomRow>
-      </CustomRow>
-      <CustomRow>
-        <CustomRow>
-          Instagram
-          <Checkbox
-            disabled={!display.sideNav}
-            checked={display.social.instagram}
-            onClick={() => dispatch(toggleSocial('instagram'))}
-          />
-          <Input
-            allowClear
-            addonBefore="https://"
-            placeholder="instagram.com/doctor_code_official/"
-            onChange={({ target }) => {
-              dispatch(
-                setSocialURL({
-                  id: 'instagram',
-                  value: target.value,
-                })
-              )
-            }}
-            value={socialUrls.instagram}
-            disabled={!display.sideNav || !display.social.instagram}
-            status={socialUrls.instagram.includes('http') ? 'error' : ''}
-          />
-        </CustomRow>
-      </CustomRow>
-      <CustomRow>
-        <CustomRow>
-          Medium
-          <Checkbox
-            disabled={!display.sideNav}
-            checked={display.social.medium}
-            onClick={() => dispatch(toggleSocial('medium'))}
-          />
-          <Input
-            allowClear
-            addonBefore="https://"
-            placeholder="medium.com/doctor_code_official/"
-            onChange={({ target }) => {
-              dispatch(
-                setSocialURL({
-                  id: 'medium',
-                  value: target.value,
-                })
-              )
-            }}
-            value={socialUrls.medium}
-            disabled={!display.sideNav || !display.social.medium}
-          />
-        </CustomRow>
-      </CustomRow>
+      {socials.map((social, idx) => {
+        return <SocialItem key={social.id} social={social} idx={idx} />
+      })}
     </Container>
   )
+}
+
+const SocialItem = ({ social, idx }) => {
+  const dispatch = useDispatch()
+  const { display } = useSelector(selectFullResume)
+  const socials = useSelector(selectResumeSocials)
+
+  function handleOnDragStart(e, params) {
+    const { id } = params
+    e.target.classList.add('dragging')
+    e.dataTransfer.setData('data', id)
+  }
+  function handleOnDragEnter(e) {
+    e.target.classList.add('drop')
+  }
+  function handleOnDragEnd(e) {
+    e.target.classList.remove('dragging')
+  }
+  function handleDragLeave(e) {
+    e.target.classList.remove('drop')
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault()
+  }
+  function handleOnDrop(e, params) {
+    const { idx } = params
+    e.target.classList.remove('drop')
+    const prevId = e.dataTransfer.getData('data')
+    const prevIndex = socials.findIndex((i) => i.id === prevId)
+    if (prevIndex !== undefined && prevIndex !== idx) {
+      swapItems({ prevId, prevIndex })
+    }
+  }
+  function swapItems(params) {
+    const { prevId, prevIndex } = params
+    const prevItem = socials.find((i) => i.id === prevId)
+    const newArray = socials.filter(
+      (item, index) => index !== prevIndex && index !== idx
+    )
+    newArray.splice(prevIndex, 0, social)
+    newArray.splice(idx, 0, prevItem)
+    dispatch(setSocials(newArray))
+  }
+  return (
+    <DNDRow
+      draggable
+      droppable
+      onDragStart={(e) => handleOnDragStart(e, { id: social.id })}
+      onDragEnter={(e) => handleOnDragEnter(e)}
+      onDragEnd={(e) => handleOnDragEnd(e)}
+      onDragOver={(e) => handleDragOver(e)}
+      onDragLeave={(e) => handleDragLeave(e)}
+      onDrop={(e) => handleOnDrop(e, { idx })}
+    >
+      <CustomRow>
+        {upperCaseFirstLetter(social.name)}
+        <Checkbox
+          disabled={!display.sideNav}
+          checked={social.display}
+          onClick={() => dispatch(toggleSocial(social))}
+        />
+        <Input
+          draggable={true}
+          onDragStart={(e) => e.preventDefault()}
+          onDragEnter={(e) => e.preventDefault()}
+          onDragEnd={(e) => e.preventDefault()}
+          onDragLeave={(e) => e.preventDefault()}
+          addonBefore="https://"
+          onChange={({ target }) => {
+            dispatch(
+              setSocialURL({
+                id: social.id,
+                value: target.value,
+              })
+            )
+          }}
+          value={social.url}
+          placeholder={social.placeholder}
+          disabled={!display.sideNav || !social.display}
+          status={social.url.includes('http') ? 'error' : ''}
+        />
+      </CustomRow>
+    </DNDRow>
+  )
+}
+const upperCaseFirstLetter = (str) => {
+  return str.charAt(0).toUpperCase() + str.substring(1)
 }
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+`
+
+const DNDRow = styled(CustomRow)`
+  cursor: grab;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  :active {
+    cursor: grabbing;
+  }
+
+  &.dragging {
+    opacity: 0.5;
+    transform: scale(0.8);
+    outline: 2px solid;
+    outline-color: black;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
+  }
+  &.drop {
+    border: 2px dashed #000;
+  }
+  & input {
+    cursor: text;
+  }
 `
 
 export default SideNavWidgetWidget
