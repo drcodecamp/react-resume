@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import SideNav from '../components/SideNav.jsx'
 import ResumeContent from '../components/ResumeContent.jsx'
 import { useSelector } from 'react-redux'
+import {
+  selectDisplaySettings,
+  selectFullResume,
+} from '../store/resumeSlice.js'
 
 const Renderer = () => {
-  const { display } = useSelector((state) => state.ResumeStore)
+  const display = useSelector(selectDisplaySettings)
+  const resume = useSelector(selectFullResume)
+  if (!display.renderer) {
+    return null
+  }
+
+  // here we can put the toggle for dark or light mode!
+  useEffect(() => {
+    document.documentElement.setAttribute(
+      'data-force-color-mode',
+      resume.isDarkMode ? 'dark' : 'light'
+    )
+  }, [resume.isDarkMode])
+
   return (
     <RendererContainer>
       <ResumeContainer>

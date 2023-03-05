@@ -50,9 +50,18 @@ const DownloadWidget = () => {
           )}
         </DownloadSection>
         <BoldInstructions>
-          When download as PDF, Make sure you put this OPTIONS on the print
-          window!
+          On the upcoming screen, make sure you put this options:
         </BoldInstructions>
+        <List>
+          <li>Destination: Save as PDF</li>
+          <li>Pages: Custom 1 Page</li>
+          <li>Layout: Portrait</li>
+          <li>Paper Size: A4</li>
+          <li>Pages per Sheet: 1</li>
+          <li>Margins: None</li>
+          <li>Scale: Default</li>
+          <li>Options: Background grapchics</li>
+        </List>
         <a href={instructions_image} target="_blank">
           <img src={instructions_image} alt="How to" width="100%" />
         </a>
@@ -60,9 +69,18 @@ const DownloadWidget = () => {
     </Container>
   )
 }
+const List = styled.ul`
+  padding-left: 2em;
+  li {
+    list-style: square;
+    padding: 0.3em;
+  }
+`
+
 const BoldInstructions = styled.p`
   font-weight: bolder;
-  font-size: 1.5em;
+  font-size: 1.25em;
+  padding: 1em;
 `
 const DownloadSection = styled.div`
   display: flex;

@@ -1,49 +1,55 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
-import { InnerContentPadding } from './shared/ContentSection'
+import { selectFullResume } from '../store/resumeSlice.js'
 
 const HeaderSection = () => {
-  const { display, summary, fullName, phone, email, title } = useSelector(
-    (state) => state.ResumeStore
-  )
+  const {
+    display,
+    themeColor,
+    summary,
+    fullName,
+    phone,
+    email,
+    title,
+  } = useSelector(selectFullResume)
+
   const headerType = useMemo(() => {
     return display.narrowHeader ? (
       <>
         <Column>
-          <UserName>{fullName || 'Doctor Code'}</UserName>
-          <UserTitle>{title || 'Front End Developer'}</UserTitle>
+          <Title>{fullName || 'Doctor Code'}</Title>
+          <SubTitle color={themeColor} primary>
+            {title || 'Front End Developer'}
+          </SubTitle>
         </Column>
         <Column style={{ alignItems: 'end' }}>
-          <PhoneNumber href="tel:+972556667794">
-            {phone || '050-510-1952'}
-          </PhoneNumber>
-          <EmailAddress href={`mailto:${email}`}>
+          <Title href="tel:+972556667794">{phone || '050-510-1952'}</Title>
+          <SubTitle href={`mailto:${email}`}>
             {email || 'info@doctorcode.org'}
-          </EmailAddress>
+          </SubTitle>
         </Column>
       </>
     ) : (
       <>
-        <UserName>{fullName || 'Doctor Code'}</UserName>
-        <UserTitle>{title || 'Front End Developer'}</UserTitle>
-        <Separator />
-        <PhoneNumber href="tel:+972556667794">
-          {phone || '050-510-1952'}
-        </PhoneNumber>
-        <EmailAddress href={`mailto:${email}`}>
+        <Title>{fullName || 'Doctor Code'}</Title>
+        <SubTitle color={themeColor} primary>
+          {title || 'Front End Developer'}
+        </SubTitle>
+        <Separator color={themeColor} />
+        <SubTitle href="tel:+972556667794">{phone || '050-510-1952'}</SubTitle>
+        <SubTitle href={`mailto:${email}`}>
           {email || 'info@doctorcode.org'}
-        </EmailAddress>{' '}
+        </SubTitle>
       </>
     )
-  }, [display, summary, fullName, phone, email, title])
+  }, [display, summary, themeColor, fullName, phone, email, title])
 
   return (
     <>
       <HeaderSectionContainer isNarrow={display.narrowHeader}>
         {headerType}
       </HeaderSectionContainer>
-
       {display.summary && <Summery>{summary || ''}</Summery>}
     </>
   )
@@ -58,13 +64,20 @@ const Column = styled.div`
 `
 
 const Separator = styled.div`
-  background-color: var(--primary-color);
+  background-color: ${({ color }) => (color ? color : 'black')};
   height: 2px;
   width: 222px;
   margin: 0.5em 0;
 `
 
-const UserName = styled.h1`
+const SubTitle = styled.h2`
+  all: unset;
+  font-size: 1.5em;
+  font-weight: ${({ primary }) => (primary ? 'bold' : 'normal')};
+  color: ${({ primary, color }) => (primary ? color : 'var(--subtitle)')};
+`
+
+const Title = styled.h1`
   all: unset;
   font-size: 2em;
   font-weight: bolder;

@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   addEducation,
   removeEducation,
+  selectDisplaySettings,
+  selectResumeEducation,
   toggleEducation,
   toggleEducationIcons,
 } from '../store/resumeSlice.js'
@@ -15,7 +17,8 @@ import { ItemControllers } from './Projects.jsx'
 
 const EducationWidget = () => {
   const dispatch = useDispatch()
-  const { display, education } = useSelector((state) => state.ResumeStore)
+  const education = useSelector(selectResumeEducation)
+  const display = useSelector(selectDisplaySettings)
   const isDisabled = !display.education
   return (
     <Container>
@@ -36,7 +39,7 @@ const EducationWidget = () => {
           />
         </CustomRow>
         <CustomRow>
-          Number of Jobs (1-2)
+          Educations
           <ItemControllers>
             <Button
               onClick={() => dispatch(removeEducation())}
@@ -59,13 +62,14 @@ const EducationWidget = () => {
         </CustomRow>
       </CustomForm>
       <EducationList>
-        {education.map((edu) => {
-          return (
-            <div key={edu.id}>
-              <EducationItemForm educationItem={edu} isDisabled={isDisabled} />
-            </div>
-          )
-        })}
+        {education &&
+          education.map((edu) => (
+            <EducationItemForm
+              key={edu.id}
+              educationItem={edu}
+              isDisabled={isDisabled}
+            />
+          ))}
       </EducationList>
     </Container>
   )
@@ -74,7 +78,7 @@ const EducationWidget = () => {
 const EducationList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 `
 const Container = styled.div`
   display: flex;

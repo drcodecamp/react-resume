@@ -1,45 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
-
-const initialSelectedSkills = ['javascript', 'react.js', 'node.js']
+import { selectFullResume, selectResumeStack } from '../store/resumeSlice.js'
 
 const StackSection = () => {
-  const resume = useSelector((state) => state.ResumeStore)
-  const [skills, setSkills] = useState([])
-
-  useEffect(() => {
-    const skills = resume.stack.split(',')
-    let skillsArray = []
-    skills.forEach((skill, i) => {
-      skillsArray[i] = {
-        name: skill,
-        isActivated: initialSelectedSkills.includes(skill),
-      }
-    })
-    setSkills(skillsArray)
-  }, [resume.stack])
-
-  const handleClick = (idx) => {
-    const skillsClone = [...skills]
-    skillsClone[idx] = {
-      ...skillsClone[idx],
-      isActivated: !skillsClone[idx].isActivated,
-    }
-    setSkills(skillsClone)
-  }
+  const stack = useSelector(selectResumeStack)
+  const resume = useSelector(selectFullResume)
   return (
     <ContentSection>
       <Title>Stack</Title>
       <InnerContentPadding>
         <StackItems>
-          {skills &&
-            skills.map((skill, idx) => (
+          {stack &&
+            stack.map((skill) => (
               <Tag
-                onClick={() => handleClick(idx)}
+                color={resume.themeColor}
                 isActive={skill.isActivated}
-                key={idx}
+                key={skill.id}
               >
                 {skill.name}
               </Tag>
@@ -52,11 +30,9 @@ const StackSection = () => {
 
 const Tag = styled.span`
   font-size: 1em;
-  color: ${({ isActive }) =>
-    isActive ? 'var(--primary-color)' : 'var(--subtitle)'};
+  color: ${({ isActive, color }) => (isActive ? color : 'var(--subtitle)')};
   font-weight: ${({ isActive }) => (isActive ? 'bolder' : 'regular')};
   text-align: center;
-  cursor: pointer;
   padding-right: 0.75em;
   padding-bottom: 0.35em;
 `

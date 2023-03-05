@@ -1,25 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { nanoid } from 'nanoid'
+import { memoize } from 'proxy-memoize'
+import EDUCATION_ICON from '../assets/education.webp'
+import { getRandomImage } from '../utils/getRandomImage.js'
 import SRC from '../assets/bg1.webp'
 import SRC2 from '../assets/bg2.webp'
 import SRC3 from '../assets/bg3.webp'
-import { getRandomIntInclusive } from '../utils/getRandomNumber.js'
+import DEMO_WORK_ICON from '../assets/work.webp'
+import { getRandomName } from '../constants/names.js'
 
-const getRandomImage = () => {
-  const randomIdx = getRandomIntInclusive(1, 3)
-  switch (randomIdx) {
-    case 1:
-      return SRC
-    case 2:
-      return SRC2
-    case 3:
-      return SRC3
-    default:
-      return SRC
-  }
-}
-
-const initialState = {
+export const initialState = {
+  documentName: getRandomName(),
   display: {
     renderer: true,
     sideNav: false,
@@ -44,17 +35,18 @@ const initialState = {
     },
   },
   themeColor: '#0008ff',
+  isDarkMode: false,
   fullName: 'Doctor Code',
   phone: '050-510-1952',
   title: 'Frontend Developer',
   email: 'info@doctorcode.org',
   summary:
-    'please dont start telling us that you are so smart and u like to wake up every morning we really dont care about those things and no one reads it.',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam',
   projects: [
     {
       id: nanoid(),
       image: SRC,
-      name: 'Coolio',
+      name: 'Project Name',
       info:
         'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'doctorcode.org/',
@@ -63,7 +55,7 @@ const initialState = {
     {
       id: nanoid(),
       image: SRC2,
-      name: 'Coolio',
+      name: 'Project Name',
       info:
         'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'doctorcode.org/',
@@ -72,29 +64,42 @@ const initialState = {
     {
       id: nanoid(),
       image: SRC3,
-      name: 'Coolio',
+      name: 'Project Name',
       info:
         'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'doctorcode.org/',
       demoLink: 'doctorcode.org/',
     },
   ],
-  stack:
-    'javascript,typescript,react.js,angular,vue.js,node.js,express,mongoDB,micro-services,html,css,sass, bootstrap ',
+  stack: [
+    { id: nanoid(), name: 'javascript', isActivated: true },
+    { id: nanoid(), name: 'typescript', isActivated: false },
+    { id: nanoid(), name: 'react.js', isActivated: true },
+    { id: nanoid(), name: 'angular', isActivated: false },
+    { id: nanoid(), name: 'vue.js', isActivated: false },
+    { id: nanoid(), name: 'node.js', isActivated: true },
+    { id: nanoid(), name: 'express', isActivated: false },
+    { id: nanoid(), name: 'mongoDB', isActivated: false },
+    { id: nanoid(), name: 'micro-services', isActivated: false },
+    { id: nanoid(), name: 'html', isActivated: false },
+    { id: nanoid(), name: 'css', isActivated: false },
+    { id: nanoid(), name: 'sass', isActivated: false },
+    { id: nanoid(), name: 'bootstrap', isActivated: false },
+  ],
   socialUrls: {
-    facebook: 'facebook.com/doctorcodecamp',
-    linkedin: 'linkedin.com/in/doctorcodecamp/',
-    github: 'github.com/drcodecamp',
-    youtube: 'www.youtube.com/@doctorcode',
-    instagram: 'instagram.com/doctor_code_official/',
-    medium: 'medium.com/doctor_code_official/',
+    facebook: '',
+    linkedin: '',
+    github: '',
+    youtube: '',
+    instagram: '',
+    medium: '',
   },
   experience: [
     {
       id: nanoid(),
-      icon: '',
-      name: 'Apple inc',
-      industry: '| Wearable Devices',
+      icon: DEMO_WORK_ICON,
+      name: 'Demo company',
+      industry: '| Crypto',
       date: 'Aug 2018 - Preset ',
       informationList: [{ id: nanoid(), val: '' }],
       information:
@@ -102,8 +107,8 @@ const initialState = {
     },
     {
       id: nanoid(),
-      icon: '',
-      name: 'CISCO inc',
+      icon: DEMO_WORK_ICON,
+      name: 'Demo company',
       industry: '| Fintech',
       date: 'Aug 2015 - Aug 2018',
       informationList: [{ id: nanoid(), val: '' }],
@@ -114,11 +119,11 @@ const initialState = {
   education: [
     {
       id: nanoid(),
-      icon: '',
+      icon: EDUCATION_ICON,
       name: 'Youtube @DoctorCode',
       duration: '3 Months',
       description:
-        'Doctor code a Fullstack free online course, follow me at https://www.youtube.com/@doctorcode',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
   ],
   value: 0,
@@ -127,246 +132,355 @@ const initialState = {
 
 
 export const resumeSlice = createSlice({
-  name: 'resumeSlice',
-  initialState,
+  name: 'resume',
+  initialState: {
+    selectedDocumentId: '',
+    documents: {},
+  },
   reducers: {
+    setDarkMode: (state, action) => {
+      state.documents[state.selectedDocumentId].isDarkMode = action.payload
+    },
+    toggleDarkMode: (state) => {
+      state.documents[state.selectedDocumentId].isDarkMode = !state.documents[
+        state.selectedDocumentId
+      ].isDarkMode
+    },
+    setDocumentName: (state, action) => {
+      state.documents[state.selectedDocumentId].documentName = action.payload
+    },
+    setCurrentDocumentId: (state, action) => {
+      state.selectedDocumentId = action.payload
+    },
+    removeDocumentById: (state, action) => {
+      console.log(action.payload)
+      delete state.documents[action.payload]
+    },
+    addResumeDocument: (state, action) => {
+      const uniqueId = nanoid()
+      state.selectedDocumentId = uniqueId
+      switch (action.payload) {
+        case 1:
+          state.documents[uniqueId] = {
+            id: uniqueId,
+            ...initialState,
+            documentName: getRandomName(),
+          }
+          break
+        case 2:
+          state.documents[uniqueId] = {
+            id: uniqueId,
+            ...initialState, // template 2
+            documentName: getRandomName(),
+          }
+          break
+        case 3:
+          state.documents[uniqueId] = {
+            id: uniqueId,
+            ...initialState, // template 3
+            documentName: getRandomName(),
+          }
+          break
+        default:
+          state.documents[uniqueId] = {
+            id: uniqueId,
+            ...initialState, // template 1
+            documentName: getRandomName(),
+          }
+      }
+    },
     setSkills: (state, action) => {
       if (action.payload.length > 160) return state
-      state.stack = action.payload
+      state.documents[state.selectedDocumentId].stack.push({
+        id: nanoid(),
+        name: action.payload,
+        isActivated: false,
+      })
     },
-    setFacebookURL: (state, action) => {
-      state.socialUrls.facebook = action.payload
+    removeSkill: (state, action) => {
+      state.documents[state.selectedDocumentId].stack = state.documents[
+        state.selectedDocumentId
+      ].stack.filter((skill) => skill.id !== action.payload)
     },
-    setLinkedinURL: (state, action) => {
-      state.socialUrls.linkedin = action.payload
-    },
-    setGitHubURL: (state, action) => {
-      state.socialUrls.github = action.payload
-    },
-    setYoutubeURL: (state, action) => {
-      state.socialUrls.youtube = action.payload
-    },
-    setInstagramURL: (state, action) => {
-      state.socialUrls.instagram = action.payload
-    },
-    setMediumURL: (state, action) => {
-      state.socialUrls.medium = action.payload
+    setSocialURL: (state, action) => {
+      state.documents[state.selectedDocumentId].socialUrls[action.payload.id] =
+        action.payload.value
     },
     setProjectName: (state, action) => {
-      const idx = state.projects.findIndex((i) => i.id === action.payload.id)
-      state.projects[idx].name = action.payload.value
+      const idx = state.documents[state.selectedDocumentId].projects.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].projects[idx].name =
+        action.payload.value
     },
     setProjectInfo: (state, action) => {
-      const idx = state.projects.findIndex((i) => i.id === action.payload.id)
-      state.projects[idx].info = action.payload.value
+      const idx = state.documents[state.selectedDocumentId].projects.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].projects[idx].info =
+        action.payload.value
     },
     setProjectImageUrl: (state, action) => {
-      const idx = state.projects.findIndex((i) => i.id === action.payload.id)
-      state.projects[idx].image = action.payload.value
+      const idx = state.documents[state.selectedDocumentId].projects.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].projects[idx].image =
+        action.payload.value
     },
     setProjectDemoLink: (state, action) => {
-      const idx = state.projects.findIndex((i) => i.id === action.payload.id)
-      state.projects[idx].demoLink = action.payload.value
+      const idx = state.documents[state.selectedDocumentId].projects.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].projects[idx].demoLink =
+        action.payload.value
     },
     setProjectGitLink: (state, action) => {
-      const idx = state.projects.findIndex((i) => i.id === action.payload.id)
-      state.projects[idx].codeLink = action.payload.value
+      const idx = state.documents[state.selectedDocumentId].projects.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].projects[idx].codeLink =
+        action.payload.value
     },
     setJobInfo: (state, action) => {
-      const idx = state.experience.findIndex((i) => i.id === action.payload.id)
-      state.experience[idx].information = action.payload.value
+      const idx = state.documents[
+        state.selectedDocumentId
+      ].experience.findIndex((i) => i.id === action.payload.id)
+      state.documents[state.selectedDocumentId].experience[idx].information =
+        action.payload.value
     },
     setJobInfoList: (state, action) => {
-      const idx = state.experience.findIndex((i) => i.id === action.payload.id)
-      state.experience[idx].informationList[action.payload.index].val = action.payload.value
+      const idx = state.documents[state.selectedDocumentId].experience.findIndex((i) => i.id === action.payload.id)
+      state.documents[state.selectedDocumentId].experience[idx].informationList[action.payload.index].val = action.payload.value
     },
     setJobDate: (state, action) => {
-      const idx = state.experience.findIndex((i) => i.id === action.payload.id)
-      state.experience[idx].date = action.payload.value
+      const idx = state.documents[
+        state.selectedDocumentId
+      ].experience.findIndex((i) => i.id === action.payload.id)
+      state.documents[state.selectedDocumentId].experience[idx].date =
+        action.payload.value
     },
     setJobIndustry: (state, action) => {
-      const idx = state.experience.findIndex((i) => i.id === action.payload.id)
-      state.experience[idx].industry = action.payload.value
+      const idx = state.documents[
+        state.selectedDocumentId
+      ].experience.findIndex((i) => i.id === action.payload.id)
+      state.documents[state.selectedDocumentId].experience[idx].industry =
+        action.payload.value
     },
     setJobName: (state, action) => {
-      const idx = state.experience.findIndex((i) => i.id === action.payload.id)
-      state.experience[idx].name = action.payload.value
+      const idx = state.documents[
+        state.selectedDocumentId
+      ].experience.findIndex((i) => i.id === action.payload.id)
+      state.documents[state.selectedDocumentId].experience[idx].name =
+        action.payload.value
     },
     setJobIconUrl: (state, action) => {
-      const idx = state.experience.findIndex((i) => i.id === action.payload.id)
-      state.experience[idx].icon = action.payload.value
+      const idx = state.documents[
+        state.selectedDocumentId
+      ].experience.findIndex((i) => i.id === action.payload.id)
+      state.documents[state.selectedDocumentId].experience[idx].icon =
+        action.payload.value
     },
-    toggleExperience: (state) => {
-      state.display.experience = !state.display.experience
+    setEducationIcon: (state, action) => {
+      const idx = state.documents[state.selectedDocumentId].education.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].education[idx].icon =
+        action.payload.value
     },
-    toggleExperienceInFreeText: (state) => {
-      state.display.experienceInFreeText = !state.display.experienceInFreeText
+    setEducationName: (state, action) => {
+      const idx = state.documents[state.selectedDocumentId].education.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].education[idx].name =
+        action.payload.value
     },
-    toggleEducationIcons: (state) => {
-      state.display.educationIcons = !state.display.educationIcons
+    setEducationDuration: (state, action) => {
+      const idx = state.documents[state.selectedDocumentId].education.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].education[idx].duration =
+        action.payload.value
     },
-    toggleExpIcons: (state) => {
-      state.display.jobIcons = !state.display.jobIcons
-    },
-    toggleStack: (state) => {
-      state.display.stack = !state.display.stack
-    },
-    toggleProjects: (state) => {
-      state.display.projects = !state.display.projects
-    },
-    toggleOneLineProjects: (state) => {
-      state.display.oneLineProjects = !state.display.oneLineProjects
-    },
-    toggleSocial: (state, action) => {
-      state.display.social[action.payload] = !state.display.social[
-        action.payload
-      ]
+    setEducationDesc: (state, action) => {
+      const idx = state.documents[state.selectedDocumentId].education.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].education[idx].description =
+        action.payload.value
     },
     setSummary: (state, action) => {
       if (action.payload.length > 160) return state
-      state.summary = action.payload
-    },
-    toggleNarrowHeader: (state) => {
-      state.display.narrowHeader = !state.display.narrowHeader
-    },
-    toggleSummary: (state) => {
-      state.display.summary = !state.display.summary
-    },
-    toggleEducation: (state) => {
-      state.display.education = !state.display.education
+      state.documents[state.selectedDocumentId].summary = action.payload
     },
     setThemeColor: (state, action) => {
-      state.themeColor = action.payload
+      state.documents[state.selectedDocumentId].themeColor = action.payload
     },
     setTitle: (state, action) => {
-      state.title = action.payload
+      state.documents[state.selectedDocumentId].title = action.payload
     },
     setEmail: (state, action) => {
-      state.email = action.payload
+      state.documents[state.selectedDocumentId].email = action.payload
     },
     setPhone: (state, action) => {
-      state.phone = action.payload
+      state.documents[state.selectedDocumentId].phone = action.payload
     },
     setFullName: (state, action) => {
-      state.fullName = action.payload
+      state.documents[state.selectedDocumentId].fullName = action.payload
     },
-    displayRenderer: (state) => {
-      state.display.renderer = true
+    toggleActivatedSkill: (state, action) => {
+      const skill = state.documents[state.selectedDocumentId].stack.find(
+        (skill) => skill.id === action.payload
+      )
+      if (skill) {
+        skill.isActivated = !skill.isActivated
+      }
+    },
+    toggleExperience: (state) => {
+      state.documents[state.selectedDocumentId].display.experience = !state
+        .documents[state.selectedDocumentId].display.experience
+    },
+    toggleExperienceInFreeText: (state) => {
+      state.documents[state.selectedDocumentId].display.experienceInFreeText = !state.documents[state.selectedDocumentId].display.experienceInFreeText
+    },
+    toggleEducationIcons: (state) => {
+      state.documents[state.selectedDocumentId].display.educationIcons = !state
+        .documents[state.selectedDocumentId].display.educationIcons
+    },
+    toggleExpIcons: (state) => {
+      state.documents[state.selectedDocumentId].display.jobIcons = !state
+        .documents[state.selectedDocumentId].display.jobIcons
+    },
+    toggleStack: (state) => {
+      state.documents[state.selectedDocumentId].display.stack = !state
+        .documents[state.selectedDocumentId].display.stack
+    },
+    toggleProjects: (state) => {
+      state.documents[state.selectedDocumentId].display.projects = !state
+        .documents[state.selectedDocumentId].display.projects
+    },
+    toggleOneLineProjects: (state) => {
+      state.documents[state.selectedDocumentId].display.oneLineProjects = !state
+        .documents[state.selectedDocumentId].display.oneLineProjects
+    },
+    toggleSocial: (state, action) => {
+      state.documents[state.selectedDocumentId].display.social[
+        action.payload
+      ] = !state.documents[state.selectedDocumentId].display.social[
+      action.payload
+      ]
+    },
+    toggleNarrowHeader: (state) => {
+      state.documents[state.selectedDocumentId].display.narrowHeader = !state
+        .documents[state.selectedDocumentId].display.narrowHeader
+    },
+    toggleSummary: (state) => {
+      state.documents[state.selectedDocumentId].display.summary = !state
+        .documents[state.selectedDocumentId].display.summary
+    },
+    toggleEducation: (state) => {
+      state.documents[state.selectedDocumentId].display.education = !state
+        .documents[state.selectedDocumentId].display.education
     },
     toggleRenderer: (state) => {
-      state.display.renderer = !state.display.renderer
+      state.documents[state.selectedDocumentId].display.renderer = !state
+        .documents[state.selectedDocumentId].display.renderer
     },
     toggleSideNav: (state) => {
-      state.display.sideNav = !state.display.sideNav
+      state.documents[state.selectedDocumentId].display.sideNav = !state
+        .documents[state.selectedDocumentId].display.sideNav
     },
-    setEducationIcon: (state, action) => {
-      const idx = state.education.findIndex((i) => i.id === action.payload.id)
-      state.education[idx].icon = action.payload.value
+    forceNarrowHeader: (state) => {
+      state.documents[state.selectedDocumentId].display.narrowHeader = true
     },
-    setEducationName: (state, action) => {
-      const idx = state.education.findIndex((i) => i.id === action.payload.id)
-      state.education[idx].name = action.payload.value
-    },
-    setEducationDuration: (state, action) => {
-      const idx = state.education.findIndex((i) => i.id === action.payload.id)
-      state.education[idx].duration = action.payload.value
-    },
-    setEducationDesc: (state, action) => {
-      const idx = state.education.findIndex((i) => i.id === action.payload.id)
-      state.education[idx].description = action.payload.value
+    displayRenderer: (state) => {
+      state.documents[state.selectedDocumentId].display.renderer = true
     },
     addEducation: (state) => {
-      if (state.education.length === 2) {
-        return state
-      } else {
-        state.education.push({
+      if (state.documents[state.selectedDocumentId].education.length < 2) {
+        state.documents[state.selectedDocumentId].education.push({
           id: nanoid(),
-          icon: '',
+          icon: EDUCATION_ICON,
           name: 'Youtube @DoctorCode',
           duration: '3 Years',
           description:
-            'Doctor code a Fullstack free online course, follow me at www.youtube.com/@doctorcode',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
         })
       }
     },
-    removeEducation: (state) => {
-      if (state.education.length === 1) return state
-      state.education.pop()
-    },
-    removeProject: (state) => {
-      if (state.projects.length === 1) return state
-      state.projects.pop()
-    },
-    removeExp: (state) => {
-      if (state.experience.length === 1) return state
-      state.experience.pop()
+    addProject: (state) => {
+      if (state.documents[state.selectedDocumentId].projects.length < 3) {
+        state.documents[state.selectedDocumentId].projects.push({
+          id: nanoid(),
+          name: 'Project Name',
+          image: getRandomImage(),
+          info:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.\n',
+          codeLink: 'doctorcode.org/',
+          demoLink: 'doctorcode.org/',
+        })
+      }
     },
     removeInfoList: (state, action) => {
-      const idx = state.experience.findIndex((i) => i.id === action.payload.id)
-      if (state.experience[idx].informationList.length === 1) {
+      const idx = state.documents[state.selectedDocumentId].experience.findIndex((i) => i.id === action.payload.id)
+      if (state.documents[state.selectedDocumentId].experience[idx].informationList.length === 1) {
         return state
       }
-      state.experience[idx].informationList.pop()
+      state.documents[state.selectedDocumentId].experience[idx].informationList.pop()
     },
     addExp: (state) => {
-      if (state.experience.length === 2) {
-        return state
-      } else {
-        state.experience.push({
+      if (state.documents[state.selectedDocumentId].experience.length < 2) {
+        state.documents[state.selectedDocumentId].experience.push({
           id: nanoid(),
           icon: '',
-          name: 'Apple inc.',
+          name: 'Demo company',
           industry: 'Wearable Devices',
-          time: 'Aug 2018 - Preset ',
+          date: 'Aug 2018 - Preset ',
           information:
-            'Apple Inc (Apple) designs, manufactures, and markets smartphones, tablets personal computers (PCs).',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.\n',
         })
       }
     },
     addInfoList: (state, action) => {
-      const idx = state.experience.findIndex((i) => i.id === action.payload.id)
-      if (state.experience[idx].informationList.length === 4) {
+      const idx = state.documents[state.selectedDocumentId].experience.findIndex((i) => i.id === action.payload.id)
+      if (state.documents[state.selectedDocumentId].experience[idx].informationList.length === 4) {
         return state
       }
-      state.experience[idx].informationList.push({
+      state.documents[state.selectedDocumentId].experience[idx].informationList.push({
         id: nanoid(),
         val: ''
       })
-
     },
-    addProject: (state) => {
-      if (state.projects.length === 3) {
-        return state
-      } else {
-        state.projects.push({
-          id: nanoid(),
-          name: 'Coolio',
-          image: getRandomImage(),
-          info:
-            'Lizards are a widespread group of squamates reptiles, Lizards are a widespread group.',
-          codeLink: '#',
-          demoLink: '#',
-        })
+    removeEducation: (state) => {
+      if (state.documents[state.selectedDocumentId].education.length >= 2) {
+        state.documents[state.selectedDocumentId].education.pop()
       }
+    },
+    removeProject: (state) => {
+      if (state.documents[state.selectedDocumentId].projects.length >= 1)
+        state.documents[state.selectedDocumentId].projects.pop()
+    },
+    removeExp: (state) => {
+      if (state.documents[state.selectedDocumentId].experience.length === 1)
+        return state
+      state.documents[state.selectedDocumentId].experience.pop()
     },
   },
 })
-
 export const {
+  setDocumentName,
+  setCurrentDocumentId,
+  addResumeDocument,
+  toggleDarkMode,
   setJobInfo,
   setJobInfoList,
   setJobDate,
+  removeDocumentById,
+  setDarkMode,
   setJobIndustry,
   setJobName,
   setJobIconUrl,
   toggleStack,
-  setFacebookURL,
-  setLinkedinURL,
-  setSkills,
-  setGitHubURL,
-  setYoutubeURL,
-  setInstagramURL,
-  setMediumURL,
+  setSocialURL,
   toggleExperience,
   toggleExperienceInFreeText,
   setProjectDemoLink,
@@ -387,6 +501,7 @@ export const {
   toggleRenderer,
   displayRenderer,
   toggleSummary,
+  forceNarrowHeader,
   toggleNarrowHeader,
   setSummary,
   toggleExpIcons,
@@ -403,6 +518,41 @@ export const {
   setEducationName,
   setEducationDuration,
   setEducationDesc,
+  setSkills,
+  toggleActivatedSkill,
+  removeSkill,
 } = resumeSlice.actions
+
+/**
+ * selectors
+ */
+
+const resumeStack = (state) =>
+  state.resume.documents[state.resume.selectedDocumentId].stack
+export const selectResumeStack = memoize(resumeStack)
+
+const resumeExperience = (state) =>
+  state.resume.documents[state.resume.selectedDocumentId].experience
+export const selectResumeExp = memoize(resumeExperience)
+
+const resumeEducation = (state) =>
+  state.resume.documents[state.resume.selectedDocumentId].education
+export const selectResumeEducation = memoize(resumeEducation)
+
+const resumeProjects = (state) =>
+  state.resume.documents[state.resume.selectedDocumentId].projects
+export const selectResumeProjects = memoize(resumeProjects)
+
+const resumeDisplaySettings = (state) =>
+  state.resume.documents[state.resume.selectedDocumentId].display
+export const selectDisplaySettings = memoize(resumeDisplaySettings)
+
+const resumeThemeColor = (state) =>
+  state.resume.documents[state.resume.selectedDocumentId].themeColor
+export const selectThemeColor = memoize(resumeThemeColor)
+
+const fullResume = (state) =>
+  state.resume.documents[state.resume.selectedDocumentId]
+export const selectFullResume = memoize(fullResume)
 
 export default resumeSlice.reducer

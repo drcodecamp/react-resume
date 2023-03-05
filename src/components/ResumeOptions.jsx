@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button, Collapse } from 'antd'
+import { Collapse, Input, message } from 'antd'
 import ProfileWidget from '../widgets/Profile'
 import ThemeWidget from '../widgets/Theme'
 import DownloadWidget from '../widgets/Download'
@@ -9,14 +9,18 @@ import ProjectsWidget from '../widgets/Projects'
 import StackWidget from '../widgets/Stack'
 import ExperienceWidget from '../widgets/Experience'
 import EducationWidget from '../widgets/Education'
-import CustomRow from './shared/CustomRow.jsx'
-import { useDispatch } from 'react-redux'
-import { toggleRenderer } from '../store/resumeSlice.js'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  selectFullResume,
+  setDocumentName,
+  toggleRenderer,
+} from '../store/resumeSlice.js'
 
 const { Panel } = Collapse
 
 const ResumeOptions = () => {
   const dispatch = useDispatch()
+  const document = useSelector(selectFullResume)
   const [fullScreen, setFullScreen] = useState(false)
   const handleRendererToggle = () => {
     dispatch(toggleRenderer())
@@ -24,12 +28,12 @@ const ResumeOptions = () => {
   const handleFullScreen = () => {
     if (!fullScreen) {
       document.body.requestFullscreen().then((r) => {
-        //
+        message.success('Enter full screen')
       })
       setFullScreen(true)
     } else {
       document.exitFullscreen().then((r) => {
-        //
+        message.warning('Exit full screen')
       })
       setFullScreen(false)
     }
@@ -38,13 +42,17 @@ const ResumeOptions = () => {
     <ResumeOptionsContainer>
       <Resume>
         <Form>
-          <Logo>דוקטור קוד</Logo>
-          <h1>יצירת קורות חיים באנגלית אונליין בחינם</h1>
-          <h2>צרו קורות חיים ייחודיים שיעשו את העבודה בכמה קליקים פשוטים</h2>
-          <CustomRow>
-            <Button onClick={handleFullScreen}>Toggle full screen</Button>
-            <Button onClick={handleRendererToggle}>Toggle PDF</Button>
-          </CustomRow>
+          <h1>Set your document name!</h1>
+          <h2>Document changes are automatically saved!</h2>
+          <DocumentNameInputContainer>
+            <Input
+              showCount
+              maxLength={35}
+              onChange={({ target }) => dispatch(setDocumentName(target.value))}
+              placeholder="document name"
+              value={document.documentName}
+            />
+          </DocumentNameInputContainer>
         </Form>
         <Collapse>
           <Panel header="Theme and Style" key="theme">
@@ -77,6 +85,20 @@ const ResumeOptions = () => {
   )
 }
 
+const DocumentNameInputContainer = styled.div`
+  padding-top: 1em;
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  input {
+    text-align: center;
+    padding: 0.5em;
+    margin: 1em;
+  }
+`
+
 const Resume = styled.div`
   display: flex;
   flex-direction: column;
@@ -84,9 +106,7 @@ const Resume = styled.div`
 `
 
 const Logo = styled.div`
-  text-align: center;
-  font-size: 2em;
-  font-family: fantasy, sans-serif;
+  font-size: 1.5em;
 `
 
 const Form = styled.div`
@@ -102,8 +122,6 @@ const Form = styled.div`
     font-size: 1em;
   }
 `
-
-const LinkToWebsite = styled.div``
 
 const ResumeOptionsContainer = styled.div`
   display: flex;

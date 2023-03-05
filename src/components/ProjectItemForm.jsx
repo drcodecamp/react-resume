@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  selectDisplaySettings,
   setProjectDemoLink,
   setProjectGitLink,
   setProjectImageUrl,
@@ -27,7 +28,7 @@ export const convertBase64 = (file) => {
 
 const ProjectItemForm = ({ project }) => {
   const dispatch = useDispatch()
-  const { display } = useSelector((state) => state.ResumeStore)
+  const display = useSelector(selectDisplaySettings)
   const isDisabled = !display.projects
   const handleImageSelection = (e) => {
     dispatch(
@@ -44,7 +45,6 @@ const ProjectItemForm = ({ project }) => {
       </RowLabel>
       <RowLabel>
         <Input
-          value={project.name || ''}
           onChange={({ target }) =>
             dispatch(
               setProjectName({
@@ -63,7 +63,6 @@ const ProjectItemForm = ({ project }) => {
           showCount
           maxLength={85}
           disabled={isDisabled}
-          value={project.info || ''}
           onChange={({ target }) =>
             dispatch(
               setProjectInfo({
@@ -81,7 +80,6 @@ const ProjectItemForm = ({ project }) => {
           addonBefore="https://"
           status={project.codeLink.includes('http') ? 'error' : ''}
           disabled={isDisabled}
-          value={project.codeLink || ''}
           onChange={({ target }) =>
             dispatch(
               setProjectGitLink({
@@ -99,7 +97,6 @@ const ProjectItemForm = ({ project }) => {
           status={project.demoLink.includes('http') ? 'error' : ''}
           addonBefore="https://"
           disabled={isDisabled}
-          value={project.demoLink || ''}
           onChange={({ target }) =>
             dispatch(
               setProjectDemoLink({
@@ -128,7 +125,7 @@ export const FormContainer = styled.div`
   padding: 1em;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 `
 
 export default ProjectItemForm

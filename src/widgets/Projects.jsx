@@ -4,8 +4,10 @@ import { Button, Switch } from 'antd'
 import {
   addProject,
   removeProject,
-  toggleProjects,
+  selectDisplaySettings,
+  selectResumeProjects,
   toggleOneLineProjects,
+  toggleProjects,
 } from '../store/resumeSlice.js'
 import CustomRow from '../components/shared/CustomRow.jsx'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,7 +15,8 @@ import ProjectItemForm from '../components/ProjectItemForm.jsx'
 
 const ProjectsWidget = () => {
   const dispatch = useDispatch()
-  const { display, projects } = useSelector((state) => state.ResumeStore)
+  const projects = useSelector(selectResumeProjects)
+  const display = useSelector(selectDisplaySettings)
   return (
     <Container>
       <CustomRow>
@@ -53,9 +56,10 @@ const ProjectsWidget = () => {
         </ItemControllers>
       </CustomRow>
       <ProjectList>
-        {projects.map((project) => {
-          return <ProjectItemForm key={project.id} project={project} />
-        })}
+        {projects &&
+          projects.map((project) => {
+            return <ProjectItemForm key={project.id} project={project} />
+          })}
       </ProjectList>
     </Container>
   )
@@ -84,7 +88,7 @@ display: flex;
 
 const ProjectList = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
 `

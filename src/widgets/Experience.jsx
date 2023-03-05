@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   addExp,
   removeExp,
+  selectDisplaySettings,
+  selectResumeExp,
   toggleExperience,
   toggleExperienceInFreeText,
   toggleExpIcons,
@@ -16,12 +18,11 @@ import ExperienceItemForm from '../components/ExperienceItemForm.jsx'
 
 const ExperienceWidget = () => {
   const dispatch = useDispatch()
-  const { display, experience } = useSelector((state) => state.ResumeStore)
-
+  const display = useSelector(selectDisplaySettings)
+  const experience = useSelector(selectResumeExp)
   const isDisabled = useMemo(() => {
     return !display.experience
   }, [display.experience])
-
   return (
     <Container>
       <CustomForm>
@@ -41,7 +42,7 @@ const ExperienceWidget = () => {
           />
         </CustomRow>
         <CustomRow>
-          Number of Jobs (1-2)
+          Jobs (1-2)
           <ItemControllers>
             <Button
               onClick={() => dispatch(removeExp())}
@@ -88,7 +89,7 @@ const ExperienceWidget = () => {
 const JobList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 `
 
 const Container = styled.div`

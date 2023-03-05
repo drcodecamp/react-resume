@@ -4,48 +4,53 @@ import { Title } from './Stack.jsx'
 import { useSelector } from 'react-redux'
 import DEMO_WORK_ICON from '../assets/work.webp'
 import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
+import {
+  selectDisplaySettings,
+  selectFullResume,
+  selectResumeExp,
+} from '../store/resumeSlice.js'
 
 const ExperienceSection = () => {
-
-  const { experience } = useSelector((state) => state.ResumeStore)
+  const experience = useSelector(selectResumeExp)
   return (
     <ContentSection>
       <Title>Experience</Title>
       <InnerContentPadding>
-        {experience?.map((exp, idx) => {
-          return <JobItem key={idx} job={exp} />
-        })}
+        {experience &&
+          experience?.map((exp) => <JobItem key={exp.id} job={exp} />)}
       </InnerContentPadding>
     </ContentSection>
   )
 }
 
 const JobItem = ({ job }) => {
-  const { display } = useSelector((state) => state.ResumeStore)
-  return (<JobCard>
-    {display.jobIcons && (
-      <JobImage>
-        <img src={job.icon || DEMO_WORK_ICON} alt="work" />
-      </JobImage>
-    )}
-    <div>
-      <JobTitle>
-        <div>{job.name}</div>
-        <JobIndustry>{job.industry}</JobIndustry>
-      </JobTitle>
-      <div>{job.date}</div>
-      {display.experienceInFreeText ? <DescriptionText>{job.information}
-      </DescriptionText>
-        :
-        <DescriptionList>{job.informationList.map((item) => {
-          if (item.val === '') return
-          return <li key={item.id}>{item.val}</li>
-        }
-        )
-        }
-        </DescriptionList>}
-    </div>
-  </JobCard>
+  const resume = useSelector(selectFullResume)
+  const display = useSelector(selectDisplaySettings)
+  return (
+    <JobCard>
+      {display.jobIcons && (
+        <JobImage>
+          <img src={job.icon || DEMO_WORK_ICON} alt="work" />
+        </JobImage>
+      )}
+      <div>
+        <JobTitle>
+          <div>{job.name}</div>
+          <JobIndustry color={resume.themeColor}>{job.industry}</JobIndustry>
+        </JobTitle>
+        <div>{job.date}</div>
+        {display.experienceInFreeText ? <DescriptionText>{job.information}
+        </DescriptionText>
+          :
+          <DescriptionList>{job.informationList && job.informationList.map((item) => {
+            if (item.val === '') return
+            return <li key={item.id}>{item.val}</li>
+          }
+          )
+          }
+          </DescriptionList>}
+      </div>
+    </JobCard>
   )
 }
 
@@ -76,14 +81,12 @@ export const JobImage = styled.div`
 export const JobIndustry = styled.div`
   display: flex;
   padding-left: 0.2em;
-  color: var(--primary-color);
+  color: ${({ color }) => color || 'white'};
   font-weight: bold;
 `
 export const JobCard = styled.div`
   display: flex;
-  :nth-child(2) {
-    padding-top: 1em;
-  }
+  padding-top: 1em;
 `
 export const JobTitle = styled.div`
   display: flex;

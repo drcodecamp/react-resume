@@ -3,41 +3,45 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { Title } from './Stack'
 import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
+import { selectFullResume, selectResumeProjects } from '../store/resumeSlice.js'
 
 const ProjectsOneLine = () => {
-  const { projects } = useSelector((state) => state.ResumeStore)
+  const projects = useSelector(selectResumeProjects)
+  const resume = useSelector(selectFullResume)
   return (
     <ContentSection>
       <Title>Projects</Title>
       <InnerContentPadding>
-        {projects.map((project) => {
-          return (
-            <ProjectItem key={project.id}>
-              <CardA>
-                <ProjectData>
-                  <ProjectInfo>
-                    <Span>{project.name}</Span>
-                    {project.info}
-                  </ProjectInfo>
-                </ProjectData>
-                <Actions>
-                  <ProjectSourceCode
-                    href={'https://' + project.codeLink || '#'}
-                    target="_blank"
-                  >
-                    code
-                  </ProjectSourceCode>
-                  <ProjectDemoButton
-                    href={'https://' + project.demoLink || '#'}
-                    target="_blank"
-                  >
-                    demo
-                  </ProjectDemoButton>
-                </Actions>
-              </CardA>
-            </ProjectItem>
-          )
-        })}
+        {projects &&
+          projects.map((project) => {
+            return (
+              <ProjectItem key={project.id}>
+                <CardA>
+                  <ProjectData>
+                    <ProjectInfo>
+                      <Span>{project.name}</Span>
+                      {project.info}
+                    </ProjectInfo>
+                  </ProjectData>
+                  <Actions>
+                    <ProjectSourceCode
+                      href={'https://' + project.codeLink || '#'}
+                      target="_blank"
+                    >
+                      code
+                    </ProjectSourceCode>
+                    <ProjectDemoButton
+                      color={resume.themeColor}
+                      href={'https://' + project.demoLink || '#'}
+                      target="_blank"
+                    >
+                      demo
+                    </ProjectDemoButton>
+                  </Actions>
+                </CardA>
+              </ProjectItem>
+            )
+          })}
       </InnerContentPadding>
     </ContentSection>
   )
@@ -88,7 +92,7 @@ const ProjectSourceCode = styled.a`
 
 const ProjectDemoButton = styled.a`
   font-weight: bolder;
-  color: var(--primary-color);
+  color: ${({ color }) => color || 'white'};
   font-size: 1em;
   border-radius: 7px;
   cursor: pointer;

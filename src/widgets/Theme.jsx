@@ -1,57 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { setThemeColor } from '../store/resumeSlice.js'
+import {
+  selectFullResume,
+  setThemeColor,
+  toggleDarkMode,
+} from '../store/resumeSlice.js'
 import CustomRow from '../components/shared/CustomRow.jsx'
 import { Switch } from 'antd'
+import { useDebounce } from 'usehooks-ts'
 
 const ThemeWidget = () => {
   const dispatch = useDispatch()
-  const [isDarkMode, setIsDarkMode] = useState(false)
-  const { themeColor } = useSelector((state) => state.ResumeStore)
-  const handleColorChange = (e) => {
-    let r = document.querySelector(':root')
-    r.style.setProperty('--primary-color', e.target.value)
-    dispatch(setThemeColor(e.target.value))
+  const resume = useSelector(selectFullResume)
+  const [color, setColor] = useState(resume.themeColor)
+  const debouncedValue = useDebounce(color, 350)
+
+  const handleDarkModeChange = () => {
+    dispatch(toggleDarkMode())
   }
-  const toggleDarkMode = () => {
-    const colorModeOverride = localStorage.getItem('color-mode')
-    let r = document.querySelector(':root')
-    if (colorModeOverride === 'dark') {
-      document.documentElement.setAttribute('data-force-color-mode', 'light')
-      localStorage.setItem('color-mode', 'light')
-      dispatch(setThemeColor('#1d1aff'))
-      r.style.setProperty('--primary-color', '#1d1aff')
-    } else {
-      document.documentElement.setAttribute('data-force-color-mode', 'dark')
-      localStorage.setItem('color-mode', 'dark')
-      dispatch(setThemeColor('#F65164'))
-      r.style.setProperty('--primary-color', '#F65164')
-    }
+
+  const handleChange = (event) => {
+    setColor(event.target.value)
   }
+
   useEffect(() => {
-    const colorModeOverride = localStorage.getItem('color-mode')
-    if (colorModeOverride === 'light') {
-      setIsDarkMode(false)
-    } else {
-      setIsDarkMode(true)
-    }
-  })
+    dispatch(setThemeColor(color))
+  }, [debouncedValue])
+
   return (
     <Container>
       <CustomRow>
         Select main color
-        <ColorPicker
-          type="color"
-          value={themeColor}
-          onInput={(e) => {
-            handleColorChange(e)
-          }}
-        />
+        <ColorPicker type="color" onChange={handleChange} value={color} />
       </CustomRow>
       <CustomRow>
         Toggle light / Dark Mode (light mode is MOST Recommended!)
-        <Switch checked={isDarkMode} onChange={() => toggleDarkMode()} />
+        <Switch checked={resume.isDarkMode} onChange={handleDarkModeChange} />
       </CustomRow>
     </Container>
   )
