@@ -7,6 +7,14 @@ import SRC from '../assets/bg1.webp'
 import SRC2 from '../assets/bg2.webp'
 import SRC3 from '../assets/bg3.webp'
 import DEMO_WORK_ICON from '../assets/work.webp'
+
+import FACEBOOK_ICON from '../assets/facebook.webp'
+import INSTAGRAM_ICON from '../assets/instagram.webp'
+import YOUTUBE_ICON from '../assets/youtube.webp'
+import LINKEDIN_ICON from '../assets/linkedin.webp'
+import GITHUB_ICON from '../assets/github.webp'
+import MEDIUM_ICON from '../assets/medium.webp'
+
 import { getRandomName } from '../constants/names.js'
 
 export const initialState = {
@@ -46,8 +54,7 @@ export const initialState = {
       id: nanoid(),
       image: SRC,
       name: 'Project Name',
-      info:
-        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
+      info: 'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'doctorcode.org/',
       demoLink: 'doctorcode.org/',
     },
@@ -55,8 +62,7 @@ export const initialState = {
       id: nanoid(),
       image: SRC2,
       name: 'Project Name',
-      info:
-        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
+      info: 'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'doctorcode.org/',
       demoLink: 'doctorcode.org/',
     },
@@ -64,8 +70,7 @@ export const initialState = {
       id: nanoid(),
       image: SRC3,
       name: 'Project Name',
-      info:
-        'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
+      info: 'Lorem ipsum dolor sit amet, consecr adipisng elit. Dolor dolore eaque laud ume maxime',
       codeLink: 'doctorcode.org/',
       demoLink: 'doctorcode.org/',
     },
@@ -93,6 +98,62 @@ export const initialState = {
     instagram: '',
     medium: '',
   },
+  socials: [
+    {
+      id: nanoid(),
+      icon: FACEBOOK_ICON,
+      name: 'facebook',
+      url: '',
+      placeholder: 'facebook.com/doctorcodecamp',
+      display: false,
+      dragging: false,
+    },
+    {
+      id: nanoid(),
+      icon: LINKEDIN_ICON,
+      name: 'linkedin',
+      url: '',
+      placeholder: 'linkedin.com/in/doctorcodecamp/',
+      display: false,
+      dragging: false,
+    },
+    {
+      id: nanoid(),
+      icon: GITHUB_ICON,
+      name: 'github',
+      url: '',
+      placeholder: 'github.com/drcodecamp/',
+      display: false,
+      dragging: false,
+    },
+    {
+      id: nanoid(),
+      icon: YOUTUBE_ICON,
+      name: 'youtube',
+      url: '',
+      placeholder: 'youtube.com/@doctorcode/',
+      display: false,
+      dragging: false,
+    },
+    {
+      id: nanoid(),
+      icon: INSTAGRAM_ICON,
+      name: 'instagram',
+      url: '',
+      placeholder: 'instagram.com/doctor_code_official/',
+      display: false,
+      dragging: false,
+    },
+    {
+      id: nanoid(),
+      icon: MEDIUM_ICON,
+      name: 'medium',
+      url: '',
+      placeholder: 'medium.com/doctor_code_official/',
+      display: false,
+      dragging: false,
+    },
+  ],
   experience: [
     {
       id: nanoid(),
@@ -137,9 +198,8 @@ export const resumeSlice = createSlice({
       state.documents[state.selectedDocumentId].isDarkMode = action.payload
     },
     toggleDarkMode: (state) => {
-      state.documents[state.selectedDocumentId].isDarkMode = !state.documents[
-        state.selectedDocumentId
-      ].isDarkMode
+      state.documents[state.selectedDocumentId].isDarkMode =
+        !state.documents[state.selectedDocumentId].isDarkMode
     },
     setDocumentName: (state, action) => {
       state.documents[state.selectedDocumentId].documentName = action.payload
@@ -197,9 +257,23 @@ export const resumeSlice = createSlice({
         state.selectedDocumentId
       ].stack.filter((skill) => skill.id !== action.payload)
     },
+    toggleSocial: (state, action) => {
+      const idx = state.documents[state.selectedDocumentId].socials.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].socials[idx].display =
+        !state.documents[state.selectedDocumentId].socials[idx].display
+    },
     setSocialURL: (state, action) => {
-      state.documents[state.selectedDocumentId].socialUrls[action.payload.id] =
+      const idx = state.documents[state.selectedDocumentId].socials.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].socials[idx].url =
         action.payload.value
+    },
+    setSocials: (state, action) => {
+      if (!action.payload?.length) return state
+      state.documents[state.selectedDocumentId].socials = [...action.payload]
     },
     setProjectName: (state, action) => {
       const idx = state.documents[state.selectedDocumentId].projects.findIndex(
@@ -327,55 +401,54 @@ export const resumeSlice = createSlice({
       }
     },
     toggleExperience: (state) => {
-      state.documents[state.selectedDocumentId].display.experience = !state
-        .documents[state.selectedDocumentId].display.experience
+      state.documents[state.selectedDocumentId].display.experience =
+        !state.documents[state.selectedDocumentId].display.experience
     },
     toggleEducationIcons: (state) => {
-      state.documents[state.selectedDocumentId].display.educationIcons = !state
-        .documents[state.selectedDocumentId].display.educationIcons
+      state.documents[state.selectedDocumentId].display.educationIcons =
+        !state.documents[state.selectedDocumentId].display.educationIcons
     },
     toggleExpIcons: (state) => {
-      state.documents[state.selectedDocumentId].display.jobIcons = !state
-        .documents[state.selectedDocumentId].display.jobIcons
+      state.documents[state.selectedDocumentId].display.jobIcons =
+        !state.documents[state.selectedDocumentId].display.jobIcons
     },
     toggleStack: (state) => {
-      state.documents[state.selectedDocumentId].display.stack = !state
-        .documents[state.selectedDocumentId].display.stack
+      state.documents[state.selectedDocumentId].display.stack =
+        !state.documents[state.selectedDocumentId].display.stack
     },
     toggleProjects: (state) => {
-      state.documents[state.selectedDocumentId].display.projects = !state
-        .documents[state.selectedDocumentId].display.projects
+      state.documents[state.selectedDocumentId].display.projects =
+        !state.documents[state.selectedDocumentId].display.projects
     },
     toggleOneLineProjects: (state) => {
-      state.documents[state.selectedDocumentId].display.oneLineProjects = !state
-        .documents[state.selectedDocumentId].display.oneLineProjects
+      state.documents[state.selectedDocumentId].display.oneLineProjects =
+        !state.documents[state.selectedDocumentId].display.oneLineProjects
     },
-    toggleSocial: (state, action) => {
-      state.documents[state.selectedDocumentId].display.social[
-        action.payload
-      ] = !state.documents[state.selectedDocumentId].display.social[
-        action.payload
-      ]
-    },
+    // toggleSocial: (state, action) => {
+    //   state.documents[state.selectedDocumentId].display.social[action.payload] =
+    //     !state.documents[state.selectedDocumentId].display.social[
+    //       action.payload
+    //     ]
+    // },
     toggleNarrowHeader: (state) => {
-      state.documents[state.selectedDocumentId].display.narrowHeader = !state
-        .documents[state.selectedDocumentId].display.narrowHeader
+      state.documents[state.selectedDocumentId].display.narrowHeader =
+        !state.documents[state.selectedDocumentId].display.narrowHeader
     },
     toggleSummary: (state) => {
-      state.documents[state.selectedDocumentId].display.summary = !state
-        .documents[state.selectedDocumentId].display.summary
+      state.documents[state.selectedDocumentId].display.summary =
+        !state.documents[state.selectedDocumentId].display.summary
     },
     toggleEducation: (state) => {
-      state.documents[state.selectedDocumentId].display.education = !state
-        .documents[state.selectedDocumentId].display.education
+      state.documents[state.selectedDocumentId].display.education =
+        !state.documents[state.selectedDocumentId].display.education
     },
     toggleRenderer: (state) => {
-      state.documents[state.selectedDocumentId].display.renderer = !state
-        .documents[state.selectedDocumentId].display.renderer
+      state.documents[state.selectedDocumentId].display.renderer =
+        !state.documents[state.selectedDocumentId].display.renderer
     },
     toggleSideNav: (state) => {
-      state.documents[state.selectedDocumentId].display.sideNav = !state
-        .documents[state.selectedDocumentId].display.sideNav
+      state.documents[state.selectedDocumentId].display.sideNav =
+        !state.documents[state.selectedDocumentId].display.sideNav
     },
     forceNarrowHeader: (state) => {
       state.documents[state.selectedDocumentId].display.narrowHeader = true
@@ -401,8 +474,7 @@ export const resumeSlice = createSlice({
           id: nanoid(),
           name: 'Project Name',
           image: getRandomImage(),
-          info:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.\n',
+          info: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.\n',
           codeLink: 'doctorcode.org/',
           demoLink: 'doctorcode.org/',
         })
@@ -450,7 +522,6 @@ export const {
   setJobName,
   setJobIconUrl,
   toggleStack,
-  setSocialURL,
   toggleExperience,
   setProjectDemoLink,
   setProjectGitLink,
@@ -458,6 +529,8 @@ export const {
   setProjectInfo,
   setProjectName,
   toggleSocial,
+  setSocialURL,
+  setSocials,
   setThemeColor,
   toggleEducationIcons,
   toggleEducation,
@@ -493,6 +566,10 @@ export const {
 /**
  * selectors
  */
+
+const resumeSocials = (state) =>
+  state.resume.documents[state.resume.selectedDocumentId].socials
+export const selectResumeSocials = memoize(resumeSocials)
 
 const resumeStack = (state) =>
   state.resume.documents[state.resume.selectedDocumentId].stack

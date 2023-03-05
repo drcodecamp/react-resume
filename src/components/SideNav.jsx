@@ -1,16 +1,10 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import FACEBOOK_ICON from '../assets/facebook.webp'
-import INSTAGRAM_ICON from '../assets/instagram.webp'
-import YOUTUBE_ICON from '../assets/youtube.webp'
-import LINKEDIN_ICON from '../assets/linkedin.webp'
-import GITHUB_ICON from '../assets/github.webp'
-import MEDIUM_ICON from '../assets/medium.webp'
 import { useSelector } from 'react-redux'
 import { selectFullResume } from '../store/resumeSlice.js'
 
 const SideNav = () => {
-  const { fullName, display, socialUrls } = useSelector(selectFullResume)
+  const { fullName, socials } = useSelector(selectFullResume)
   const shortName = useMemo(() => {
     const names = fullName.split(' ')
     if (!names[0] || !names[1]) return 'dc'
@@ -22,48 +16,17 @@ const SideNav = () => {
       <ProfileContainer>
         <Circle>{shortName}</Circle>
       </ProfileContainer>
-      {display.social.facebook && (
-        <SocialIconContainer>
-          <a href={'https://' + socialUrls.facebook || '#'} target="_blank">
-            <img src={FACEBOOK_ICON} alt="facebook" />
-          </a>
-        </SocialIconContainer>
-      )}
-      {display.social.link && (
-        <SocialIconContainer>
-          <a href={'https://' + socialUrls.linkedin || '#'} target="_blank">
-            <img src={LINKEDIN_ICON} alt="linkedin" />
-          </a>
-        </SocialIconContainer>
-      )}
-      {display.social.github && (
-        <SocialIconContainer>
-          <a href={'https://' + socialUrls.github || '#'} target="_blank">
-            <img src={GITHUB_ICON} alt="github" />
-          </a>
-        </SocialIconContainer>
-      )}
-      {display.social.youtube && (
-        <SocialIconContainer>
-          <a href={'https://' + socialUrls.youtube || '#'} target="_blank">
-            <img src={YOUTUBE_ICON} alt="youtube" />
-          </a>
-        </SocialIconContainer>
-      )}
-      {display.social.instagram && (
-        <SocialIconContainer>
-          <a href={'https://' + socialUrls.instagram || '#'} target="_blank">
-            <img src={INSTAGRAM_ICON} alt="instagram" />
-          </a>
-        </SocialIconContainer>
-      )}
-      {display.social.medium && (
-        <SocialIconContainer>
-          <a href={'https://' + socialUrls.medium || '#'} target="_blank">
-            <img src={MEDIUM_ICON} alt="medium" />
-          </a>
-        </SocialIconContainer>
-      )}
+      {socials.map((social) => {
+        return (
+          social.display && (
+            <SocialIconContainer key={social.id}>
+              <a href={social.url || '#'} target="_blank" rel="noreferrer">
+                <img src={social.icon} alt={social.name} />
+              </a>
+            </SocialIconContainer>
+          )
+        )
+      })}
     </SideNavContainer>
   )
 }
