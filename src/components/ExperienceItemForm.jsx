@@ -19,6 +19,7 @@ import { ItemControllersInputsList } from '../widgets/Projects.jsx'
 
 const ExperienceItemForm = ({ expItem, isDisabled }) => {
   const dispatch = useDispatch()
+  console.log(expItem)
 
   const display = useSelector(selectDisplaySettings)
 
@@ -92,13 +93,13 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
                 removeInfoList({
                   id: expItem.id,
                 }))}
-              disabled={expItem.informationList.length === 1}
+              disabled={expItem.informationList?.length === 1}
             >
               -
             </Button>
             <p>{expItem.informationList.length} / 4</p>
             <Button
-              disabled={expItem.informationList.length === 4}
+              disabled={expItem.informationList?.length === 4}
               type="primary"
               shape="circle"
               onClick={() => dispatch(

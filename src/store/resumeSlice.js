@@ -435,6 +435,7 @@ export const resumeSlice = createSlice({
           name: 'Demo company',
           industry: 'Wearable Devices',
           date: 'Aug 2018 - Preset ',
+          informationList: [{ id: nanoid(), val: '' }],
           information:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.\n',
         })
