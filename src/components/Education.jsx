@@ -47,6 +47,7 @@ const EducationItem = ({ edu }) => {
 export const SubTitle = styled.p`
   color: var(--subtitle);
   font-weight: normal;
+  padding-left: 0.5em;
 `
 
 export default EducationSection

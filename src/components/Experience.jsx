@@ -36,10 +36,8 @@ const JobItem = ({ job }) => {
       )}
       <FullWidth>
         <JobTitle>
-          <div style={{ display: 'flex' }}>
-            <div>{job.name}</div>
-            <JobIndustry color={resume.themeColor}>{job.industry}</JobIndustry>
-          </div>
+          <div>{job.name}</div>
+          <JobIndustry color={resume.themeColor}>{job.industry}</JobIndustry>
           <SubTitle>{job.date}</SubTitle>
         </JobTitle>
         {display.experienceInFreeText ? (
@@ -103,7 +101,7 @@ export const JobTitle = styled.div`
   font-size: 1em;
   color: var(--main);
   font-weight: bold;
-  justify-content: space-between;
+  justify-content: flex-start;
 `
 
 export default ExperienceSection

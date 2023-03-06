@@ -452,9 +452,15 @@ export const resumeSlice = createSlice({
           name: 'Demo company',
           industry: 'Wearable Devices',
           date: '2 Years',
-          informationList: [{ id: nanoid(), val: '' }],
+          informationList: [
+            {
+              id: nanoid(),
+              val:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proibibendum venenatis',
+            },
+          ],
           information:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.\n',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
         })
       }
     },
@@ -501,7 +507,6 @@ export const {
   setJobInfoList,
   setJobDate,
   removeDocumentById,
-  setDarkMode,
   setJobIndustry,
   setJobName,
   setJobIconUrl,
