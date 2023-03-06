@@ -99,7 +99,7 @@ export const initialState = {
       icon: DEMO_WORK_ICON,
       name: 'Demo company',
       industry: '| Crypto',
-      date: 'Aug 2018 - Preset ',
+      date: '2 Years',
       informationList: [
         {
           id: nanoid(),
@@ -115,7 +115,7 @@ export const initialState = {
       icon: DEMO_WORK_ICON,
       name: 'Demo company',
       industry: '| Fintech',
-      date: 'Aug 2015 - Aug 2018',
+      date: '2 Years',
       informationList: [
         {
           id: nanoid(),
@@ -451,7 +451,7 @@ export const resumeSlice = createSlice({
           icon: '',
           name: 'Demo company',
           industry: 'Wearable Devices',
-          date: 'Aug 2018 - Preset ',
+          date: '2 Years',
           informationList: [{ id: nanoid(), val: '' }],
           information:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.\n',

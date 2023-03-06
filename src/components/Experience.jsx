@@ -69,7 +69,7 @@ export const DescriptionText = styled.div`
 `
 
 export const DescriptionList = styled.ul`
-  padding-top: 0.8em;
+  padding-top: 0.3em;
   padding-left: 25px;
   word-break: break-word;
   color: var(--main);
