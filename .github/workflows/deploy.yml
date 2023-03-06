@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18'
       - name: React Deploy to S3
         uses: jeanlescure/react-deploy-to-s3-action@v1.1.0
         with:
