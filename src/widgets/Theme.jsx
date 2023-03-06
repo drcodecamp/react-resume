@@ -8,13 +8,13 @@ import {
 } from '../store/resumeSlice.js'
 import CustomRow from '../components/shared/CustomRow.jsx'
 import { Switch } from 'antd'
-import { useDebounce } from 'usehooks-ts'
+/*import { useDebounce } from 'usehooks-ts'*/
 
 const ThemeWidget = () => {
   const dispatch = useDispatch()
   const resume = useSelector(selectFullResume)
-  const [color, setColor] = useState(resume.themeColor)
-  const debouncedValue = useDebounce(color, 350)
+  const [color, setColor] = useState(resume.themeColor || '#FFF')
+  /*  const debouncedValue = useDebounce(color, 350)*/
 
   const handleDarkModeChange = () => {
     dispatch(toggleDarkMode())
@@ -22,11 +22,14 @@ const ThemeWidget = () => {
 
   const handleChange = (event) => {
     setColor(event.target.value)
+    dispatch(setThemeColor(color))
   }
 
+  /*
   useEffect(() => {
     dispatch(setThemeColor(color))
   }, [debouncedValue])
+*/
 
   return (
     <Container>
