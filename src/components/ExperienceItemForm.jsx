@@ -12,17 +12,14 @@ import {
   setJobName,
 } from '../store/resumeSlice.js'
 import { FormContainer } from './ProjectItemForm.jsx'
-import { Button, Input, } from 'antd'
+import { Button, Input } from 'antd'
 import ImageSelector from './ImageSelector.jsx'
 import { InputsQuantity, RowLabel, RowLabelList } from './shared/RowLabel.jsx'
 import { ItemControllersInputsList } from '../widgets/Projects.jsx'
 
 const ExperienceItemForm = ({ expItem, isDisabled }) => {
   const dispatch = useDispatch()
-  console.log(expItem)
-
   const display = useSelector(selectDisplaySettings)
-
   const handleImageSelection = (e) => {
     dispatch(
       setJobIconUrl({
@@ -31,7 +28,6 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
       })
     )
   }
-
   return (
     <FormContainer>
       <RowLabel>
@@ -82,17 +78,20 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
           placeholder="Job dates"
         />
       </RowLabel>
-      {!display.experienceInFreeText ?
+      {!display.experienceInFreeText ? (
         <InputsQuantity>
           Number of Inputs (1-4)
           <ItemControllersInputsList>
             <Button
               type="primary"
               shape="circle"
-              onClick={() => dispatch(
-                removeInfoList({
-                  id: expItem.id,
-                }))}
+              onClick={() =>
+                dispatch(
+                  removeInfoList({
+                    id: expItem.id,
+                  })
+                )
+              }
               disabled={expItem.informationList?.length === 1}
             >
               -
@@ -102,17 +101,21 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
               disabled={expItem.informationList?.length === 4}
               type="primary"
               shape="circle"
-              onClick={() => dispatch(
-                addInfoList({
-                  id: expItem.id,
-                }))}
+              onClick={() =>
+                dispatch(
+                  addInfoList({
+                    id: expItem.id,
+                  })
+                )
+              }
             >
               +
             </Button>
           </ItemControllersInputsList>
-        </InputsQuantity> : null}
-      {
-        display.experienceInFreeText ? <Input.TextArea
+        </InputsQuantity>
+      ) : null}
+      {display.experienceInFreeText ? (
+        <Input.TextArea
           showCount
           maxLength={150}
           disabled={isDisabled}
@@ -126,10 +129,12 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
           }
           type="text"
           placeholder="Job information"
-        /> :
-          <div>
-            {expItem.informationList.map((item, index) => {
-              return <RowLabelList key={item.id}>
+        />
+      ) : (
+        <div>
+          {expItem.informationList.map((item, index) => {
+            return (
+              <RowLabelList key={item.id}>
                 <Input.TextArea
                   showCount
                   maxLength={80}
@@ -138,17 +143,18 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
                       setJobInfoList({
                         id: expItem.id,
                         value: target.value,
-                        index: index
+                        index: index,
                       })
                     )
                   }
                   key={item.id}
-                  placeholder={`info ${index + 1}`}
+                  placeholder={'Enter what you did in your last job...'}
                 />
               </RowLabelList>
-            })}
-          </div>
-      }
+            )
+          })}
+        </div>
+      )}
     </FormContainer>
   )
 }

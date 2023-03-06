@@ -9,6 +9,7 @@ import {
   selectFullResume,
   selectResumeExp,
 } from '../store/resumeSlice.js'
+import { SubTitle } from './Education'
 
 const ExperienceSection = () => {
   const experience = useSelector(selectResumeExp)
@@ -33,27 +34,33 @@ const JobItem = ({ job }) => {
           <img src={job.icon || DEMO_WORK_ICON} alt="work" />
         </JobImage>
       )}
-      <div>
+      <FullWidth>
         <JobTitle>
-          <div>{job.name}</div>
-          <JobIndustry color={resume.themeColor}>{job.industry}</JobIndustry>
+          <div style={{ display: 'flex' }}>
+            <div>{job.name}</div>
+            <JobIndustry color={resume.themeColor}>{job.industry}</JobIndustry>
+          </div>
+          <SubTitle>{job.date}</SubTitle>
         </JobTitle>
-        <div>{job.date}</div>
-        {display.experienceInFreeText ? <DescriptionText>{job.information}
-        </DescriptionText>
-          :
-          <DescriptionList>{job.informationList && job.informationList.map((item) => {
-            if (item.val === '') return
-            return <li key={item.id}>{item.val}</li>
-          }
-          )
-          }
-          </DescriptionList>}
-      </div>
+        {display.experienceInFreeText ? (
+          <DescriptionText>{job.information}</DescriptionText>
+        ) : (
+          <DescriptionList>
+            {job.informationList &&
+              job.informationList.map((item) => {
+                if (item.val === '') return
+                return <li key={item.id}>{item.val}</li>
+              })}
+          </DescriptionList>
+        )}
+      </FullWidth>
     </JobCard>
   )
 }
 
+export const FullWidth = styled.div`
+  width: 100%;
+`
 
 export const DescriptionText = styled.div`
   padding-top: 0.35em;
@@ -62,10 +69,13 @@ export const DescriptionText = styled.div`
 `
 
 export const DescriptionList = styled.ul`
-  padding-top: 0.80em;
-  padding-left:25px;
+  padding-top: 0.8em;
+  padding-left: 25px;
   word-break: break-word;
   color: var(--main);
+  li {
+    color: var(--subtitle);
+  }
 `
 export const JobImage = styled.div`
   aspect-ratio: 1;
@@ -93,6 +103,7 @@ export const JobTitle = styled.div`
   font-size: 1em;
   color: var(--main);
   font-weight: bold;
+  justify-content: space-between;
 `
 
 export default ExperienceSection

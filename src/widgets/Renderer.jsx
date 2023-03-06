@@ -14,15 +14,12 @@ const Renderer = () => {
   if (!display.renderer) {
     return null
   }
-
-  // here we can put the toggle for dark or light mode!
   useEffect(() => {
     document.documentElement.setAttribute(
       'data-force-color-mode',
       resume.isDarkMode ? 'dark' : 'light'
     )
   }, [resume.isDarkMode])
-
   return (
     <RendererContainer>
       <ResumeContainer>
