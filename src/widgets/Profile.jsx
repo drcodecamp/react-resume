@@ -2,14 +2,12 @@ import React, { useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { Input, Segmented, Switch } from 'antd'
 import {
-  forceNarrowHeader,
   selectFullResume,
   setEmail,
   setFullName,
   setPhone,
   setSummary,
   setTitle,
-  toggleNarrowHeader,
   toggleSummary,
 } from '../store/resumeSlice.js'
 import {
@@ -41,23 +39,6 @@ const ProfileWidget = () => {
       icon: <InsertRowAboveOutlined />,
     },
   ])
-
-  const shouldForceNarrowHeader = useMemo(() => {
-    if (!display.education || !display.experience) return false
-    return education.length === 2 && experience.length === 2
-  }, [education, experience, display.education, display.experience])
-
-  useEffect(() => {
-    if (shouldForceNarrowHeader) {
-      dispatch(forceNarrowHeader())
-    }
-  }, [shouldForceNarrowHeader])
-
-  const handleToggleNarrowHeader = () => {
-    if (display.sideNav) return
-    dispatch(toggleNarrowHeader())
-  }
-
   return (
     <Container>
       <CustomRow>
@@ -67,12 +48,6 @@ const ProfileWidget = () => {
             (disabled when side navigator is open!)
           </span>
         </p>
-        <Segmented
-          disabled={display.sideNav || shouldForceNarrowHeader}
-          value={display.narrowHeader ? 'Vertical' : 'Horizontal'}
-          onChange={(e) => handleToggleNarrowHeader(e)}
-          options={options}
-        />
       </CustomRow>
       <CustomRow>
         <p>

@@ -7,6 +7,7 @@ import {
   selectDisplaySettings,
   selectResumeEducation,
 } from '../store/resumeSlice.js'
+import styled from 'styled-components'
 
 const EducationSection = () => {
   const education = useSelector(selectResumeEducation)
@@ -35,12 +36,17 @@ const EducationItem = ({ edu }) => {
       <div>
         <JobTitle>
           <div>{edu.name}</div>
+          <SubTitle>{edu.duration}</SubTitle>
         </JobTitle>
-        <div>{edu.duration}</div>
         <DescriptionText>{edu.description}</DescriptionText>
       </div>
     </JobCard>
   )
 }
+
+export const SubTitle = styled.p`
+  color: var(--subtitle);
+  font-weight: normal;
+`
 
 export default EducationSection

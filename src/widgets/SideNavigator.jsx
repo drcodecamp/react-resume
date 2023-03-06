@@ -4,7 +4,6 @@ import { Checkbox, Input, Switch } from 'antd'
 import {
   selectFullResume,
   setSocialURL,
-  toggleNarrowHeader,
   toggleSideNav,
   toggleSocial,
 } from '../store/resumeSlice.js'
@@ -15,9 +14,6 @@ const SideNavWidgetWidget = () => {
   const dispatch = useDispatch()
   const { display, socialUrls } = useSelector(selectFullResume)
   const handleToggleSideNav = () => {
-    if (!display.narrowHeader) {
-      dispatch(toggleNarrowHeader())
-    }
     dispatch(toggleSideNav())
   }
   return (

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import CustomForm from '../components/shared/CustomForm.jsx'
 import CustomRow from '../components/shared/CustomRow.jsx'
-import { Button, Switch } from 'antd'
+import { Button, Segmented, Switch } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   addExp,
@@ -15,6 +15,8 @@ import {
 } from '../store/resumeSlice.js'
 import { ItemControllers } from './Projects.jsx'
 import ExperienceItemForm from '../components/ExperienceItemForm.jsx'
+import { useState } from 'react'
+import { BarsOutlined, InsertRowAboveOutlined } from '@ant-design/icons'
 
 const ExperienceWidget = () => {
   const dispatch = useDispatch()
@@ -23,6 +25,20 @@ const ExperienceWidget = () => {
   const isDisabled = useMemo(() => {
     return !display.experience
   }, [display.experience])
+
+  const [options] = useState([
+    {
+      label: 'Free Text',
+      value: 'Free Text',
+      icon: <BarsOutlined />,
+    },
+    {
+      label: 'List',
+      value: 'List',
+      icon: <InsertRowAboveOutlined />,
+    },
+  ])
+
   return (
     <Container>
       <CustomForm>
@@ -65,22 +81,24 @@ const ExperienceWidget = () => {
         </CustomRow>
         <CustomRow>
           Enable/Disable free text
-          <Switch
-            onClick={() => dispatch(toggleExperienceInFreeText())}
-            checked={display.experienceInFreeText}
+          <Segmented
             disabled={isDisabled}
+            value={display.experienceInFreeText ? 'Free Text' : 'List'}
+            onChange={() => dispatch(toggleExperienceInFreeText())}
+            options={options}
           />
         </CustomRow>
       </CustomForm>
 
       <JobList>
-        {experience.map((exp) => {
-          return (
-            <div key={exp.id}>
-              <ExperienceItemForm isDisabled={isDisabled} expItem={exp} />
-            </div>
-          )
-        })}
+        {experience &&
+          experience.map((exp) => {
+            return (
+              <div key={exp.id}>
+                <ExperienceItemForm isDisabled={isDisabled} expItem={exp} />
+              </div>
+            )
+          })}
       </JobList>
     </Container>
   )
