@@ -3,11 +3,17 @@ import styled from 'styled-components'
 import { Title } from './Stack'
 import { useSelector } from 'react-redux'
 import { ContentSection } from './shared/ContentSection.js'
-import { selectFullResume, selectResumeProjects } from '../store/resumeSlice.js'
+import {
+  selectFullResume,
+  selectResumeProjects,
+  selectCardDesign,
+} from '../store/resumeSlice.js'
 
 const ProjectsSection = () => {
   const resume = useSelector(selectFullResume)
   const projects = useSelector(selectResumeProjects)
+  const cardDesign = useSelector(selectCardDesign)
+
   const projectListMode = useMemo(() => {
     switch (projects.length) {
       case 1:
@@ -18,12 +24,14 @@ const ProjectsSection = () => {
         return 'space-between'
     }
   }, [projects.length])
+
   return (
     <ContentSection>
       <Title>Projects</Title>
       <ProjectList size={projectListMode}>
         {projects.map((project) => {
-          return (
+          return cardDesign == 1 ?
+           (
             <ProjectItem key={project.id}>
               <CardA>
                 <ProjectImage>
@@ -49,7 +57,34 @@ const ProjectsSection = () => {
                 </Actions>
               </CardA>
             </ProjectItem>
-          )
+          ) : (
+            <ProjectItem key={project.id}>
+            <CardA>
+              <ProjectName style={{textAlign:'center'}}>{project.name}</ProjectName>
+              <Line></Line>
+              <ProjectImage style={{borderRadius:'6px'}}>
+                <img src={project.image} alt="proj" />
+              </ProjectImage>
+              <ProjectInfo>{project.info}</ProjectInfo>
+              <Actions>
+                <ProjectSourceCode
+                  href={'https://' + project.codeLink || '#'}
+                  target="_blank"
+                >
+                  code
+                </ProjectSourceCode>
+                |
+                <ProjectDemoButton
+                  color={resume.themeColor}
+                  href={'https://' + project.demoLink || '#'}
+                  target="_blank"
+                >
+                  demo
+                </ProjectDemoButton>
+              </Actions>
+            </CardA>
+          </ProjectItem>
+          ) 
         })}
       </ProjectList>
     </ContentSection>
@@ -70,21 +105,18 @@ const ProjectImage = styled.div`
     object-position: center;
   }
 `
-
 const ProjectList = styled.div`
   display: flex;
   justify-content: ${({ mode }) => mode || 'stretch'};
   padding-top: 1em;
   gap: 1rem;
 `
-
 export const Actions = styled.div`
   padding-top: 0.5em;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 `
-
 const ProjectItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -94,7 +126,6 @@ const ProjectItem = styled.div`
   width: 33%;
   margin-right: 0.5em;
   border-radius: 25px;
-
   box-shadow: 0 4px 1em rgb(0 0 0 / 10%);
 `
 const ProjectName = styled.div`
@@ -102,7 +133,6 @@ const ProjectName = styled.div`
   font-weight: bold;
   color: var(--main);
 `
-
 const ProjectInfo = styled.div`
   color: var(--subtitle);
   font-size: 0.875em;
@@ -115,7 +145,6 @@ const ProjectSourceCode = styled.a`
   cursor: pointer;
   text-decoration: none;
 `
-
 const ProjectDemoButton = styled.a`
   font-weight: bold;
   color: ${({ color }) => color || 'white'};
@@ -124,7 +153,6 @@ const ProjectDemoButton = styled.a`
   border-radius: 8px;
   cursor: pointer;
 `
-
 const CardA = styled.div`
   display: flex;
   flex-direction: column;
@@ -134,6 +162,12 @@ const CardA = styled.div`
   height: 100%;
   width: 100%;
   padding: 1em;
+`
+const Line = styled.div`
+width: '100%';
+height: '1px';
+border-bottom: 1px solid #f0f0f0;
+color: red;
 `
 
 export default ProjectsSection

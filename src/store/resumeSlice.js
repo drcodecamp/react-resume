@@ -33,6 +33,7 @@ export const initialState = {
       medium: false,
     },
   },
+  cardDesign:1,
   themeColor: '#0008ff',
   isDarkMode: false,
   fullName: 'Doctor Code',
@@ -110,7 +111,7 @@ export const initialState = {
       industry: '| Fintech',
       date: 'Aug 2015 - Aug 2018',
       information:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
   ],
   education: [
@@ -141,6 +142,9 @@ export const resumeSlice = createSlice({
         state.selectedDocumentId
       ].isDarkMode
     },
+    setProjectDesignCard: (state , action) => {
+      state.documents[state.selectedDocumentId].cardDesign = action.payload
+    },
     setDocumentName: (state, action) => {
       state.documents[state.selectedDocumentId].documentName = action.payload
     },
@@ -148,7 +152,6 @@ export const resumeSlice = createSlice({
       state.selectedDocumentId = action.payload
     },
     removeDocumentById: (state, action) => {
-      console.log(action.payload)
       delete state.documents[action.payload]
     },
     addResumeDocument: (state, action) => {
@@ -346,9 +349,8 @@ export const resumeSlice = createSlice({
       state.documents[state.selectedDocumentId].display.projects = !state
         .documents[state.selectedDocumentId].display.projects
     },
-    toggleOneLineProjects: (state) => {
-      state.documents[state.selectedDocumentId].display.oneLineProjects = !state
-        .documents[state.selectedDocumentId].display.oneLineProjects
+    toggleOneLineProjects: (state , action) => {
+      state.documents[state.selectedDocumentId].display.oneLineProjects = action.payload
     },
     toggleSocial: (state, action) => {
       state.documents[state.selectedDocumentId].display.social[
@@ -456,6 +458,7 @@ export const {
   setProjectGitLink,
   setProjectImageUrl,
   setProjectInfo,
+  setProjectDesignCard,
   setProjectName,
   toggleSocial,
   setThemeColor,
@@ -521,5 +524,9 @@ export const selectThemeColor = memoize(resumeThemeColor)
 const fullResume = (state) =>
   state.resume.documents[state.resume.selectedDocumentId]
 export const selectFullResume = memoize(fullResume)
+
+const resumeCardDesign = (state) =>
+  state.resume.documents[state.resume.selectedDocumentId].cardDesign
+export const selectCardDesign = memoize(resumeCardDesign)
 
 export default resumeSlice.reducer

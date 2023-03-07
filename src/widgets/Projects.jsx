@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useState} from 'react'
 import styled from 'styled-components'
 import { Button, Switch } from 'antd'
 import {
@@ -8,15 +8,35 @@ import {
   selectResumeProjects,
   toggleOneLineProjects,
   toggleProjects,
+  setProjectDesignCard,
 } from '../store/resumeSlice.js'
 import CustomRow from '../components/shared/CustomRow.jsx'
 import { useDispatch, useSelector } from 'react-redux'
 import ProjectItemForm from '../components/ProjectItemForm.jsx'
+import { Dropdown, Space } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 
 const ProjectsWidget = () => {
   const dispatch = useDispatch()
   const projects = useSelector(selectResumeProjects)
   const display = useSelector(selectDisplaySettings)
+  const [cardDesignChoosen , setCardDesignChoosen] = useState('1st menu item')
+
+  const items = [
+    {
+      label: (<p onClick={() => {dispatch(setProjectDesignCard(1)) ,setCardDesignChoosen('1st menu item') , dispatch(toggleOneLineProjects(false)) }}> 1st menu item </p>),
+      key: '1',
+    },
+    {
+      label: (<p onClick={() => {dispatch(setProjectDesignCard(2)) ,setCardDesignChoosen('2st menu item'), dispatch(toggleOneLineProjects(false))} }> 2st menu item </p>),
+      key: '2',
+    },
+    {
+      label: (<p onClick={() => {setCardDesignChoosen('Line'), dispatch(toggleOneLineProjects(true))} }> Line </p>),
+      key: '3',
+    }
+  ];
+  
   return (
     <Container>
       <CustomRow>
@@ -27,11 +47,17 @@ const ProjectsWidget = () => {
         ></Switch>
       </CustomRow>
       <CustomRow>
-        Enable one line project view
-        <Switch
-          onClick={() => dispatch(toggleOneLineProjects())}
-          checked={display.projects && display.oneLineProjects}
-        ></Switch>
+        Card Design
+        <Dropdown
+            menu={{
+              items,
+            }}
+          >
+            <Space>
+              {cardDesignChoosen}
+              <DownOutlined />
+            </Space>
+        </Dropdown>
       </CustomRow>
       <CustomRow>
         Number of Projects (1-3)
