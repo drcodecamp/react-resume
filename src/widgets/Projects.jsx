@@ -20,15 +20,15 @@ const ProjectsWidget = () => {
   const dispatch = useDispatch()
   const projects = useSelector(selectResumeProjects)
   const display = useSelector(selectDisplaySettings)
-  const [cardDesignChoosen , setCardDesignChoosen] = useState('1st menu item')
+  const [cardDesignChoosen , setCardDesignChoosen] = useState('Middle Title')
 
   const items = [
     {
-      label: (<p onClick={() => {dispatch(setProjectDesignCard(1)) ,setCardDesignChoosen('1st menu item') , dispatch(toggleOneLineProjects(false)) }}> 1st menu item </p>),
+      label: (<p onClick={() => {dispatch(setProjectDesignCard(1)) ,setCardDesignChoosen('Middle Title') , dispatch(toggleOneLineProjects(false)) }}> Middle Title </p>),
       key: '1',
     },
     {
-      label: (<p onClick={() => {dispatch(setProjectDesignCard(2)) ,setCardDesignChoosen('2st menu item'), dispatch(toggleOneLineProjects(false))} }> 2st menu item </p>),
+      label: (<p onClick={() => {dispatch(setProjectDesignCard(2)) ,setCardDesignChoosen('Top Title'), dispatch(toggleOneLineProjects(false))} }> Top Title </p>),
       key: '2',
     },
     {
