@@ -8,7 +8,6 @@ import cvDocumentImage from '../assets/document.webp'
 // todo make buttons work and look good mobile too
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  addResumeDocument,
   removeDocumentById,
   setCurrentDocumentId,
 } from '../store/resumeSlice.js'
@@ -20,8 +19,7 @@ const HomePage = () => {
 
   const handleNewDocumentCreation = () => {
     if (documents && Object.keys(documents).length < 3) {
-      dispatch(addResumeDocument())
-      navigate('/editor')
+      navigate('/chooseTemplate')
     }
   }
   const setCurrentDocument = (documentId) => {

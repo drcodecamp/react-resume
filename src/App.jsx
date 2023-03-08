@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import CreationPage from './pages/EditorPage.jsx'
 import RootLayout from './pages/RootLayout'
+import ChooseNewTemplate from './pages/ChooseNewTemplate'
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         path: 'editor',
         children: [{ index: true, element: <CreationPage /> }],
+      },
+      {
+        path: 'chooseTemplate',
+        children: [{ index: true, element: <ChooseNewTemplate /> }],
       },
     ],
   },
