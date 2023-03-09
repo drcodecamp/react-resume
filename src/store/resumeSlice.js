@@ -7,6 +7,12 @@ import SRC from '../assets/bg1.webp'
 import SRC2 from '../assets/bg2.webp'
 import SRC3 from '../assets/bg3.webp'
 import DEMO_WORK_ICON from '../assets/work.webp'
+import FACEBOOK_ICON from '../assets/facebook.webp'
+import INSTAGRAM_ICON from '../assets/instagram.webp'
+import YOUTUBE_ICON from '../assets/youtube.webp'
+import LINKEDIN_ICON from '../assets/linkedin.webp'
+import GITHUB_ICON from '../assets/github.webp'
+import MEDIUM_ICON from '../assets/medium.webp'
 import { getRandomName } from '../constants/names.js'
 
 export const initialState = {
@@ -90,6 +96,68 @@ export const initialState = {
     instagram: '',
     medium: '',
   },
+  socials: [
+    {
+      id: nanoid(),
+      icon: FACEBOOK_ICON,
+      name: 'facebook',
+      url: '',
+      placeholder: 'facebook.com/doctorcodecamp',
+      display: false,
+      dragging: false,
+      dropping: false,
+    },
+    {
+      id: nanoid(),
+      icon: LINKEDIN_ICON,
+      name: 'linkedin',
+      url: '',
+      placeholder: 'linkedin.com/in/doctorcodecamp/',
+      display: false,
+      dragging: false,
+      dropping: false,
+    },
+    {
+      id: nanoid(),
+      icon: GITHUB_ICON,
+      name: 'github',
+      url: '',
+      placeholder: 'github.com/drcodecamp/',
+      display: false,
+      dragging: false,
+      dropping: false,
+    },
+    {
+      id: nanoid(),
+      icon: YOUTUBE_ICON,
+      name: 'youtube',
+      url: '',
+      placeholder: 'youtube.com/@doctorcode/',
+      display: false,
+      dragging: false,
+      dropping: false,
+    },
+    {
+      id: nanoid(),
+      icon: INSTAGRAM_ICON,
+      name: 'instagram',
+      url: '',
+      placeholder: 'instagram.com/doctor_code_official/',
+      display: false,
+      dragging: false,
+      dropping: false,
+    },
+    {
+      id: nanoid(),
+      icon: MEDIUM_ICON,
+      name: 'medium',
+      url: '',
+      placeholder: 'medium.com/doctor_code_official/',
+      display: false,
+      dragging: false,
+      dropping: false,
+    },
+  ],
   experience: [
     {
       id: nanoid(),
@@ -204,10 +272,6 @@ export const resumeSlice = createSlice({
       state.documents[state.selectedDocumentId].stack = state.documents[
         state.selectedDocumentId
       ].stack.filter((skill) => skill.id !== action.payload)
-    },
-    setSocialURL: (state, action) => {
-      state.documents[state.selectedDocumentId].socialUrls[action.payload.id] =
-        action.payload.value
     },
     setProjectName: (state, action) => {
       const idx = state.documents[state.selectedDocumentId].projects.findIndex(
@@ -363,10 +427,22 @@ export const resumeSlice = createSlice({
         !state.documents[state.selectedDocumentId].display.oneLineProjects
     },
     toggleSocial: (state, action) => {
-      state.documents[state.selectedDocumentId].display.social[action.payload] =
-        !state.documents[state.selectedDocumentId].display.social[
-          action.payload
-        ]
+      const idx = state.documents[state.selectedDocumentId].socials.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].socials[idx].display =
+        !state.documents[state.selectedDocumentId].socials[idx].display
+    },
+    setSocialURL: (state, action) => {
+      const idx = state.documents[state.selectedDocumentId].socials.findIndex(
+        (i) => i.id === action.payload.id
+      )
+      state.documents[state.selectedDocumentId].socials[idx].url =
+        action.payload.value
+    },
+    setSocials: (state, action) => {
+      if (!action.payload?.length) return state
+      state.documents[state.selectedDocumentId].socials = [...action.payload]
     },
     toggleSummary: (state) => {
       state.documents[state.selectedDocumentId].display.summary =
@@ -469,6 +545,7 @@ export const {
   addResumeDocument,
   toggleDarkMode,
   setJobInfo,
+  setJobInfoList,
   setJobDate,
   removeDocumentById,
   setDarkMode,
@@ -477,7 +554,9 @@ export const {
   setJobIconUrl,
   toggleStack,
   setSocialURL,
+  setSocials,
   toggleExperience,
+  toggleExperienceInFreeText,
   setProjectDemoLink,
   setProjectGitLink,
   setProjectImageUrl,
@@ -507,6 +586,8 @@ export const {
   addProject,
   removeExp,
   addExp,
+  addInfoList,
+  removeInfoList,
   setEducationIcon,
   setEducationName,
   setEducationDuration,
@@ -519,6 +600,10 @@ export const {
 /**
  * selectors
  */
+
+const resumeSocials = (state) =>
+  state.resume.documents[state.resume.selectedDocumentId].socials
+export const selectResumeSocials = memoize(resumeSocials)
 
 const resumeStack = (state) =>
   state.resume.documents[state.resume.selectedDocumentId].stack

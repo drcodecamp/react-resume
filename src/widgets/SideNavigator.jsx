@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Checkbox, Input, Switch } from 'antd'
+import { Button, Checkbox, Input, Switch, Tooltip } from 'antd'
 import {
   selectFullResume,
   selectResumeSocials,
@@ -11,6 +11,7 @@ import {
 } from '../store/resumeSlice.js'
 import CustomRow from '../components/shared/CustomRow.jsx'
 import { useDispatch, useSelector } from 'react-redux'
+import { MenuOutlined } from '@ant-design/icons'
 
 const SideNavWidgetWidget = () => {
   const dispatch = useDispatch()
@@ -39,26 +40,34 @@ const SocialItem = ({ social, idx }) => {
   const socials = useSelector(selectResumeSocials)
 
   function handleOnDragStart(e, params) {
-    const { id } = params
-    e.target.classList.add('dragging')
+    const { id, idx } = params
+    e.dataTransfer.effectAllowed = 'move'
     e.dataTransfer.setData('data', id)
+    const newArray = socials.map((item, index) => {
+      return { ...item, dragging: index === idx }
+    })
+    dispatch(setSocials(newArray))
   }
-  function handleOnDragEnter(e) {
-    e.target.classList.add('drop')
+  function handleOnDragEnter(e, params) {
+    const { idx } = params
+    const newArray = socials.map((item, index) => {
+      return { ...item, dropping: index === idx }
+    })
+    dispatch(setSocials(newArray))
   }
-  function handleOnDragEnd(e) {
-    e.target.classList.remove('dragging')
+  function handleOnDragEnd() {
+    const newArray = socials.map((item) => {
+      return { ...item, dropping: false, dragging: false }
+    })
+    dispatch(setSocials(newArray))
   }
-  function handleDragLeave(e) {
-    e.target.classList.remove('drop')
-  }
+  function handleDragLeave() {}
 
   function handleDragOver(e) {
     e.preventDefault()
   }
   function handleOnDrop(e, params) {
     const { idx } = params
-    e.target.classList.remove('drop')
     const prevId = e.dataTransfer.getData('data')
     const prevIndex = socials.findIndex((i) => i.id === prevId)
     if (prevIndex !== undefined && prevIndex !== idx) {
@@ -76,24 +85,26 @@ const SocialItem = ({ social, idx }) => {
     dispatch(setSocials(newArray))
   }
   return (
-    <DNDRow
-      draggable
-      droppable
-      onDragStart={(e) => handleOnDragStart(e, { id: social.id })}
-      onDragEnter={(e) => handleOnDragEnter(e)}
-      onDragEnd={(e) => handleOnDragEnd(e)}
-      onDragOver={(e) => handleDragOver(e)}
-      onDragLeave={(e) => handleDragLeave(e)}
-      onDrop={(e) => handleOnDrop(e, { idx })}
-    >
-      <CustomRow>
-        {upperCaseFirstLetter(social.name)}
-        <Checkbox
-          disabled={!display.sideNav}
-          checked={social.display}
-          onClick={() => dispatch(toggleSocial(social))}
-        />
+    <>
+      <DNDRow
+        draggable
+        droppable
+        onDragStart={(e) => handleOnDragStart(e, { id: social.id, idx })}
+        onDragEnter={(e) => handleOnDragEnter(e, { idx })}
+        onDragEnd={(e) => handleOnDragEnd(e, { idx })}
+        onDragOver={(e) => handleDragOver(e, { idx })}
+        onDragLeave={(e) => handleDragLeave(e, { idx })}
+        onDrop={(e) => handleOnDrop(e, { idx })}
+        className={[
+          social.dropping ? 'drop' : '',
+          social.dragging ? 'dragging' : '',
+        ]}
+      >
+        <Button type="text" icon={<MenuOutlined />} />
+
+        <img src={social.icon} alt={social.name} />
         <Input
+          className="dnd-input"
           draggable={true}
           onDragStart={(e) => e.preventDefault()}
           onDragEnter={(e) => e.preventDefault()}
@@ -113,12 +124,15 @@ const SocialItem = ({ social, idx }) => {
           disabled={!display.sideNav || !social.display}
           status={social.url.includes('http') ? 'error' : ''}
         />
-      </CustomRow>
-    </DNDRow>
+        <Checkbox
+          disabled={!display.sideNav}
+          checked={social.display}
+          onClick={() => dispatch(toggleSocial(social))}
+        />
+      </DNDRow>
+      {social.dropping && <Placeholder />}
+    </>
   )
-}
-const upperCaseFirstLetter = (str) => {
-  return str.charAt(0).toUpperCase() + str.substring(1)
 }
 
 const Container = styled.div`
@@ -126,26 +140,51 @@ const Container = styled.div`
   flex-direction: column;
   flex: 1;
 `
+const Placeholder = styled.div`
+  border: 2px dashed #ccc;
+  background-color: #f2f2f2;
+  height: 2px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease-in-out;
+  box-sizing: border-box;
+  padding: 0 16px;
+`
 
 const DNDRow = styled(CustomRow)`
+  flex-wrap: nowrap;
   cursor: grab;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
   :active {
     cursor: grabbing;
   }
-
+  :hover {
+    background-color: #f2f2f2;
+  }
   &.dragging {
     opacity: 0.5;
     transform: scale(0.8);
+    transform: rotate(3deg);
+    -moz-transform: rotate(3deg);
+    -webkit-transform: rotate(3deg);
     outline: 2px solid;
     outline-color: black;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
   }
   &.drop {
     border: 2px dashed #000;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  & img {
+    width: 32px;
+    height: 32px;
+    margin: 0 0 0 0.5em;
   }
   & input {
     cursor: text;
+  }
+  & .dnd-input {
+    margin: 0 1em;
   }
 `
 
