@@ -100,8 +100,6 @@ const SocialItem = ({ social, idx }) => {
           social.dragging ? 'dragging' : '',
         ]}
       >
-        <Button type="text" icon={<MenuOutlined />} />
-
         <img src={social.icon} alt={social.name} />
         <Input
           className="dnd-input"
@@ -158,9 +156,7 @@ const DNDRow = styled(CustomRow)`
   :active {
     cursor: grabbing;
   }
-  :hover {
-    background-color: #f2f2f2;
-  }
+
   &.dragging {
     opacity: 0.5;
     transform: scale(0.8);
@@ -178,7 +174,6 @@ const DNDRow = styled(CustomRow)`
   & img {
     width: 32px;
     height: 32px;
-    margin: 0 0 0 0.5em;
   }
   & input {
     cursor: text;
