@@ -1,21 +1,16 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import FACEBOOK_ICON from '../assets/facebook.webp'
-import INSTAGRAM_ICON from '../assets/instagram.webp'
-import YOUTUBE_ICON from '../assets/youtube.webp'
-import LINKEDIN_ICON from '../assets/linkedin.webp'
-import GITHUB_ICON from '../assets/github.webp'
-import MEDIUM_ICON from '../assets/medium.webp'
+import FACEBOOK_ICON from '../../assets/facebook.webp'
+import INSTAGRAM_ICON from '../../assets/instagram.webp'
+import YOUTUBE_ICON from '../../assets/youtube.webp'
+import LINKEDIN_ICON from '../../assets/linkedin.webp'
+import GITHUB_ICON from '../../assets/github.webp'
+import MEDIUM_ICON from '../../assets/medium.webp'
 import { useSelector } from 'react-redux'
-import { selectFullResume } from '../store/resumeSlice.js'
+import { selectFullResume } from '../../store/resumeSlice.js'
 
 const SideNav = () => {
-  const { fullName, display, socialUrls } = useSelector(selectFullResume)
-  const shortName = useMemo(() => {
-    const names = fullName.split(' ')
-    if (!names[0] || !names[1]) return 'dc'
-    return names[0].substring(0, 1) + names[1].substring(0, 1)
-  }, [fullName])
+  const { display, socialUrls } = useSelector(selectFullResume)
 
   return (
     <SideNavContainer>
@@ -64,25 +59,6 @@ const SideNav = () => {
     </SideNavContainer>
   )
 }
-const ProfileContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 10%;
-`
-const Circle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  aspect-ratio: 1/1;
-  background-color: var(--circle);
-  border-radius: 15px;
-  width: 45px;
-  height: 45px;
-  margin: 0.2em;
-  font-size: 1.25em;
-  color: white;
-`
 const SocialIconContainer = styled.div`
   display: flex;
   justify-content: center;

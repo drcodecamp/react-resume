@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   selectFullResume,
   setThemeColor,
   toggleDarkMode,
-} from '../store/resumeSlice.js'
-import CustomRow from '../components/shared/CustomRow.jsx'
+} from '../../store/resumeSlice.js'
+import CustomRow from '../shared/CustomRow.jsx'
 import { Switch } from 'antd'
-/*import { useDebounce } from 'usehooks-ts'*/
 
-const ThemeWidget = () => {
+const ThemeForm = () => {
   const dispatch = useDispatch()
   const resume = useSelector(selectFullResume)
   const [color, setColor] = useState(resume.themeColor || '#FFF')
-  /*  const debouncedValue = useDebounce(color, 350)*/
 
   const handleDarkModeChange = () => {
     dispatch(toggleDarkMode())
@@ -24,12 +22,6 @@ const ThemeWidget = () => {
     setColor(event.target.value)
     dispatch(setThemeColor(color))
   }
-
-  /*
-  useEffect(() => {
-    dispatch(setThemeColor(color))
-  }, [debouncedValue])
-*/
 
   return (
     <Container>
@@ -61,4 +53,4 @@ const Container = styled.div`
   justify-content: space-between;
 `
 
-export default ThemeWidget
+export default ThemeForm

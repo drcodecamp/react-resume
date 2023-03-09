@@ -8,12 +8,13 @@ import {
   selectResumeProjects,
   toggleOneLineProjects,
   toggleProjects,
-} from '../store/resumeSlice.js'
-import CustomRow from '../components/shared/CustomRow.jsx'
+} from '../../store/resumeSlice.js'
+import CustomRow from '../shared/CustomRow.jsx'
 import { useDispatch, useSelector } from 'react-redux'
-import ProjectItemForm from '../components/ProjectItemForm.jsx'
+import ProjectsFormItem from './ProjectsFormItem.jsx'
+import { MAX_PROJECTS } from '../../constants/appSettings.js'
 
-const ProjectsWidget = () => {
+const ProjectsForm = () => {
   const dispatch = useDispatch()
   const projects = useSelector(selectResumeProjects)
   const display = useSelector(selectDisplaySettings)
@@ -49,7 +50,7 @@ const ProjectsWidget = () => {
             onClick={() => dispatch(addProject())}
             type="primary"
             shape="circle"
-            disabled={!display.projects || projects.length >= 3}
+            disabled={!display.projects || projects.length >= MAX_PROJECTS}
           >
             +
           </Button>
@@ -58,7 +59,7 @@ const ProjectsWidget = () => {
       <ProjectList>
         {projects &&
           projects.map((project) => {
-            return <ProjectItemForm key={project.id} project={project} />
+            return <ProjectsFormItem key={project.id} project={project} />
           })}
       </ProjectList>
     </Container>
@@ -78,13 +79,12 @@ export const ItemControllers = styled.div`
 `
 
 export const ItemControllersInputsList = styled.div`
-display: flex;
- align-items: center;
- justify-content: space-around;
- width:60%;
- margin-top:5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 60%;
+  margin-top: 5px;
 `
-
 
 const ProjectList = styled.div`
   display: flex;
@@ -99,4 +99,4 @@ const Container = styled.div`
   flex: 1;
 `
 
-export default ProjectsWidget
+export default ProjectsForm

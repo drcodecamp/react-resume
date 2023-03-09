@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 import React from 'react'
 import styled from 'styled-components'
 import GlobalStyle from '../constants/GlobalStyle.jsx'
-import AppHeader from '../components/AppHeader.jsx'
+import AppHeader from '../components/shared/AppHeader.jsx'
 import '../assets/Square-Regular.otf'
 import '../index.css'
 

@@ -1,9 +1,12 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import { Title } from './Stack'
 import { useSelector } from 'react-redux'
-import { ContentSection } from './shared/ContentSection.js'
-import { selectFullResume, selectResumeProjects } from '../store/resumeSlice.js'
+import { ContentSection } from '../shared/ContentSection.js'
+import {
+  selectFullResume,
+  selectResumeProjects,
+} from '../../store/resumeSlice.js'
+import { Title } from '../shared/Title.jsx'
 
 const ProjectsSection = () => {
   const resume = useSelector(selectFullResume)

@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import HeaderSection from './Header'
-import StackSection from './Stack'
-import ProjectsSection from './Projects.jsx'
-import ExperienceSection from './Experience'
-import EducationSection from './Education'
+import HeaderSection from './Header.jsx'
+import StackSection from './Stack.jsx'
+import ProjectsSection from './ProjectList.jsx'
+import ExperienceSection from './Experience.jsx'
+import EducationSection from './EducationList.jsx'
 import { useSelector } from 'react-redux'
-import ProjectsOneLine from './ProjectsOneLine'
-import { selectDisplaySettings } from '../store/resumeSlice.js'
+import ProjectsOneLine from './ProjectsOneLine.jsx'
+import { selectDisplaySettings } from '../../store/resumeSlice.js'
 
 const ResumeContent = () => {
   const display = useSelector(selectDisplaySettings)
