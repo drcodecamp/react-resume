@@ -18,7 +18,7 @@ import {
 
 const { Panel } = Collapse
 
-const ResumeOptions = () => {
+const Editor = () => {
   const dispatch = useDispatch()
   const document = useSelector(selectFullResume)
   const [fullScreen, setFullScreen] = useState(false)
@@ -84,7 +84,6 @@ const ResumeOptions = () => {
     </ResumeOptionsContainer>
   )
 }
-
 const DocumentNameInputContainer = styled.div`
   padding-top: 1em;
   max-width: 300px;
@@ -98,17 +97,11 @@ const DocumentNameInputContainer = styled.div`
     margin: 1em;
   }
 `
-
 const Resume = styled.div`
   display: flex;
   flex-direction: column;
   width: 96%;
 `
-
-const Logo = styled.div`
-  font-size: 1.5em;
-`
-
 const Form = styled.div`
   padding: 1em;
   width: 100%;
@@ -122,7 +115,6 @@ const Form = styled.div`
     font-size: 1em;
   }
 `
-
 const ResumeOptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -140,4 +132,4 @@ const ResumeOptionsContainer = styled.div`
     display: none;
   }
 `
-export default ResumeOptions
+export default Editor

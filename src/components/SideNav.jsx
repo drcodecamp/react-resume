@@ -67,6 +67,7 @@ const SideNavContainer = styled.div`
   flex-direction: column;
   height: 100%;
   width: 8%;
+  padding-top: 1.25em;
   background: var(--card-bg);
   box-shadow: 0 1px 20px rgba(0, 0, 0, 0.1);
 `

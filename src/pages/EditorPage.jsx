@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import Renderer from '../widgets/Renderer.jsx'
-import Controller from '../components/ResumeOptions.jsx'
+import Editor from '../components/Editor.jsx'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
@@ -22,7 +22,7 @@ const EditorPage = () => {
   }
   return (
     <>
-      <Controller />
+      <Editor />
       <Renderer />
     </>
   )

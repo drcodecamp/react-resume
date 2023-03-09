@@ -79,7 +79,7 @@ const ProjectList = styled.div`
 `
 
 export const Actions = styled.div`
-  padding-top: 0.5em;
+  padding-top: 0.25em;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -92,9 +92,8 @@ const ProjectItem = styled.div`
   background-color: var(--card-bg);
   max-height: 350px;
   width: 33%;
-  margin-right: 0.5em;
+  margin-right: 0.35em;
   border-radius: 25px;
-
   box-shadow: 0 4px 1em rgb(0 0 0 / 10%);
 `
 const ProjectName = styled.div`
@@ -106,7 +105,6 @@ const ProjectName = styled.div`
 const ProjectInfo = styled.div`
   color: var(--subtitle);
   font-size: 0.875em;
-  padding: 0.2em 0;
   min-height: 50px;
 `
 const ProjectSourceCode = styled.a`

@@ -7,14 +7,6 @@ import SRC from '../assets/bg1.webp'
 import SRC2 from '../assets/bg2.webp'
 import SRC3 from '../assets/bg3.webp'
 import DEMO_WORK_ICON from '../assets/work.webp'
-
-import FACEBOOK_ICON from '../assets/facebook.webp'
-import INSTAGRAM_ICON from '../assets/instagram.webp'
-import YOUTUBE_ICON from '../assets/youtube.webp'
-import LINKEDIN_ICON from '../assets/linkedin.webp'
-import GITHUB_ICON from '../assets/github.webp'
-import MEDIUM_ICON from '../assets/medium.webp'
-
 import { getRandomName } from '../constants/names.js'
 
 export const initialState = {
@@ -98,69 +90,19 @@ export const initialState = {
     instagram: '',
     medium: '',
   },
-  socials: [
-    {
-      id: nanoid(),
-      icon: FACEBOOK_ICON,
-      name: 'facebook',
-      url: '',
-      placeholder: 'facebook.com/doctorcodecamp',
-      display: false,
-      dragging: false,
-    },
-    {
-      id: nanoid(),
-      icon: LINKEDIN_ICON,
-      name: 'linkedin',
-      url: '',
-      placeholder: 'linkedin.com/in/doctorcodecamp/',
-      display: false,
-      dragging: false,
-    },
-    {
-      id: nanoid(),
-      icon: GITHUB_ICON,
-      name: 'github',
-      url: '',
-      placeholder: 'github.com/drcodecamp/',
-      display: false,
-      dragging: false,
-    },
-    {
-      id: nanoid(),
-      icon: YOUTUBE_ICON,
-      name: 'youtube',
-      url: '',
-      placeholder: 'youtube.com/@doctorcode/',
-      display: false,
-      dragging: false,
-    },
-    {
-      id: nanoid(),
-      icon: INSTAGRAM_ICON,
-      name: 'instagram',
-      url: '',
-      placeholder: 'instagram.com/doctor_code_official/',
-      display: false,
-      dragging: false,
-    },
-    {
-      id: nanoid(),
-      icon: MEDIUM_ICON,
-      name: 'medium',
-      url: '',
-      placeholder: 'medium.com/doctor_code_official/',
-      display: false,
-      dragging: false,
-    },
-  ],
   experience: [
     {
       id: nanoid(),
       icon: DEMO_WORK_ICON,
       name: 'Demo company',
       industry: '| Crypto',
-      date: 'Aug 2018 - Preset ',
+      date: '2 Years',
+      informationList: [
+        {
+          id: nanoid(),
+          val: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proibibendum venenatis',
+        },
+      ],
       information:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
@@ -169,7 +111,13 @@ export const initialState = {
       icon: DEMO_WORK_ICON,
       name: 'Demo company',
       industry: '| Fintech',
-      date: 'Aug 2015 - Aug 2018',
+      date: '2 Years',
+      informationList: [
+        {
+          id: nanoid(),
+          val: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proibibendum venenatis',
+        },
+      ],
       information:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.',
     },
@@ -257,23 +205,9 @@ export const resumeSlice = createSlice({
         state.selectedDocumentId
       ].stack.filter((skill) => skill.id !== action.payload)
     },
-    toggleSocial: (state, action) => {
-      const idx = state.documents[state.selectedDocumentId].socials.findIndex(
-        (i) => i.id === action.payload.id
-      )
-      state.documents[state.selectedDocumentId].socials[idx].display =
-        !state.documents[state.selectedDocumentId].socials[idx].display
-    },
     setSocialURL: (state, action) => {
-      const idx = state.documents[state.selectedDocumentId].socials.findIndex(
-        (i) => i.id === action.payload.id
-      )
-      state.documents[state.selectedDocumentId].socials[idx].url =
+      state.documents[state.selectedDocumentId].socialUrls[action.payload.id] =
         action.payload.value
-    },
-    setSocials: (state, action) => {
-      if (!action.payload?.length) return state
-      state.documents[state.selectedDocumentId].socials = [...action.payload]
     },
     setProjectName: (state, action) => {
       const idx = state.documents[state.selectedDocumentId].projects.findIndex(
@@ -404,6 +338,10 @@ export const resumeSlice = createSlice({
       state.documents[state.selectedDocumentId].display.experience =
         !state.documents[state.selectedDocumentId].display.experience
     },
+    toggleExperienceInFreeText: (state) => {
+      state.documents[state.selectedDocumentId].display.experienceInFreeText =
+        !state.documents[state.selectedDocumentId].display.experienceInFreeText
+    },
     toggleEducationIcons: (state) => {
       state.documents[state.selectedDocumentId].display.educationIcons =
         !state.documents[state.selectedDocumentId].display.educationIcons
@@ -424,15 +362,11 @@ export const resumeSlice = createSlice({
       state.documents[state.selectedDocumentId].display.oneLineProjects =
         !state.documents[state.selectedDocumentId].display.oneLineProjects
     },
-    // toggleSocial: (state, action) => {
-    //   state.documents[state.selectedDocumentId].display.social[action.payload] =
-    //     !state.documents[state.selectedDocumentId].display.social[
-    //       action.payload
-    //     ]
-    // },
-    toggleNarrowHeader: (state) => {
-      state.documents[state.selectedDocumentId].display.narrowHeader =
-        !state.documents[state.selectedDocumentId].display.narrowHeader
+    toggleSocial: (state, action) => {
+      state.documents[state.selectedDocumentId].display.social[action.payload] =
+        !state.documents[state.selectedDocumentId].display.social[
+          action.payload
+        ]
     },
     toggleSummary: (state) => {
       state.documents[state.selectedDocumentId].display.summary =
@@ -449,9 +383,6 @@ export const resumeSlice = createSlice({
     toggleSideNav: (state) => {
       state.documents[state.selectedDocumentId].display.sideNav =
         !state.documents[state.selectedDocumentId].display.sideNav
-    },
-    forceNarrowHeader: (state) => {
-      state.documents[state.selectedDocumentId].display.narrowHeader = true
     },
     displayRenderer: (state) => {
       state.documents[state.selectedDocumentId].display.renderer = true
@@ -487,11 +418,34 @@ export const resumeSlice = createSlice({
           icon: '',
           name: 'Demo company',
           industry: 'Wearable Devices',
-          date: 'Aug 2018 - Preset ',
+          date: '2 Years',
+          informationList: [
+            {
+              id: nanoid(),
+              val: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proibibendum venenatis',
+            },
+          ],
           information:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam.\n',
         })
       }
+    },
+    addInfoList: (state, action) => {
+      const idx = state.documents[
+        state.selectedDocumentId
+      ].experience.findIndex((i) => i.id === action.payload.id)
+      if (
+        state.documents[state.selectedDocumentId].experience[idx]
+          .informationList.length === 4
+      ) {
+        return state
+      }
+      state.documents[state.selectedDocumentId].experience[
+        idx
+      ].informationList.push({
+        id: nanoid(),
+        val: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proibibendum venenatis',
+      })
     },
     removeEducation: (state) => {
       if (state.documents[state.selectedDocumentId].education.length >= 2) {
@@ -522,6 +476,7 @@ export const {
   setJobName,
   setJobIconUrl,
   toggleStack,
+  setSocialURL,
   toggleExperience,
   setProjectDemoLink,
   setProjectGitLink,
@@ -529,8 +484,6 @@ export const {
   setProjectInfo,
   setProjectName,
   toggleSocial,
-  setSocialURL,
-  setSocials,
   setThemeColor,
   toggleEducationIcons,
   toggleEducation,
@@ -566,10 +519,6 @@ export const {
 /**
  * selectors
  */
-
-const resumeSocials = (state) =>
-  state.resume.documents[state.resume.selectedDocumentId].socials
-export const selectResumeSocials = memoize(resumeSocials)
 
 const resumeStack = (state) =>
   state.resume.documents[state.resume.selectedDocumentId].stack

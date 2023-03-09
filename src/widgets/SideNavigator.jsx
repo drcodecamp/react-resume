@@ -5,7 +5,6 @@ import {
   selectFullResume,
   selectResumeSocials,
   setSocialURL,
-  toggleNarrowHeader,
   toggleSideNav,
   toggleSocial,
   setSocials,
@@ -19,9 +18,6 @@ const SideNavWidgetWidget = () => {
   const socials = useSelector(selectResumeSocials)
 
   const handleToggleSideNav = () => {
-    if (!display.narrowHeader) {
-      dispatch(toggleNarrowHeader())
-    }
     dispatch(toggleSideNav())
   }
   return (
