@@ -6,11 +6,11 @@ import {
   setSocialURL,
   toggleSideNav,
   toggleSocial,
-} from '../store/resumeSlice.js'
-import CustomRow from '../components/shared/CustomRow.jsx'
+} from '../../store/resumeSlice.js'
+import CustomRow from '../shared/CustomRow.jsx'
 import { useDispatch, useSelector } from 'react-redux'
 
-const SideNavWidgetWidget = () => {
+const SideNavWidgetForm = () => {
   const dispatch = useDispatch()
   const { display, socialUrls } = useSelector(selectFullResume)
   const handleToggleSideNav = () => {
@@ -183,4 +183,4 @@ const Container = styled.div`
   flex: 1;
 `
 
-export default SideNavWidgetWidget
+export default SideNavWidgetForm

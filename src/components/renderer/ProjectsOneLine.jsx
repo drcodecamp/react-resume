@@ -1,9 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
-import { Title } from './Stack'
-import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
-import { selectFullResume, selectResumeProjects } from '../store/resumeSlice.js'
+import {
+  ContentSection,
+  InnerContentPadding,
+} from '../shared/ContentSection.js'
+import {
+  selectFullResume,
+  selectResumeProjects,
+} from '../../store/resumeSlice.js'
+import { Title } from '../shared/Title.jsx'
 
 const ProjectsOneLine = () => {
   const projects = useSelector(selectResumeProjects)

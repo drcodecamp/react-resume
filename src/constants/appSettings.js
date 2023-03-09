@@ -1,0 +1,9 @@
+export const MAX_RESUME_NAME = 35
+export const MAX_SUMMARY = 150
+export const MAX_PHONE_NUMBER = 38
+export const MAX_TITLE = 38
+export const MAX_PROJECT_INFO = 85
+export const MAX_STACK_ITEMS = 20
+export const MAX_PROJECTS = 3
+export const MAX_EDUCATIONS = 2
+export const MAX_EXP = 2
