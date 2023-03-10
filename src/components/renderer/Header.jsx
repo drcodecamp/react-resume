@@ -1,21 +1,14 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
-import { selectFullResume } from '../store/resumeSlice.js'
+import { selectFullResume } from '../../store/resumeSlice.js'
 
 const HeaderSection = () => {
-  const {
-    display,
-    themeColor,
-    summary,
-    fullName,
-    phone,
-    email,
-    title,
-  } = useSelector(selectFullResume)
+  const { display, themeColor, summary, fullName, phone, email, title } =
+    useSelector(selectFullResume)
   return (
     <>
-      <HeaderSectionContainer isNarrow={display.narrowHeader}>
+      <HeaderSectionContainer>
         <Column>
           <Title>{fullName || 'Doctor Code'}</Title>
           <SubTitle color={themeColor} primary>

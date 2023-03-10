@@ -8,12 +8,12 @@ import {
   toggleSideNav,
   toggleSocial,
   setSocials,
-} from '../store/resumeSlice.js'
-import CustomRow from '../components/shared/CustomRow.jsx'
+} from '../../store/resumeSlice.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { MenuOutlined } from '@ant-design/icons'
+import CustomRow from '../shared/CustomRow.jsx'
 
-const SideNavWidgetWidget = () => {
+const SideNavigatorForm = () => {
   const dispatch = useDispatch()
   const { display } = useSelector(selectFullResume)
   const socials = useSelector(selectResumeSocials)
@@ -169,6 +169,7 @@ const SocialItem = ({ social, idx }) => {
           onDragEnter={(e) => e.preventDefault()}
           onDragEnd={(e) => e.preventDefault()}
           onDragLeave={(e) => e.preventDefault()}
+          onKeyDown={(e) => e.stopPropagation()}
           addonBefore="https://"
           onChange={({ target }) => {
             dispatch(
@@ -256,4 +257,4 @@ const DNDInput = styled(Input)`
     cursor: text;
   }
 `
-export default SideNavWidgetWidget
+export default SideNavigatorForm

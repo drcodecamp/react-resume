@@ -10,14 +10,14 @@ import {
   setJobInfo,
   setJobInfoList,
   setJobName,
-} from '../store/resumeSlice.js'
-import { FormContainer } from './ProjectItemForm.jsx'
+} from '../../store/resumeSlice.js'
+import { FormContainer } from './ProjectsFormItem.jsx'
 import { Button, Input } from 'antd'
-import ImageSelector from './ImageSelector.jsx'
-import { InputsQuantity, RowLabel, RowLabelList } from './shared/RowLabel.jsx'
-import { ItemControllersInputsList } from '../widgets/Projects.jsx'
+import ImageSelector from '../shared/ImageSelector.jsx'
+import { InputsQuantity, RowLabel, RowLabelList } from '../shared/RowLabel.jsx'
+import { ItemControllersInputsList } from './ProjectsForm.jsx'
 
-const ExperienceItemForm = ({ expItem, isDisabled }) => {
+const ExperienceFormItem = ({ expItem, isDisabled }) => {
   const dispatch = useDispatch()
   const display = useSelector(selectDisplaySettings)
   const handleImageSelection = (e) => {
@@ -159,4 +159,4 @@ const ExperienceItemForm = ({ expItem, isDisabled }) => {
   )
 }
 
-export default ExperienceItemForm
+export default ExperienceFormItem

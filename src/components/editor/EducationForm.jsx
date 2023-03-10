@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import CustomForm from '../components/shared/CustomForm.jsx'
-import CustomRow from '../components/shared/CustomRow.jsx'
+import CustomForm from '../shared/CustomForm.jsx'
+import CustomRow from '../shared/CustomRow.jsx'
 import { Button, Switch } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -11,11 +11,12 @@ import {
   selectResumeEducation,
   toggleEducation,
   toggleEducationIcons,
-} from '../store/resumeSlice.js'
-import EducationItemForm from '../components/EducationItemForm.jsx'
-import { ItemControllers } from './Projects.jsx'
+} from '../../store/resumeSlice.js'
+import EducationFormItem from './EducationFormItem.jsx'
+import { ItemControllers } from './ProjectsForm.jsx'
+import { MAX_EDUCATIONS } from '../../constants/appSettings.js'
 
-const EducationWidget = () => {
+const EducationForm = () => {
   const dispatch = useDispatch()
   const education = useSelector(selectResumeEducation)
   const display = useSelector(selectDisplaySettings)
@@ -45,7 +46,7 @@ const EducationWidget = () => {
               onClick={() => dispatch(removeEducation())}
               type="primary"
               shape="circle"
-              disabled={isDisabled || education.length <= 1} // todo save const as max min
+              disabled={isDisabled || education.length <= 1}
             >
               -
             </Button>
@@ -54,7 +55,7 @@ const EducationWidget = () => {
               onClick={() => dispatch(addEducation())}
               type="primary"
               shape="circle"
-              disabled={isDisabled || education.length >= 2} // todo save const as max min
+              disabled={isDisabled || education.length >= MAX_EDUCATIONS}
             >
               +
             </Button>
@@ -64,7 +65,7 @@ const EducationWidget = () => {
       <EducationList>
         {education &&
           education.map((edu) => (
-            <EducationItemForm
+            <EducationFormItem
               key={edu.id}
               educationItem={edu}
               isDisabled={isDisabled}
@@ -86,4 +87,4 @@ const Container = styled.div`
   flex: 1;
 `
 
-export default EducationWidget
+export default EducationForm

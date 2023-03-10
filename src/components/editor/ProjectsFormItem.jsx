@@ -7,26 +7,14 @@ import {
   setProjectImageUrl,
   setProjectInfo,
   setProjectName,
-} from '../store/resumeSlice.js'
+} from '../../store/resumeSlice.js'
 import styled from 'styled-components'
-import ImageSelector from './ImageSelector.jsx'
+import ImageSelector from '../shared/ImageSelector.jsx'
 import { Input } from 'antd'
-import { RowLabel } from './shared/RowLabel.jsx'
+import { RowLabel } from '../shared/RowLabel.jsx'
+import { MAX_PROJECT_INFO } from '../../constants/appSettings.js'
 
-export const convertBase64 = (file) => {
-  return new Promise((resolve, reject) => {
-    const fileReader = new FileReader()
-    fileReader.readAsDataURL(file)
-    fileReader.onload = () => {
-      resolve(fileReader.result)
-    }
-    fileReader.onerror = (error) => {
-      reject(error)
-    }
-  })
-}
-
-const ProjectItemForm = ({ project }) => {
+const ProjectsFormItem = ({ project }) => {
   const dispatch = useDispatch()
   const display = useSelector(selectDisplaySettings)
   const isDisabled = !display.projects
@@ -61,7 +49,7 @@ const ProjectItemForm = ({ project }) => {
       <RowLabel>
         <Input.TextArea
           showCount
-          maxLength={85}
+          maxLength={MAX_PROJECT_INFO}
           disabled={isDisabled}
           onChange={({ target }) =>
             dispatch(
@@ -128,4 +116,4 @@ export const FormContainer = styled.div`
   align-items: flex-start;
 `
 
-export default ProjectItemForm
+export default ProjectsFormItem

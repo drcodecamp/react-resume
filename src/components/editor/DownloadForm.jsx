@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Loader from '../components/Loader.jsx'
-import CustomForm from '../components/shared/CustomForm.jsx'
+import Loader from '../shared/Loader.jsx'
+import CustomForm from '../shared/CustomForm.jsx'
 import { Button, message } from 'antd'
 import { DownloadOutlined } from '@ant-design/icons'
-import instructions_image from '../assets/instructions.webp'
+import instructions_image from '../../assets/instructions.webp'
 import { useDispatch } from 'react-redux'
-import { displayRenderer, toggleRenderer } from '../store/resumeSlice.js'
+import { displayRenderer, toggleRenderer } from '../../store/resumeSlice.js'
 
-const DownloadWidget = () => {
+const DownloadForm = () => {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const printAsPdf = () => {
@@ -26,7 +26,7 @@ const DownloadWidget = () => {
       }, 1000)
     } catch (err) {
       message.error('error converting into pdf').then((r) => {
-        //
+        // r
       })
     } finally {
       setIsLoading(false)
@@ -60,7 +60,7 @@ const DownloadWidget = () => {
           <li>Pages per Sheet: 1</li>
           <li>Margins: None</li>
           <li>Scale: Default</li>
-          <li>Options: Background grapchics</li>
+          <li>Options: Background graphics</li>
         </List>
         <a href={instructions_image} target="_blank">
           <img src={instructions_image} alt="How to" width="100%" />
@@ -94,4 +94,4 @@ const Container = styled.div`
   flex: 1;
 `
 
-export default DownloadWidget
+export default DownloadForm

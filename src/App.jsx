@@ -2,7 +2,7 @@ import './assets/Square-Regular.otf'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import HomePage from './pages/HomePage'
-import CreationPage from './pages/EditorPage.jsx'
+import ResumePage from './pages/ResumePage.jsx'
 import RootLayout from './pages/RootLayout'
 
 const router = createBrowserRouter([
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       {
         path: 'editor',
-        children: [{ index: true, element: <CreationPage /> }],
+        children: [{ index: true, element: <ResumePage /> }],
       },
     ],
   },

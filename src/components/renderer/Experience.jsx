@@ -1,15 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Title } from './Stack.jsx'
 import { useSelector } from 'react-redux'
-import DEMO_WORK_ICON from '../assets/work.webp'
-import { ContentSection, InnerContentPadding } from './shared/ContentSection.js'
+import DEMO_WORK_ICON from '../../assets/work.webp'
+import {
+  ContentSection,
+  InnerContentPadding,
+} from '../shared/ContentSection.js'
 import {
   selectDisplaySettings,
   selectFullResume,
   selectResumeExp,
-} from '../store/resumeSlice.js'
-import { SubTitle } from './Education'
+} from '../../store/resumeSlice.js'
+import { SubTitle } from '../shared/SubTitle.jsx'
+import { Title } from '../shared/Title.jsx'
 
 const ExperienceSection = () => {
   const experience = useSelector(selectResumeExp)
@@ -92,10 +95,12 @@ export const JobIndustry = styled.div`
   color: ${({ color }) => color || 'white'};
   font-weight: bold;
 `
+
 export const JobCard = styled.div`
   display: flex;
   padding-top: 1em;
 `
+
 export const JobTitle = styled.div`
   display: flex;
   font-size: 1em;

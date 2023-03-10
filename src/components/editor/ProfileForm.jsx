@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { Input, Segmented, Switch } from 'antd'
+import { Input, Switch } from 'antd'
 import {
   selectFullResume,
   setEmail,
@@ -9,10 +9,8 @@ import {
   setSummary,
   setTitle,
   toggleSummary,
-} from '../store/resumeSlice.js'
+} from '../../store/resumeSlice.js'
 import {
-  BarsOutlined,
-  InsertRowAboveOutlined,
   MailOutlined,
   PhoneOutlined,
   QqOutlined,
@@ -20,25 +18,16 @@ import {
   UserOutlined,
 } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
-import CustomRow from '../components/shared/CustomRow.jsx'
+import CustomRow from '../shared/CustomRow.jsx'
+import {
+  MAX_PHONE_NUMBER,
+  MAX_SUMMARY,
+  MAX_TITLE,
+} from '../../constants/appSettings.js'
 
-const ProfileWidget = () => {
+const ProfileForm = () => {
   const dispatch = useDispatch()
-  const { summary, display, education, experience } = useSelector(
-    selectFullResume
-  )
-  const [options] = useState([
-    {
-      label: 'Vertical',
-      value: 'Vertical',
-      icon: <BarsOutlined />,
-    },
-    {
-      label: 'Horizontal',
-      value: 'Horizontal',
-      icon: <InsertRowAboveOutlined />,
-    },
-  ])
+  const { summary, display } = useSelector(selectFullResume)
   return (
     <Container>
       <CustomRow>
@@ -72,7 +61,7 @@ const ProfileWidget = () => {
         <Input
           onChange={({ target }) => dispatch(setTitle(target.value))}
           placeholder="Frontend Developer"
-          maxLength={38}
+          maxLength={MAX_TITLE}
           prefix={<QqOutlined className="site-form-item-icon" />}
         />
       </CustomRow>
@@ -80,7 +69,7 @@ const ProfileWidget = () => {
         <Input
           onChange={({ target }) => dispatch(setPhone(target.value))}
           placeholder="050-5101952"
-          maxLength={38}
+          maxLength={MAX_PHONE_NUMBER}
           prefix={<PhoneOutlined className="site-form-item-icon" />}
         />
       </CustomRow>
@@ -93,7 +82,7 @@ const ProfileWidget = () => {
       </CustomRow>
       <CustomRow>
         <Input
-          maxLength={150}
+          maxLength={MAX_SUMMARY}
           showCount
           value={summary}
           disabled={!display.summary}
@@ -112,4 +101,4 @@ const Container = styled.div`
   flex: 1;
 `
 
-export default ProfileWidget
+export default ProfileForm
