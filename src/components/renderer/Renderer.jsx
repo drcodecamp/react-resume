@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import SideNav from '../components/SideNav.jsx'
-import ResumeContent from '../components/ResumeContent.jsx'
+import SideNav from './SideNav.jsx'
+import ResumeContent from './ResumeContent.jsx'
 import { useSelector } from 'react-redux'
 import {
   selectDisplaySettings,
   selectFullResume,
-} from '../store/resumeSlice.js'
+} from '../../store/resumeSlice.js'
 
 const Renderer = () => {
   const display = useSelector(selectDisplaySettings)

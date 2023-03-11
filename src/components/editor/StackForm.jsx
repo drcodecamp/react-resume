@@ -7,12 +7,13 @@ import {
   setSkills,
   toggleActivatedSkill,
   toggleStack,
-} from '../store/resumeSlice.js'
+} from '../../store/resumeSlice.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Input, Switch, Tag } from 'antd'
-import CustomRow from '../components/shared/CustomRow.jsx'
+import CustomRow from '../shared/CustomRow.jsx'
+import { MAX_STACK_ITEMS } from '../../constants/appSettings.js'
 
-const StackWidget = () => {
+const StackForm = () => {
   const dispatch = useDispatch()
   const display = useSelector(selectDisplaySettings)
   const stack = useSelector(selectResumeStack)
@@ -23,7 +24,7 @@ const StackWidget = () => {
   }, [userInput])
 
   const handleOnEnter = () => {
-    if (stack.length >= 20) return
+    if (stack.length >= MAX_STACK_ITEMS) return
     if (isAlreadyIncluded) return
     if (userInput.length) {
       dispatch(setSkills(userInput))
@@ -120,4 +121,4 @@ const SkillForm = styled.p`
   align-items: center;
 `
 
-export default StackWidget
+export default StackForm

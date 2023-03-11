@@ -5,13 +5,13 @@ import {
   setEducationDuration,
   setEducationIcon,
   setEducationName,
-} from '../store/resumeSlice.js'
-import { FormContainer } from './ProjectItemForm.jsx'
+} from '../../store/resumeSlice.js'
+import { FormContainer } from './ProjectsFormItem.jsx'
 import { Input } from 'antd'
-import ImageSelector from './ImageSelector.jsx'
-import { RowLabel } from './shared/RowLabel.jsx'
+import ImageSelector from '../shared/ImageSelector.jsx'
+import { RowLabel } from '../shared/RowLabel.jsx'
 
-const EducationItemForm = ({ educationItem, isDisabled }) => {
+const EducationFormItem = ({ educationItem, isDisabled }) => {
   const dispatch = useDispatch()
   const handleImageSelection = (e) => {
     dispatch(
@@ -77,4 +77,4 @@ const EducationItemForm = ({ educationItem, isDisabled }) => {
   )
 }
 
-export default EducationItemForm
+export default EducationFormItem

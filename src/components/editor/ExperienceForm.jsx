@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
-import CustomForm from '../components/shared/CustomForm.jsx'
-import CustomRow from '../components/shared/CustomRow.jsx'
+import CustomForm from '../shared/CustomForm.jsx'
+import CustomRow from '../shared/CustomRow.jsx'
 import { Button, Segmented, Switch } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -12,13 +12,13 @@ import {
   toggleExperience,
   toggleExperienceInFreeText,
   toggleExpIcons,
-} from '../store/resumeSlice.js'
-import { ItemControllers } from './Projects.jsx'
-import ExperienceItemForm from '../components/ExperienceItemForm.jsx'
-import { useState } from 'react'
+} from '../../store/resumeSlice.js'
+import { ItemControllers } from './ProjectsForm.jsx'
+import ExperienceFormItem from './ExperienceFormItem.jsx'
 import { BarsOutlined, InsertRowAboveOutlined } from '@ant-design/icons'
+import { MAX_EXP } from '../../constants/appSettings.js'
 
-const ExperienceWidget = () => {
+const ExperienceForm = () => {
   const dispatch = useDispatch()
   const display = useSelector(selectDisplaySettings)
   const experience = useSelector(selectResumeExp)
@@ -73,7 +73,7 @@ const ExperienceWidget = () => {
               onClick={() => dispatch(addExp())}
               type="primary"
               shape="circle"
-              disabled={isDisabled || experience.length >= 2}
+              disabled={isDisabled || experience.length >= MAX_EXP}
             >
               +
             </Button>
@@ -95,7 +95,7 @@ const ExperienceWidget = () => {
           experience.map((exp) => {
             return (
               <div key={exp.id}>
-                <ExperienceItemForm isDisabled={isDisabled} expItem={exp} />
+                <ExperienceFormItem isDisabled={isDisabled} expItem={exp} />
               </div>
             )
           })}
@@ -116,4 +116,4 @@ const Container = styled.div`
   flex: 1;
 `
 
-export default ExperienceWidget
+export default ExperienceForm
