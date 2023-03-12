@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addResumeDocument } from '../store/resumeSlice.js'
 import templates from '../store/resumeTemplates'
+
 const ChooseNewTemplate = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -18,35 +19,32 @@ const ChooseNewTemplate = () => {
           <h1>בחרו את הטמפלייט שלכם</h1>
           <h2>אל תדאגו, אפשר לשנות הכל גם בהמשך</h2>
         </Titles>
-        <ButtonsContainer>
+        <TemplatesContainer>
           {templates &&
             Object.keys(templates).length > 0 &&
             Object.keys(templates).map((templateId) => {
               return (
-                <ButtonContainer key={templateId}>
+                <TemplateContainer key={templateId}>
+                  <img src={templates[templateId].image} alt="בחירת טמפלייט" />
                   <Button onClick={() => handleNewDocumentCreation(templateId)}>
-                    <img
-                      src={templates[templateId].image}
-                      alt="choose Template"
-                    />
-                    <p>בחירה</p>
+                    בחירה
                   </Button>
-                </ButtonContainer>
+                </TemplateContainer>
               )
             })}
-        </ButtonsContainer>
+        </TemplatesContainer>
       </Container>
     </>
   )
 }
 
-const ButtonsContainer = styled.section`
+const TemplatesContainer = styled.section`
   display: flex;
   align-self: center;
   flex-wrap: wrap;
   color: white;
-  padding: 2em;
-  gap: 1.5em;
+  padding: 6em;
+  gap: 100px;
   @media screen and (max-width: 1280px) {
     justify-content: space-evenly;
   }
@@ -88,45 +86,32 @@ const Container = styled.div`
   }
 `
 
-const Button = styled.div`
+const Button = styled.button`
   cursor: pointer;
-  position: relative;
-  display: flex;
-  z-index: 10;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  font-weight: bolder;
+  font-size: 1em;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  background-color: #2b292f;
+  border-radius: 10px;
+  width: 60%;
+  text-align: center;
   transition: all 0.25s ease;
-  img {
-    width: 20em;
-  }
+
   :hover {
-    transform: scale(1.05);
+    transform: scale(1.15);
   }
 `
 
-const ButtonContainer = styled.button`
-  cursor: pointer;
+const TemplateContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
-
-  p {
-    font-weight: bolder;
-    font-size: 1em;
-    padding: 0.5em;
-    margin-top: 0.5em;
-    background-color: #2b292f;
-    border-radius: 10px;
-    width: 60%;
-    text-align: center;
-    transition: all 0.25s ease;
-    :hover {
-      transform: scale(1.15);
-    }
-  }
+  width: 245px;
+  gap: 10px;
 `
 
 export default ChooseNewTemplate

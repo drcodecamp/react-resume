@@ -19,7 +19,7 @@ const HomePage = () => {
 
   const handleNewDocumentCreation = () => {
     if (documents && Object.keys(documents).length < 3) {
-      navigate('/chooseTemplate')
+      navigate('/new')
     }
   }
   const setCurrentDocument = (documentId) => {
@@ -42,7 +42,7 @@ const HomePage = () => {
         <ButtonsContainer>
           <ButtonContainer>
             <Button onClick={handleNewDocumentCreation}>
-              <img src={cvDocumentAddImage} alt="resume creator" />
+              <img src={cvDocumentAddImage} alt="יצירת מסמך קוח חדש" />
             </Button>
             <p>צור חדש</p>
           </ButtonContainer>
@@ -56,7 +56,10 @@ const HomePage = () => {
                     <Close onClick={(e) => handleDocumentRemove(e, documentId)}>
                       X
                     </Close>
-                    <img src={cvDocumentImage} alt="resume creator" />
+                    <img
+                      src={cvDocumentImage}
+                      alt={documents[documentId].documentName}
+                    />
                   </Button>
                   <p>{documents[documentId].documentName}</p>
                 </ButtonContainer>
@@ -65,7 +68,7 @@ const HomePage = () => {
         </ButtonsContainer>
       </LeftContent>
       <RightContent>
-        <img src={heroImage} alt="resume generator" />
+        <img src={heroImage} alt="דוקטור קוד - יצירת קורות חיים" />
       </RightContent>
     </Container>
   )
