@@ -137,38 +137,38 @@ const juniorTemplate = {
 
 const fancyTemplate = {
   ...juniorTemplate,
-  display: { 
-    ...juniorTemplate.display, 
-    sideNav: true, 
+  display: {
+    ...juniorTemplate.display,
+    sideNav: true,
     summary: true,
     social: {
-    facebook: true,
-    link: true,
-    github: true,
-    youtube: true,
-    instagram: true,
-    medium: true,
-  }, 
-},
-  
+      facebook: true,
+      link: true,
+      github: true,
+      youtube: true,
+      instagram: true,
+      medium: true,
+    },
+  },
 }
 
 const simpleTemplate = {
   ...juniorTemplate,
-  display: {...juniorTemplate.display,     
+  display: {
+    ...juniorTemplate.display,
     experienceInFreeText: false,
     summary: true,
     jobIcons: false,
-    educationIcons: false, 
-    oneLineProjects: true
-  }
+    educationIcons: false,
+    oneLineProjects: true,
+  },
 }
 
 const templates = {
   [nanoid()]: {
-  image: simpleImage,
-  template: simpleTemplate
-},
+    image: simpleImage,
+    template: simpleTemplate,
+  },
   [nanoid()]: {
     image: juniorImage,
     template: juniorTemplate,
@@ -177,7 +177,6 @@ const templates = {
     image: fancyImage,
     template: fancyTemplate,
   },
-
 }
 
-export default templates;
+export default templates
