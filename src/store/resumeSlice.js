@@ -33,7 +33,7 @@ export const initialState = {
       medium: false,
     },
   },
-  cardDesign:1,
+  cardDesign:'A',
   themeColor: '#0008ff',
   isDarkMode: false,
   fullName: 'Doctor Code',

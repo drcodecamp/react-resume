@@ -20,20 +20,24 @@ const ProjectsWidget = () => {
   const dispatch = useDispatch()
   const projects = useSelector(selectResumeProjects)
   const display = useSelector(selectDisplaySettings)
-  const [cardDesignChoosen , setCardDesignChoosen] = useState('Middle Title')
+  const [cardDesignChoosen , setCardDesignChoosen] = useState('Design Card A')
 
   const items = [
     {
-      label: (<p onClick={() => {dispatch(setProjectDesignCard(1)) ,setCardDesignChoosen('Middle Title') , dispatch(toggleOneLineProjects(false)) }}> Middle Title </p>),
-      key: '1',
+      label: (<p onClick={() => {dispatch(setProjectDesignCard('A')) ,setCardDesignChoosen('Design Card A') , dispatch(toggleOneLineProjects(false)) }}> Design Card A </p>),
+      key: 'A',
     },
     {
-      label: (<p onClick={() => {dispatch(setProjectDesignCard(2)) ,setCardDesignChoosen('Top Title'), dispatch(toggleOneLineProjects(false))} }> Top Title </p>),
-      key: '2',
+      label: (<p onClick={() => {dispatch(setProjectDesignCard('B')) ,setCardDesignChoosen('Design Card B'), dispatch(toggleOneLineProjects(false))} }> Design Card B </p>),
+      key: 'B',
+    },
+    {
+      label: (<p onClick={() => {dispatch(setProjectDesignCard('C')) ,setCardDesignChoosen('Design Card C'), dispatch(toggleOneLineProjects(false))} }> Design Card C </p>),
+      key: 'C',
     },
     {
       label: (<p onClick={() => {setCardDesignChoosen('Line'), dispatch(toggleOneLineProjects(true))} }> Line </p>),
-      key: '3',
+      key: 'D',
     }
   ];
   

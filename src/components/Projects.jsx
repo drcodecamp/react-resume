@@ -30,7 +30,7 @@ const ProjectsSection = () => {
       <Title>Projects</Title>
       <ProjectList size={projectListMode}>
         {projects.map((project) => {
-          return cardDesign == 1 ?
+          return cardDesign == 'A' ?
            (
             <ProjectItem key={project.id}>
               <CardA>
@@ -57,34 +57,44 @@ const ProjectsSection = () => {
                 </Actions>
               </CardA>
             </ProjectItem>
-          ) : (
+          ) : cardDesign == 'B' ? (
             <ProjectItem key={project.id}>
-            <CardA>
-              <ProjectName style={{textAlign:'center'}}>{project.name}</ProjectName>
-              <Line></Line>
-              <ProjectImage style={{borderRadius:'6px'}}>
-                <img src={project.image} alt="proj" />
-              </ProjectImage>
-              <ProjectInfo>{project.info}</ProjectInfo>
-              <Actions>
-                <ProjectSourceCode
-                  href={'https://' + project.codeLink || '#'}
-                  target="_blank"
-                >
-                  code
-                </ProjectSourceCode>
-                |
-                <ProjectDemoButton
-                  color={resume.themeColor}
-                  href={'https://' + project.demoLink || '#'}
-                  target="_blank"
-                >
-                  demo
-                </ProjectDemoButton>
-              </Actions>
-            </CardA>
+            <Card>
+                <CardBLine />
+                <CardTitle>{project.name}</CardTitle>
+                <CardInfo>{project.info}</CardInfo>
+                <CardBWarpButton>
+                  <CardButtonGit 
+                   href={'https://' + project.codeLink || '#'}
+                   target="_blank"
+                  >
+                    GIT                  
+                  </CardButtonGit>
+                  <CardButtonDemo
+                   href={'https://' + project.demoLink || '#'}
+                   target="_blank"
+                  >
+                    DEMO
+                  </CardButtonDemo>
+                </CardBWarpButton>
+            </Card>
           </ProjectItem>
-          ) 
+          ) :(
+            <ProjectItem>
+               <Card>
+              <CardCImage src={project.image} alt="proj"></CardCImage>
+              <CardTitle style={{margin:'18px 0px 20px 0px'}}>{project.name}</CardTitle>
+              <CardInfo>{project.info}</CardInfo>
+              <CardButtonDemo
+                   href={'https://' + project.demoLink || '#'}
+                   target="_blank"
+                   style={{position:'absolute',bottom:'-10px',right:'calc(50% - 40px)'}}
+                  >
+                    DEMO
+              </CardButtonDemo>
+            </Card>
+            </ProjectItem>
+          )
         })}
       </ProjectList>
     </ContentSection>
@@ -123,6 +133,7 @@ const ProjectItem = styled.div`
   gap: 1rem;
   background-color: var(--card-bg);
   max-height: 350px;
+  min-height: 200px;
   width: 33%;
   margin-right: 0.5em;
   border-radius: 25px;
@@ -163,11 +174,99 @@ const CardA = styled.div`
   width: 100%;
   padding: 1em;
 `
-const Line = styled.div`
-width: '100%';
-height: '1px';
-border-bottom: 1px solid #f0f0f0;
-color: red;
+const Card = styled.div`
+position: relative;
+height: 100%;
+width: 100%;
+background: rgba(255, 255, 255, 0.64);
+box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+border-radius: 16px;
+`
+const CardBLine = styled.div`
+position: absolute; 
+top: 5px; 
+left: calc(50% - 18px);
+width: 36px;
+height: 2px;
+background: #51D6DA;
+box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+border-radius: 16px;`
+
+const CardTitle = styled.div`
+font-size: 18px;
+font-weight: bold;
+color: var(--main);
+display: flex;
+width: 100%;
+line-height: 139.69%;
+align-items: center;
+text-align: center;
+justify-content: center;
+color: #434343;
+padding-top:15px;
+margin-bottom:20px;
+`
+const CardInfo = styled.div`
+width: 90%;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 139.69%;
+display: flex;
+align-items: center;
+margin-left: 5%;
+color: var(--subtitle);
+`
+const CardBWarpButton = styled.a`
+position: absolute; 
+width: 100%;
+bottom: 7px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0px 7px;
+`
+const CardButtonDemo = styled.div`
+width: 80px;
+height: 25px;
+background: #51D6DA;
+box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.25);
+border-radius: 42px;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 12px;
+display: flex;
+align-items: center;
+text-align: center;
+justify-content: center;
+color: #FFFFFF;
+`
+const CardButtonGit = styled.div`
+width: 80px;
+height: 25px;
+display: flex;
+align-items: center;
+text-align: center;
+justify-content: center;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 13px;
+color: #434343;
+`
+const CardCImage = styled.img`
+position:absolute;
+left:calc(50% - 22.5px);
+top:-22.5px;
+width: 45px;
+height: 45px;
+border-radius:50%;
+object-fit:cover;
+object-position: center;
 `
 
 export default ProjectsSection
