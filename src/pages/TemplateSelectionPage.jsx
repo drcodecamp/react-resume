@@ -10,7 +10,7 @@ const ChooseNewTemplate = () => {
   const navigate = useNavigate()
   const handleNewDocumentCreation = (templateId) => {
     dispatch(addResumeDocument(templateId))
-    navigate('/editor')
+    navigate('/editor', { replace: true, relative: 'path' })
   }
   return (
     <>
