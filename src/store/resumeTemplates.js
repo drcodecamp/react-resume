@@ -5,8 +5,11 @@ import SRC3 from '../assets/bg3.webp'
 import DEMO_WORK_ICON from '../assets/work.webp'
 import { getRandomName } from '../constants/names.js'
 import { nanoid } from 'nanoid'
+import fancyImage from '../assets/fancy.webp'
+import juniorImage from '../assets/junior.webp'
+import simpleImage from '../assets/simple.webp'
 
-export const defaultTemplate = {
+const juniorTemplate = {
   documentName: getRandomName(),
   display: {
     renderer: true,
@@ -132,7 +135,49 @@ export const defaultTemplate = {
   value: 0,
 }
 
-export const oneLineProjectsTemplate = {
-  ...defaultTemplate,
-  display: { ...defaultTemplate.display, oneLineProjects: true },
+const fancyTemplate = {
+  ...juniorTemplate,
+  display: { 
+    ...juniorTemplate.display, 
+    sideNav: true, 
+    summary: true,
+    social: {
+    facebook: true,
+    link: true,
+    github: true,
+    youtube: true,
+    instagram: true,
+    medium: true,
+  }, 
+},
+  
 }
+
+const simpleTemplate = {
+  ...juniorTemplate,
+  display: {...juniorTemplate.display,     
+    experienceInFreeText: false,
+    summary: true,
+    jobIcons: false,
+    educationIcons: false, 
+    oneLineProjects: true
+  }
+}
+
+const templates = {
+  [nanoid()]: {
+  image: simpleImage,
+  template: simpleTemplate
+},
+  [nanoid()]: {
+    image: juniorImage,
+    template: juniorTemplate,
+  },
+  [nanoid()]: {
+    image: fancyImage,
+    template: fancyTemplate,
+  },
+
+}
+
+export default templates;

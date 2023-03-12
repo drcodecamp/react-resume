@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addResumeDocument } from '../store/resumeSlice.js'
-
+import templates from '../store/resumeTemplates'
 const ChooseNewTemplate = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const templates = useSelector((state) => state.resume.templates)
   const handleNewDocumentCreation = (templateId) => {
     dispatch(addResumeDocument(templateId))
     navigate('/editor')
@@ -99,7 +98,7 @@ const Button = styled.div`
   align-items: center;
   transition: all 0.25s ease;
   img {
-    width: 12em;
+    width: 20em;
   }
   :hover {
     transform: scale(1.05);

@@ -4,24 +4,13 @@ import { memoize } from 'proxy-memoize'
 import EDUCATION_ICON from '../assets/education.webp'
 import { getRandomImage } from '../utils/getRandomImage.js'
 import { getRandomName } from '../constants/names.js'
-import { defaultTemplate, oneLineProjectsTemplate } from './resumeTemplates'
-import demoTemplate from '../assets/demoTemplate.svg'
-
+import templates from './resumeTemplates'
 export const resumeSlice = createSlice({
   name: 'resume',
   initialState: {
     selectedDocumentId: '',
     documents: {},
-    templates: {
-      [nanoid()]: {
-        image: demoTemplate,
-        template: defaultTemplate,
-      },
-      [nanoid()]: {
-        image: demoTemplate,
-        template: oneLineProjectsTemplate,
-      },
-    },
+
   },
   reducers: {
     setDarkMode: (state, action) => {
@@ -47,7 +36,7 @@ export const resumeSlice = createSlice({
       state.selectedDocumentId = uniqueId
       state.documents[uniqueId] = {
         id: uniqueId,
-        ...state.templates[templateId].template,
+        ...templates[templateId].template,
         documentName: getRandomName(),
       }
     },
