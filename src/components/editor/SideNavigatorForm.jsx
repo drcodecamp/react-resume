@@ -39,12 +39,38 @@ const SocialItem = ({ social, idx }) => {
   const { display } = useSelector(selectFullResume)
   const socials = useSelector(selectResumeSocials)
 
-  function handleKeyDown(e, params) {
-    const { id, idx } = params
+  function handleOnDragStart(e, id, idx) {
+    e.dataTransfer.effectAllowed = 'move'
+    e.dataTransfer.setData('data', id)
+    toggleDragging(idx)
+    return false
+  }
+  function handleOnDragEnter(e, idx) {
+    toggleDropping(idx)
+  }
+  function handleOnDragEnd() {
+    cancelMove()
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault()
+  }
+  function handleOnDrop(e, idx) {
+    const prevId = e.dataTransfer.getData('data')
+    const prevIndex = socials.findIndex((i) => i.id === prevId)
+    if (prevIndex !== undefined && prevIndex !== idx) {
+      swapItems(prevId, prevIndex, idx)
+    }
+  }
+  function handleKeyDown(e, id, idx) {
     switch (e.key) {
-      case ' ':
+      case 'Enter':
         e.preventDefault()
-        toggleDragging(params)
+        if (socials[idx].dragging) {
+          cancelMove()
+        } else {
+          toggleDragging(idx)
+        }
         break
 
       case 'Escape':
@@ -52,6 +78,7 @@ const SocialItem = ({ social, idx }) => {
         cancelMove()
         break
 
+      case ' ':
       case 'Tab':
         if (socials[idx].dragging) {
           e.preventDefault()
@@ -61,85 +88,62 @@ const SocialItem = ({ social, idx }) => {
       case 'ArrowDown':
       case 'ArrowRight':
         e.preventDefault()
-        if (idx - 1 >= 0) {
-          moveItem({ id: id, idx: idx, targetIdx: idx - 1 })
+        if (!socials[idx].dragging) {
+          toggleDragging(idx)
+        } else if (idx - 1 >= 0) {
+          moveItem(id, idx, idx - 1)
         }
         break
 
       case 'ArrowUp':
       case 'ArrowLeft':
         e.preventDefault()
-        if (idx + 1 < socials.length) {
-          moveItem({ id: id, idx: idx, targetIdx: idx + 1 })
+        if (!socials[idx].dragging) {
+          toggleDragging(idx)
+        } else if (idx + 1 < socials.length) {
+          moveItem(id, idx, idx + 1)
         }
-
         break
 
       default:
         break
     }
   }
-  function moveItem(params) {
-    const prevId = params.id
-    const prevIndex = params.idx
-    swapItems({ prevId, prevIndex, idx: params.targetIdx })
+  function moveItem(prevId, prevIndex, targetIdx) {
+    swapItems(prevId, prevIndex, targetIdx)
   }
-  function handleOnDragStart(e, params) {
-    const { id } = params
-    e.dataTransfer.effectAllowed = 'move'
-    e.dataTransfer.setData('data', id)
-    toggleDragging(params)
-    return false
-  }
-  function toggleDragging(params) {
-    const { idx } = params
+  function toggleDragging(idx) {
     const newArray = socials.map((item, index) => {
       return { ...item, dragging: index === idx }
     })
     dispatch(setSocials(newArray))
   }
-  function handleOnDragEnter(e, params) {
-    toggleDropping(params)
-  }
-  function toggleDropping(params) {
-    const { idx } = params
+  function toggleDropping(idx) {
     const newArray = socials.map((item, index) => {
       return { ...item, dropping: index === idx }
     })
     dispatch(setSocials(newArray))
   }
-  function handleOnDragEnd() {
-    cancelMove()
-  }
+
   function cancelMove() {
     const newArray = socials.map((item) => {
       return { ...item, dropping: false, dragging: false }
     })
     dispatch(setSocials(newArray))
   }
-  function handleDragLeave() {}
 
-  function handleDragOver(e) {
-    e.preventDefault()
-  }
-  function handleOnDrop(e, params) {
-    const { idx } = params
-    const prevId = e.dataTransfer.getData('data')
-    const prevIndex = socials.findIndex((i) => i.id === prevId)
-    if (prevIndex !== undefined && prevIndex !== idx) {
-      swapItems({ prevId, prevIndex, idx })
+  function swapItems(prevId, prevIndex, targetIdx) {
+    if (targetIdx > socials.length || targetIdx < 0) {
+      throw new Error('Swapping items is not allowed')
     }
-  }
-  function swapItems(params) {
-    const { prevId, prevIndex, idx } = params
     const prevItem = socials.find((i) => i.id === prevId)
-    const social = socials[idx]
+    const social = socials[targetIdx]
     const newArray = socials.filter(
       (item, index) =>
-        prevId !== item.id && index !== prevIndex && index !== idx
+        prevId !== item.id && index !== prevIndex && index !== targetIdx
     )
     newArray.splice(prevIndex, 0, social)
-    newArray.splice(idx, 0, prevItem)
+    newArray.splice(targetIdx, 0, prevItem)
     dispatch(setSocials(newArray))
   }
   return (
@@ -148,18 +152,17 @@ const SocialItem = ({ social, idx }) => {
         tabIndex={0}
         draggable
         droppable
-        onDragStart={(e) => handleOnDragStart(e, { id: social.id, idx })}
-        onDragEnter={(e) => handleOnDragEnter(e, { idx })}
-        onDragEnd={(e) => handleOnDragEnd(e, { idx })}
-        onDragOver={(e) => handleDragOver(e, { idx })}
-        onDragLeave={(e) => handleDragLeave(e, { idx })}
-        onDrop={(e) => handleOnDrop(e, { idx })}
-        onKeyDown={(e) => handleKeyDown(e, { id: social.id, idx })}
+        onDragStart={(e) => handleOnDragStart(e, social.id, idx)}
+        onDragEnter={(e) => handleOnDragEnter(e, idx)}
+        onDragEnd={() => handleOnDragEnd()}
+        onDragOver={(e) => handleDragOver(e)}
+        onDrop={(e) => handleOnDrop(e, idx)}
+        onKeyDown={(e) => handleKeyDown(e, social.id, idx)}
         isDragging={social.dragging}
         isDropping={social.dropping}
       >
         <MenuOutlined className="menu-outlined" />
-        <SocialIcon src={social.icon} alt={social.name} />
+        <SocialIcon draggable={false} src={social.icon} alt={social.name} />
         <DNDInput
           draggable={true}
           onDragStart={(e) => {
@@ -218,6 +221,14 @@ const DNDRow = styled(CustomRow)`
       opacity: 1;
     }
   }
+  :focus {
+    outline: 1px dashed;
+    outline-color: #1677ff;
+    .menu-outlined {
+      opacity: 1;
+    }
+  }
+
   ${({ isDragging }) => (isDragging ? dragging : '')};
   ${({ isDropping }) => (isDropping ? dropping : '')};
 `
