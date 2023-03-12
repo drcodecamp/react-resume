@@ -101,6 +101,7 @@ const Button = styled.button`
 
   :hover {
     transform: scale(1.15);
+    background-color: #45444e;
   }
 `
 
