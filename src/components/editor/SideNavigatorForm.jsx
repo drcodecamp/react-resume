@@ -41,12 +41,17 @@ const SocialItem = ({ social, idx }) => {
 
   function handleOnDragStart(e, id, idx) {
     e.dataTransfer.effectAllowed = 'move'
-    e.dataTransfer.setData('data', id)
-    toggleDragging(idx)
-    return false
+    e.dataTransfer.setData('text/plain', id)
+    toggleDragging(id, idx)
   }
-  function handleOnDragEnter(e, idx) {
-    toggleDropping(idx)
+
+  function handleOnDragEnter(e, id, idx) {
+    const prevItem = socials.find((i) => i.dragging !== false)
+    const prevIndex = socials.findIndex((i) => i.dragging)
+    if (prevItem.id !== id) {
+      const newArray = swapItems(prevItem.id, prevIndex, idx)
+      dispatch(setSocials(newArray))
+    }
   }
   function handleOnDragEnd() {
     cancelMove()
@@ -54,12 +59,21 @@ const SocialItem = ({ social, idx }) => {
 
   function handleDragOver(e) {
     e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
   }
-  function handleOnDrop(e, idx) {
-    const prevId = e.dataTransfer.getData('data')
-    const prevIndex = socials.findIndex((i) => i.id === prevId)
-    if (prevIndex !== undefined && prevIndex !== idx) {
-      swapItems(prevId, prevIndex, idx)
+  function handleOnMouseDown(e, id, idx) {
+    toggleDragging(id, idx)
+  }
+  function handleOnMouseUp(e, id, idx) {
+    const prevItem = socials.find((i) => i.dragging !== false)
+    const prevIndex = socials.findIndex((i) => i.dragging)
+
+    if (prevItem.id !== id) {
+      let newArray = swapItems(prevItem.id, prevIndex, idx)
+      newArray = newArray.map((item) => {
+        return { ...item, dragging: false }
+      })
+      dispatch(setSocials(newArray))
     }
   }
   function handleKeyDown(e, id, idx) {
@@ -89,9 +103,10 @@ const SocialItem = ({ social, idx }) => {
       case 'ArrowRight':
         e.preventDefault()
         if (!socials[idx].dragging) {
-          toggleDragging(idx)
+          toggleDragging(id, idx)
         } else if (idx - 1 >= 0) {
-          moveItem(id, idx, idx - 1)
+          const newArray = swapItems(id, idx, idx - 1)
+          dispatch(setSocials(newArray))
         }
         break
 
@@ -99,9 +114,10 @@ const SocialItem = ({ social, idx }) => {
       case 'ArrowLeft':
         e.preventDefault()
         if (!socials[idx].dragging) {
-          toggleDragging(idx)
+          toggleDragging(id, idx)
         } else if (idx + 1 < socials.length) {
-          moveItem(id, idx, idx + 1)
+          const newArray = swapItems(id, idx, idx + 1)
+          dispatch(setSocials(newArray))
         }
         break
 
@@ -109,25 +125,16 @@ const SocialItem = ({ social, idx }) => {
         break
     }
   }
-  function moveItem(prevId, prevIndex, targetIdx) {
-    swapItems(prevId, prevIndex, targetIdx)
-  }
-  function toggleDragging(idx) {
+  function toggleDragging(id, idx) {
     const newArray = socials.map((item, index) => {
-      return { ...item, dragging: index === idx }
-    })
-    dispatch(setSocials(newArray))
-  }
-  function toggleDropping(idx) {
-    const newArray = socials.map((item, index) => {
-      return { ...item, dropping: index === idx }
+      return { ...item, dragging: index === idx ? id : false }
     })
     dispatch(setSocials(newArray))
   }
 
   function cancelMove() {
     const newArray = socials.map((item) => {
-      return { ...item, dropping: false, dragging: false }
+      return { ...item, dragging: false }
     })
     dispatch(setSocials(newArray))
   }
@@ -138,13 +145,13 @@ const SocialItem = ({ social, idx }) => {
     }
     const prevItem = socials.find((i) => i.id === prevId)
     const social = socials[targetIdx]
-    const newArray = socials.filter(
+    let newArray = socials.filter(
       (item, index) =>
         prevId !== item.id && index !== prevIndex && index !== targetIdx
     )
     newArray.splice(prevIndex, 0, social)
     newArray.splice(targetIdx, 0, prevItem)
-    dispatch(setSocials(newArray))
+    return newArray
   }
   return (
     <>
@@ -153,47 +160,48 @@ const SocialItem = ({ social, idx }) => {
         draggable
         droppable
         onDragStart={(e) => handleOnDragStart(e, social.id, idx)}
-        onDragEnter={(e) => handleOnDragEnter(e, idx)}
+        onDragEnter={(e) => handleOnDragEnter(e, social.id, idx)}
         onDragEnd={() => handleOnDragEnd()}
         onDragOver={(e) => handleDragOver(e)}
-        onDrop={(e) => handleOnDrop(e, idx)}
         onKeyDown={(e) => handleKeyDown(e, social.id, idx)}
+        onMouseDown={(e) => handleOnMouseDown(e, social.id, idx)}
+        onMouseUp={(e) => handleOnMouseUp(e, social.id, idx)}
         isDragging={social.dragging}
-        isDropping={social.dropping}
       >
-        <MenuOutlined className="menu-outlined" />
-        <SocialIcon draggable={false} src={social.icon} alt={social.name} />
-        <DNDInput
-          draggable={true}
-          onDragStart={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-          }}
-          onDragEnter={(e) => e.preventDefault()}
-          onDragEnd={(e) => e.preventDefault()}
-          onDragLeave={(e) => e.preventDefault()}
-          onKeyDown={(e) => e.stopPropagation()}
-          addonBefore="https://"
-          onChange={({ target }) => {
-            dispatch(
-              setSocialURL({
-                id: social.id,
-                value: target.value,
-              })
-            )
-          }}
-          value={social.url}
-          placeholder={social.placeholder}
-          disabled={!display.sideNav || !social.display}
-          status={social.url.includes('http') ? 'error' : ''}
-        />
-        <Checkbox
-          disabled={!display.sideNav}
-          checked={social.display}
-          onClick={() => dispatch(toggleSocial(social))}
-        />
+        <RowItem draggable droppable>
+          <MenuOutlined draggable={false} className="menu-outlined" />
+          <SocialIcon draggable={false} src={social.icon} alt={social.name} />
+          <DNDInput
+            draggable={true}
+            onDragStart={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+            }}
+            onDragEnter={(e) => e.preventDefault()}
+            onDragEnd={(e) => e.preventDefault()}
+            onDragLeave={(e) => e.preventDefault()}
+            onKeyDown={(e) => e.stopPropagation()}
+            addonBefore="https://"
+            onChange={({ target }) => {
+              dispatch(
+                setSocialURL({
+                  id: social.id,
+                  value: target.value,
+                })
+              )
+            }}
+            value={social.url}
+            placeholder={social.placeholder}
+            disabled={!display.sideNav || !social.display}
+            status={social.url.includes('http') ? 'error' : ''}
+          />
+          <Checkbox
+            disabled={!display.sideNav}
+            checked={social.display}
+            onClick={() => dispatch(toggleSocial(social))}
+          />
+        </RowItem>
       </DNDRow>
-      {social.dropping && <Placeholder />}
     </>
   )
 }
@@ -205,14 +213,14 @@ const Container = styled.div`
 `
 
 const DNDRow = styled(CustomRow)`
-  flex-wrap: nowrap;
   cursor: grab;
-
   :active {
     cursor: grabbing;
   }
   .menu-outlined {
     opacity: 0;
+    user-select: none;
+    pointer-events: none;
   }
   :hover {
     outline: 1px dashed;
@@ -230,9 +238,7 @@ const DNDRow = styled(CustomRow)`
   }
 
   ${({ isDragging }) => (isDragging ? dragging : '')};
-  ${({ isDropping }) => (isDropping ? dropping : '')};
 `
-
 const dragging = `
   opacity: 0.5;
   transform: scale(0.8);
@@ -243,24 +249,17 @@ const dragging = `
   outline-color: black;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
 `
-const dropping = `
-  border: 2px dashed #000;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-`
-const Placeholder = styled.div`
-  border: 2px dashed #ccc;
-  background-color: #f2f2f2;
-  height: 2px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  transition: transform 0.2s ease-in-out;
-  box-sizing: border-box;
-  padding: 0 16px;
+const RowItem = styled(CustomRow)`
+  flex-wrap: nowrap;
+  user-select: none;
+  pointer-events: none;
 `
 const SocialIcon = styled.img`
   width: 32px;
   height: 32px;
   margin-left: 1em;
+  user-select: none;
+  pointer-events: none;
 `
 const DNDInput = styled(Input)`
   margin: 0 1em;
