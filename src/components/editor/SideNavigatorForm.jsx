@@ -41,14 +41,15 @@ const SocialItem = ({ social, idx }) => {
 
   function handleOnDragStart(e, id, idx) {
     e.dataTransfer.effectAllowed = 'move'
-    e.dataTransfer.setData('text/plain', id)
+    e.dataTransfer.setData('text/html', e.target)
+    e.dataTransfer.setDragImage(e.target, 20, 20)
     toggleDragging(id, idx)
   }
 
   function handleOnDragEnter(e, id, idx) {
     const prevItem = socials.find((i) => i.dragging !== false)
     const prevIndex = socials.findIndex((i) => i.dragging)
-    if (prevItem.id !== id) {
+    if (prevItem && prevItem.id !== id) {
       const newArray = swapItems(prevItem.id, prevIndex, idx)
       dispatch(setSocials(newArray))
     }
@@ -68,7 +69,7 @@ const SocialItem = ({ social, idx }) => {
     const prevItem = socials.find((i) => i.dragging !== false)
     const prevIndex = socials.findIndex((i) => i.dragging)
 
-    if (prevItem.id !== id) {
+    if (prevItem && prevItem.id !== id) {
       let newArray = swapItems(prevItem.id, prevIndex, idx)
       newArray = newArray.map((item) => {
         return { ...item, dragging: false }
