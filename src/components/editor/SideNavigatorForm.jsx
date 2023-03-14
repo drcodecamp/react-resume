@@ -221,7 +221,6 @@ const DNDRow = styled(CustomRow)`
   .menu-outlined {
     opacity: 0;
     user-select: none;
-    pointer-events: none;
   }
   :hover {
     outline: 1px dashed;
@@ -237,23 +236,10 @@ const DNDRow = styled(CustomRow)`
       opacity: 1;
     }
   }
+`
 
-  ${({ isDragging }) => (isDragging ? dragging : '')};
-`
-const dragging = `
-  opacity: 0.5;
-  transform: scale(0.8);
-  transform: rotate(3deg);
-  -moz-transform: rotate(3deg);
-  -webkit-transform: rotate(3deg);
-  outline: 2px solid;
-  outline-color: black;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
-`
 const RowItem = styled(CustomRow)`
   flex-wrap: nowrap;
-  user-select: none;
-  pointer-events: none;
 `
 const SocialIcon = styled.img`
   width: 32px;
