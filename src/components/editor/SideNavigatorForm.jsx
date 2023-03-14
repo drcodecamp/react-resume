@@ -168,6 +168,8 @@ const SocialItem = ({ social, idx }) => {
         onMouseDown={(e) => handleOnMouseDown(e, social.id, idx)}
         onMouseUp={(e) => handleOnMouseUp(e, social.id, idx)}
         isDragging={social.dragging}
+        aria-roledescription="Draggable item"
+        aria-describedby="You can use the arrow keys to move the item around"
       >
         <RowItem draggable droppable>
           <MenuOutlined draggable={false} className="menu-outlined" />
