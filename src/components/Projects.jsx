@@ -58,9 +58,9 @@ const ProjectsSection = () => {
               </CardA>
             </ProjectItem>
           ) : cardDesign == 'B' ? (
-            <ProjectItem key={project.id}>
+            <ProjectItem key={project.id} style={{maxHeight:200 , minHeight:150}}>
             <Card>
-                <CardBLine />
+                <CardBLine background={ resume.themeColor}/>
                 <CardTitle>{project.name}</CardTitle>
                 <CardInfo>{project.info}</CardInfo>
                 <CardBWarpButton>
@@ -73,22 +73,24 @@ const ProjectsSection = () => {
                   <CardButtonDemo
                    href={'https://' + project.demoLink || '#'}
                    target="_blank"
-                  >
+                   background={ resume.themeColor}
+                   >
                     DEMO
                   </CardButtonDemo>
                 </CardBWarpButton>
             </Card>
           </ProjectItem>
           ) :(
-            <ProjectItem>
+            <ProjectItem style={{marginTop:25}}>
                <Card>
               <CardCImage src={project.image} alt="proj"></CardCImage>
-              <CardTitle style={{margin:'18px 0px 20px 0px'}}>{project.name}</CardTitle>
-              <CardInfo>{project.info}</CardInfo>
+              <CardTitle style={{margin:'25px 0px 20px 0px'}}>{project.name}</CardTitle>
+              <CardInfo style={{marginBottom:40}} >{project.info}</CardInfo>
               <CardButtonDemo
+                   background={ resume.themeColor}
                    href={'https://' + project.demoLink || '#'}
                    target="_blank"
-                   style={{position:'absolute',bottom:'-10px',right:'calc(50% - 40px)'}}
+                   style={{position:'absolute',bottom:'-10px',right:'calc(50% - 50px)'}}
                   >
                     DEMO
               </CardButtonDemo>
@@ -186,14 +188,13 @@ const CardBLine = styled.div`
 position: absolute; 
 top: 5px; 
 left: calc(50% - 18px);
+background:${({ background }) => background || '#51D6DA'};
 width: 36px;
 height: 2px;
-background: #51D6DA;
 box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 border-radius: 16px;`
 
 const CardTitle = styled.div`
-font-size: 18px;
 font-weight: bold;
 color: var(--main);
 display: flex;
@@ -204,66 +205,55 @@ text-align: center;
 justify-content: center;
 color: #434343;
 padding-top:15px;
-margin-bottom:20px;
+margin-bottom:15px;
 `
 const CardInfo = styled.div`
 width: 90%;
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
 line-height: 139.69%;
 display: flex;
 align-items: center;
 margin-left: 5%;
 color: var(--subtitle);
 `
-const CardBWarpButton = styled.a`
-position: absolute; 
-width: 100%;
-bottom: 7px;
+const CardBWarpButton = styled.div`
 display: flex;
 align-items: center;
 justify-content: space-between;
-padding: 0px 7px;
+padding: 0px 10px 0px 5px;
+margin: 10px 0px 7px 0px;
 `
-const CardButtonDemo = styled.div`
-width: 80px;
-height: 25px;
-background: #51D6DA;
+const CardButtonDemo = styled.a`
+width: 100px;
+height: 30px;
 box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.25);
 border-radius: 42px;
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
+font-size: 14px;
 line-height: 12px;
 display: flex;
 align-items: center;
 text-align: center;
 justify-content: center;
 color: #FFFFFF;
+background-color: ${({ background }) => background || '#51D6DA'};
 `
-const CardButtonGit = styled.div`
-width: 80px;
+const CardButtonGit = styled.a`
+width: 70px;
 height: 25px;
 display: flex;
 align-items: center;
 text-align: center;
+font-weight: 600;
 justify-content: center;
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 500;
 font-size: 12px;
 line-height: 13px;
 color: #434343;
 `
 const CardCImage = styled.img`
 position:absolute;
-left:calc(50% - 22.5px);
-top:-22.5px;
-width: 45px;
-height: 45px;
+left:calc(50% - 25px);
+top:-25px;
+width: 50px;
+height: 50px;
 border-radius:50%;
 object-fit:cover;
 object-position: center;
