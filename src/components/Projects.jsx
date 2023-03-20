@@ -58,7 +58,7 @@ const ProjectsSection = () => {
               </CardA>
             </ProjectItem>
           ) : cardDesign == 'B' ? (
-            <ProjectItem key={project.id} style={{maxHeight:200 , minHeight:150}}>
+            <ProjectItem key={project.id} maxHeight= '200' minHeight='150'>
             <Card>
                 <CardBLine background={ resume.themeColor}/>
                 <CardTitle>{project.name}</CardTitle>
@@ -81,16 +81,18 @@ const ProjectsSection = () => {
             </Card>
           </ProjectItem>
           ) :(
-            <ProjectItem style={{marginTop:25}}>
+            <ProjectItem marginTop='25px'>
                <Card>
               <CardCImage src={project.image} alt="proj"></CardCImage>
-              <CardTitle style={{margin:'25px 0px 20px 0px'}}>{project.name}</CardTitle>
-              <CardInfo style={{marginBottom:40}} >{project.info}</CardInfo>
+              <CardTitle margin= '25px 0px 20px 0px'>{project.name}</CardTitle>
+              <CardInfo marginBottom= '40px' >{project.info}</CardInfo>
               <CardButtonDemo
                    background={ resume.themeColor}
                    href={'https://' + project.demoLink || '#'}
                    target="_blank"
-                   style={{position:'absolute',bottom:'-10px',right:'calc(50% - 50px)'}}
+                   position= 'absolute'
+                   bottom= '-10px'
+                   right= 'calc(50% - 50px)'
                   >
                     DEMO
               </CardButtonDemo>
@@ -134,12 +136,13 @@ const ProjectItem = styled.div`
   flex-direction: column;
   gap: 1rem;
   background-color: var(--card-bg);
-  max-height: 350px;
-  min-height: 200px;
+  max-height: ${({maxHeight})=> maxHeight || '350px'};
+  min-height: ${({minHeight})=> minHeight || '200px'};;
   width: 33%;
   margin-right: 0.5em;
   border-radius: 25px;
   box-shadow: 0 4px 1em rgb(0 0 0 / 10%);
+  margin-top:${({marginTop}) => marginTop || 0}
 `
 const ProjectName = styled.div`
   font-size: 18px;
@@ -205,7 +208,7 @@ text-align: center;
 justify-content: center;
 color: #434343;
 padding-top:15px;
-margin-bottom:15px;
+margin:${({ margin }) => margin || '0px 0px 15px 0px'};
 `
 const CardInfo = styled.div`
 width: 90%;
@@ -214,6 +217,7 @@ display: flex;
 align-items: center;
 margin-left: 5%;
 color: var(--subtitle);
+margin-bottom:${({ marginBottom }) => marginBottom || 0}
 `
 const CardBWarpButton = styled.div`
 display: flex;
@@ -223,6 +227,9 @@ padding: 0px 10px 0px 5px;
 margin: 10px 0px 7px 0px;
 `
 const CardButtonDemo = styled.a`
+position: ${({ position }) => position || ''};
+bottom: ${({ bottom }) => bottom || '' };
+right: ${({ right }) => right || '' };
 width: 100px;
 height: 30px;
 box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.25);
