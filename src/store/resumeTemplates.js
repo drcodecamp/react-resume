@@ -41,6 +41,7 @@ const juniorTemplate = {
   email: 'info@doctorcode.org',
   summary:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed bibendum venenatis. Cras consequat mollis pretium. Nam quam lacus biam',
+  projectStyle: 2,
   projects: [
     {
       id: nanoid(),
@@ -137,6 +138,7 @@ const juniorTemplate = {
 
 const fancyTemplate = {
   ...juniorTemplate,
+  projectStyle: 2,
   display: {
     ...juniorTemplate.display,
     sideNav: true,
@@ -154,6 +156,7 @@ const fancyTemplate = {
 
 const simpleTemplate = {
   ...juniorTemplate,
+  projectStyle: 1,
   display: {
     ...juniorTemplate.display,
     experienceInFreeText: false,

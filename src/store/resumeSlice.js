@@ -10,9 +10,11 @@ export const resumeSlice = createSlice({
   initialState: {
     selectedDocumentId: '',
     documents: {},
-
   },
   reducers: {
+    setProjectsStyle(state, action) {
+      state.documents[state.selectedDocumentId].projectStyle = action.payload
+    },
     setDarkMode: (state, action) => {
       state.documents[state.selectedDocumentId].isDarkMode = action.payload
     },
@@ -385,6 +387,7 @@ export const {
   setSkills,
   toggleActivatedSkill,
   removeSkill,
+  setProjectsStyle,
 } = resumeSlice.actions
 
 /**
@@ -406,6 +409,10 @@ export const selectResumeEducation = memoize(resumeEducation)
 const resumeProjects = (state) =>
   state.resume.documents[state.resume.selectedDocumentId].projects
 export const selectResumeProjects = memoize(resumeProjects)
+
+const resumeProjectStyle = (state) =>
+  state.resume.documents[state.resume.selectedDocumentId].projectStyle
+export const selectResumeProjectStyle = memoize(resumeProjectStyle)
 
 const resumeDisplaySettings = (state) =>
   state.resume.documents[state.resume.selectedDocumentId].display

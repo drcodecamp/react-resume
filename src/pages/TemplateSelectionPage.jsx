@@ -20,18 +20,16 @@ const ChooseNewTemplate = () => {
           <h2>אל תדאגו, אפשר לשנות הכל גם בהמשך</h2>
         </Titles>
         <TemplatesContainer>
-          {templates &&
-            Object.keys(templates).length > 0 &&
-            Object.keys(templates).map((templateId) => {
-              return (
-                <TemplateContainer key={templateId}>
-                  <img src={templates[templateId].image} alt="בחירת טמפלייט" />
-                  <Button onClick={() => handleNewDocumentCreation(templateId)}>
-                    בחירה
-                  </Button>
-                </TemplateContainer>
-              )
-            })}
+          {Object.keys(templates).map((templateId) => {
+            return (
+              <TemplateContainer key={templateId}>
+                <img src={templates[templateId].image} alt="בחירת טמפלייט" />
+                <Button onClick={() => handleNewDocumentCreation(templateId)}>
+                  בחירה
+                </Button>
+              </TemplateContainer>
+            )
+          })}
         </TemplatesContainer>
       </Container>
     </>

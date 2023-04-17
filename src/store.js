@@ -10,7 +10,7 @@ import {
   persistStore,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import resumeSlice from './src/store/resumeSlice.js' // defaults to localStorage for web
+import resumeSlice from './store/resumeSlice.js' // defaults to localStorage for web
 
 const rootReducer = combineReducers({
   resume: resumeSlice,
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'primary',
   storage,
-  version:2
+  version: 3,
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

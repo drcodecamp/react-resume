@@ -15,8 +15,7 @@ const ResumeContent = () => {
     <ResumeContentContainer>
       <HeaderSection />
       <FlexArea>
-        {display.projects &&
-          (display.oneLineProjects ? <ProjectsOneLine /> : <ProjectsSection />)}
+        {display.projects && <ProjectsSection />}
         {display.stack && <StackSection />}
         {display.experience && <ExperienceSection />}
         {display.education && <EducationSection />}

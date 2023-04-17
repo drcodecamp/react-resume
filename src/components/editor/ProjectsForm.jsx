@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Button, Switch } from 'antd'
+import { Button, Select, Switch } from 'antd'
 import {
   addProject,
   removeProject,
   selectDisplaySettings,
   selectResumeProjects,
+  selectResumeProjectStyle,
+  setProjectsStyle,
   toggleOneLineProjects,
   toggleProjects,
 } from '../../store/resumeSlice.js'
@@ -16,8 +18,12 @@ import { MAX_PROJECTS } from '../../constants/appSettings.js'
 
 const ProjectsForm = () => {
   const dispatch = useDispatch()
+  const selectedCardStyle = useSelector(selectResumeProjectStyle)
   const projects = useSelector(selectResumeProjects)
   const display = useSelector(selectDisplaySettings)
+  const handleOnProjectStyleChange = (idx) => {
+    dispatch(setProjectsStyle(idx))
+  }
   return (
     <Container>
       <CustomRow>
@@ -29,10 +35,17 @@ const ProjectsForm = () => {
       </CustomRow>
       <CustomRow>
         Enable one line project view
-        <Switch
-          onClick={() => dispatch(toggleOneLineProjects())}
-          checked={display.projects && display.oneLineProjects}
-        ></Switch>
+        <Select
+          defaultValue={selectedCardStyle}
+          style={{ width: 120 }}
+          onChange={(e) => handleOnProjectStyleChange(e)}
+          options={[
+            { value: 1, label: 'linear' },
+            { value: 2, label: 'card A' },
+            { value: 3, label: 'card B' },
+            { value: 4, label: 'card C' },
+          ]}
+        />
       </CustomRow>
       <CustomRow>
         Number of Projects (1-3)
