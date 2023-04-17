@@ -5,7 +5,6 @@ import HomePage from './pages/HomePage'
 import ResumePage from './pages/ResumePage.jsx'
 import RootLayout from './pages/RootLayout'
 import TemplateSelectionPage from './pages/TemplateSelectionPage'
-import Demo from './Demo.jsx'
 
 const router = createBrowserRouter([
   {
