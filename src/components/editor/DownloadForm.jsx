@@ -35,6 +35,41 @@ const DownloadForm = () => {
   return (
     <Container>
       <CustomForm>
+        <BoldInstructions>
+          BEFORE you click "Download", keep in mind, you MUST! setup your print
+          options in the print window like this or else the pdf will be BROKEN:
+        </BoldInstructions>
+        <List>
+          <li>
+            Destination: <BoldInstructions>Save as PDF</BoldInstructions>
+          </li>
+          <li>
+            Pages: <BoldInstructions> Custom 1 Page</BoldInstructions>
+          </li>
+          <li>
+            Layout: <BoldInstructions> Portrait</BoldInstructions>{' '}
+          </li>
+          <li>
+            Paper Size: <BoldInstructions> A4</BoldInstructions>{' '}
+          </li>
+          <li>
+            Pages per Sheet: <BoldInstructions> 1</BoldInstructions>{' '}
+          </li>
+          <li>
+            Margins: <BoldInstructions> None</BoldInstructions>{' '}
+          </li>
+          <li>
+            Scale: <BoldInstructions>Default</BoldInstructions>{' '}
+          </li>
+          <li>
+            Options: <BoldInstructions> Background graphics</BoldInstructions>{' '}
+          </li>
+        </List>
+
+        <p>
+          If you dont see all this options, in the Print window Click "MORE
+          SETTINGS".
+        </p>
         <DownloadSection>
           {isLoading ? (
             <Loader />
@@ -49,22 +84,6 @@ const DownloadForm = () => {
             </Button>
           )}
         </DownloadSection>
-        <BoldInstructions>
-          On the upcoming screen, make sure you put this options:
-        </BoldInstructions>
-        <List>
-          <li>Destination: Save as PDF</li>
-          <li>Pages: Custom 1 Page</li>
-          <li>Layout: Portrait</li>
-          <li>Paper Size: A4</li>
-          <li>Pages per Sheet: 1</li>
-          <li>Margins: None</li>
-          <li>Scale: Default</li>
-          <li>Options: Background graphics</li>
-        </List>
-        <a href={instructions_image} target="_blank">
-          <img src={instructions_image} alt="How to" width="100%" />
-        </a>
       </CustomForm>
     </Container>
   )
@@ -81,6 +100,7 @@ const BoldInstructions = styled.p`
   font-weight: bolder;
   font-size: 1.25em;
   padding: 1em;
+  color: red;
 `
 const DownloadSection = styled.div`
   display: flex;
